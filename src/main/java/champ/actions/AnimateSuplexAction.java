@@ -1,5 +1,4 @@
 package champ.actions;
-//to solve conflicts
 import basemod.ReflectionHacks;
 import champ.patches.SuplexPatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
