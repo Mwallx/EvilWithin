@@ -331,6 +331,13 @@
       "허밋의 집중이 깨져 이번 턴에 #y정조준 효과가 발동하지 않습니다."
     ]
   },
+  "downfall:TangerinePower": {
+    "NAME": "보안관",
+    "DESCRIPTIONS": [
+      "탄제린이 죽으면 허밋의 #y집중이 깨집니다. 허밋이 #y힘을 #b",
+      " 얻습니다."
+    ]
+  },
   "downfall:HermitWheelOfFortune": {
     "NAME": "행운의 돌림판",
     "DESCRIPTIONS": [
