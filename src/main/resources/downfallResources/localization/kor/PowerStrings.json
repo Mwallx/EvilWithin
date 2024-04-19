@@ -334,7 +334,7 @@
   "downfall:HermitWheelOfFortune": {
     "NAME": "행운의 돌림판",
     "DESCRIPTIONS": [
-      "#y공격 카드를 사용할 때마다 허밋의 첫번째 카드를 #y순환합니다. 허밋이 #y네크로노미콘의 #y저주를 뽑을 때마다 #y힘을 #b2 얻습니다. 허밋 카드 비용 고정."
+      "#y공격 카드를 사용할 때마다 허밋의 첫번째 카드를 #y순환합니다. 허밋의 카드 비용이 고정됩니다."
     ]
   },
   "downfall:HermitDoomsday": {
