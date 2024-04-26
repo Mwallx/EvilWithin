@@ -24,7 +24,17 @@
   },
   "hexamod:BurningQuestion": {
     "NAME": "불타는 의문",
-    "DESCRIPTION": "휘발성. NL 힘을 !M! 얻습니다. NL hexamod:사후세계. : 민첩을 1 얻습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 힘을 !M! 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "민첩을 1 얻습니다."
+    ],
+    "Translator Note":[
+      "For card text simplicity, we have designed a new text system for afterlife cards. Now if an Afterlife card has EXTENDED_DESCRIPTION, it means",
+      "its card description will be the form of DESCRIPTION/UPGRADE_DESCRIPTION + colored EXTENDED_DESCRIPTION (We have built a system to color them)",
+      "automatically) . Or they only use manual color setting in the DESCRIPTION, because colored text appears in the middle.",
+      "(Sear, Flames from Beyond and Specter's Wail use this form) Check how they look in game for a detailed view and if you have any",
+      "questions or issues, contact Mwalls in the loc channel."
+    ]
   },
   "hexamod:BurningTouch": {
     "NAME": "불타는 접촉",
@@ -62,7 +72,10 @@
   },
   "hexamod:EtherealExpedition": {
     "NAME": "으스스한 탐험",
-    "DESCRIPTION": "휘발성. NL 무작위 hexamod:사후세계 카드를 !M! 장 얻습니다. NL hexamod:사후세계 NL 뽑을 카드 더미에도 그 카드를 섞어 넣습니다. NL 소멸."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 무작위 hexamod:사후세계 카드를 !M! 장 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "뽑을 카드 더미에 사후세계 카드를 1장 섞어 넣습니다."
+    ]
   },
   "hexamod:ExtraCrispy": {
     "NAME": "바싹 굽기",
@@ -79,7 +92,7 @@
   },
   "hexamod:FlamesFromBeyond": {
     "NAME": "저편의 불꽃",
-    "DESCRIPTION": "휘발성. NL 적 전체에게 hexamod:영혼화상을 !burny! 부여합니다. NL hexamod:사후세계 NL 적 전체에게 hexamod:영혼화상을 !burny! 부여합니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL [#e087a4]적[] [#e087a4]전체에게[] [#e087a4]영혼화상을[] !burny! [#e087a4]만큼[] 2번 [#e087a4]부여합니다.[] "
   },
   "hexamod:FlameSwitch": {
     "NAME": "흉조",
@@ -100,7 +113,10 @@
   },
   "hexamod:Floatwork": {
     "NAME": "떠돌기",
-    "DESCRIPTION": "휘발성. NL 방어도를 !B! 얻습니다. NL hexamod:사후세계. NL *판금 *갑옷을 !M! 얻습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 방어도를 !B! 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "판금 갑옷을 !M! 얻습니다."
+    ]
   },
   "hexamod:ForkedFlame": {
     "NAME": "갈라지는 불꽃",
@@ -118,7 +134,10 @@
   },
   "hexamod:GhostLash": {
     "NAME": "유령 채찍",
-    "DESCRIPTION": "휘발성. hexamod:사후세계. NL 피해를 !D! 줍니다. 손에 있는 휘발성 카드 한장당 피해량이 !M! 증가합니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[]  NL ",
+    "EXTENDED_DESCRIPTION": [
+      "패해를 !D! 줍니다. 손에 있는 휘발성 카드 한장당 피해량이 !M! 증가합니다."
+    ]
   },
   "hexamod:GhostOfSpireFuture": {
     "NAME": "그림자 속으로",
@@ -144,7 +163,10 @@
   },
   "hexamod:GhostShield": {
     "NAME": "유령 보호",
-    "DESCRIPTION": "휘발성. NL bronze:흐릿함을 !M! 얻습니다. NL hexamod:사후세계. NL 방어도를 !B! 얻습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL bronze:흐릿함을 !M! 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "방어도를 !B! 얻습니다."
+    ]
   },
   "hexamod:GiftsFromTheDead": {
     "NAME": "저편의 선물",
@@ -155,8 +177,11 @@
   },
   "hexamod:Haunt": {
     "NAME": "귀신들린 손",
-    "DESCRIPTION": "휘발성. NL 카드를 !M! 장 뽑습니다. NL hexamod:사후세계. NL 휘발성 카드가 아닌 카드를 뽑을 때까지 카드를 뽑습니다.",
-    "UPGRADE_DESCRIPTION": "휘발성. NL 카드를 !M! 장 뽑습니다. NL hexamod:사후세계. NL 휘발성 카드가 아닌 카드를 뽑을 때까지 카드를 뽑습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 카드를 !M! 장 뽑습니다. NL ",
+    "UPGRADE_DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 카드를 !M! 장 뽑습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "휘발성 카드가 아닌 카드를 뽑을 때까지 카드를 뽑습니다."
+    ]
   },
   "hexamod:HauntingEcho": {
     "NAME": "귀신들린 메아리",
@@ -180,7 +205,10 @@
   },
   "hexamod:Hexaguard": {
     "NAME": "지옥 방어",
-    "DESCRIPTION": "휘발성. NL 카드를 !M! 장 뽑습니다. NL hexamod:사후세계. NL 방어도를 !B! 얻습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[]  NL 카드를 !M! 장 뽑습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "방어도를 !B! 얻습니다."
+    ]
   },
   "hexamod:HexaLevel": {
     "NAME": "지옥의 형상",
@@ -205,11 +233,17 @@
   },
   "hexamod:NightmareGuise": {
     "NAME": "악몽 가장",
-    "DESCRIPTION": "휘발성. NL *그림자 *가장을 얻습니다. NL 사후세계. NL 방어도를 !B! 얻습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL *그림자 *가장을 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "방어도를 !B! 얻습니다."
+    ]
   },
   "hexamod:NightmareStrike": {
     "NAME": "악몽 타격",
-    "DESCRIPTION": "휘발성. NL *그림자 *타격을 얻습니다. NL 사후세계. NL 피해를 !D! 줍니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL *그림자 *타격을 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "피해를 !D! 얻습니다."
+    ]
   },
   "hexamod:ParanormalForm": {
     "NAME": "폴터가이스트",
@@ -226,8 +260,11 @@
   },
   "hexamod:PowerFromBeyond": {
     "NAME": "저편의 힘",
-    "DESCRIPTION": "휘발성. NL 다음 턴에 [E] 를 얻습니다. NL hexamod:사후세계. NL 다음 턴에 카드를 !M! 장 뽑습니다.",
-    "UPGRADE_DESCRIPTION": "휘발성. NL 다음 턴에 [E] [E] 를 얻습니다. NL hexamod:사후세계. NL 다음 턴에 카드를 !M! 장 뽑습니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 다음 턴에 [E] 를 얻습니다. NL ",
+    "UPGRADE_DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 다음 턴에 [E] [E] 를 얻습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "다음 턴에 카드를 !M! 장 뽑습니다."
+    ]
   },
   "hexamod:Premonition": {
     "NAME": "불길한 예감",
@@ -267,7 +304,7 @@
   },
   "hexamod:Sear": {
     "NAME": "그을음",
-    "DESCRIPTION": "휘발성. NL hexamod:영혼화상을 !burny! 부여합니다. NL hexamod:사후세계. NL hexamod:영혼화상을 !burny! 부여합니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL [#e087a4]영혼화상을[] !burny! [#e087a4]만큼[] 2번 [#e087a4]부여합니다.[]"
   },
   "hexamod:SearingWound": {
     "NAME": "화끈거리는 상처",
@@ -297,7 +334,7 @@
   },
   "hexamod:SpectersWail": {
     "NAME": "망령의 통곡",
-    "DESCRIPTION": "휘발성. NL 적 전체에게 피해를 !D! 줍니다. NL hexamod:사후세계. NL 적 전체에게 피해를 !D! 줍니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL [#e087a4]적[] [#e087a4]전체에게[] [#e087a4]피해를[] !D! [#e087a4]만큼[] 2번 [#e087a4]줍니다.[]"
   },
   "hexamod:SpectralAdrenaline": {
     "NAME": "눈부신 의식",
@@ -411,8 +448,11 @@
   },
   "hexamod:EtherStep": {
     "NAME": "에테르 걸음",
-    "DESCRIPTION": "휘발성. NL 카드를 1장 소멸시킵니다. NL 카드를 !M! 장 뽑습니다. NL hexamod:사후세계 NL 피해를 !D! 줍니다.",
-    "UPGRADE_DESCRIPTION": "휘발성. NL 카드를 1장 소멸시킵니다. NL 카드를 !M! 장 뽑습니다. NL hexamod:사후세계 NL 피해를 !D! 줍니다."
+    "DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 카드를 1장 소멸시킵니다. NL 카드를 !M! 장 뽑습니다. NL ",
+    "UPGRADE_DESCRIPTION": "휘발성. [#e087a4]사후세계.[] NL 카드를 1장 소멸시킵니다. NL 카드를 !M! 장 뽑습니다. NL ",
+    "EXTENDED_DESCRIPTION": [
+      "피해를 !D! 줍니다."
+    ]
   },
   "hexamod:OpposingAction": {
     "NAME": "반발",
@@ -426,8 +466,7 @@
   },
   "hexamod:FlameDevourer": {
     "NAME": "집어삼키는 불꽃",
-    "DESCRIPTION": "방어도를 !B! 얻습니다. NL hexamod:수축합니다. hexamod:점화된 유령불꽃으로 *수축됐다면 방어도가 !M! 증가합니다.",
-    "UPGRADE_DESCRIPTION": "hexamod:수축합니다. NL 방어도를 !B! 얻습니다."
+    "DESCRIPTION": "hexamod:수축합니다. hexamod:점화된 유령불꽃으로 *수축됐다면 방어도가 !M! 증가합니다."
   },
   "hexamod:SpectralGrace": {
     "NAME": "영적인 영감",
