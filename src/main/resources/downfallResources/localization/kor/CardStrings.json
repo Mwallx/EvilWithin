@@ -21,7 +21,7 @@
   },
   "downfall:Scatterbrained": {
     "NAME": "주의산만",
-    "DESCRIPTION": "내 턴 종료 시 이 카드가 손에 있다면 이 카드를 복사해 얻습니다 NL 소멸."
+    "DESCRIPTION": "내 턴 종료 시 이 카드가 손에 있다면 이 카드를 1장 복사해 버린 카드 더미에 넣고 섞습니다. NL 소멸."
   },
   "downfall:SummonMushrooms": {
     "NAME": "균류 무리",
