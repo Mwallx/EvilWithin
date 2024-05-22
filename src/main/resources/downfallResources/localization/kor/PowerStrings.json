@@ -78,11 +78,11 @@
     ]
   },
   "downfall:WatcherCripplePower": {
-    "NAME": "신성 모독자의 최후",
+    "NAME": "천벌",
     "DESCRIPTIONS": [
       "와쳐가 체력을 #b",
-      " 잃으면 #y라그나로크를 사용하거나 #y강림한 턴에만 #y힘을 #b4 잃습니다.",
-      "와쳐가 #y라그나로크를 사용하거나 #y강림한 턴에만 #y힘을 #b4 잃습니다."
+      " 잃으면 #y힘을 #b1 잃습니다(턴당 최대 3번). NL 와쳐의 #y급소 피해는 #y방어도로 막을 수 있습니다.",
+      "이번 턴에 와쳐가 #y힘을 #b3 잃어 #y힘을 더 잃지 않습니다."
     ]
   },
   "downfall:WatcherSkillPower": {
@@ -347,7 +347,7 @@
   "downfall:HermitDoomsday": {
     "NAME": "최후의 심판",
     "DESCRIPTIONS": [
-      "허밋이 #y의식을 #b1 얻습니다. 허밋이 #y연옥을 사용할 때마다 단검을 소환합니다."
+      "허밋이 #y의식을 #b1 얻습니다. 허밋이 #y연옥을 사용할 때마다 #y파멸의 #y단검을 소환합니다."
     ]
   },
   "downfall:NeowEclipse": {
