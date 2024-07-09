@@ -1,5 +1,6 @@
 package guardian.vfx;
 
+import basemod.BaseMod;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,6 +17,8 @@ import com.megacrit.cardcrawl.rooms.RestRoom;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
+import expansioncontent.util.DownfallAchievementUnlocker;
+import expansioncontent.util.DownfallAchievementVariables;
 import guardian.GuardianMod;
 import guardian.cards.AbstractGuardianCard;
 
@@ -80,6 +83,12 @@ public class SocketGemEffect extends AbstractGameEffect {
                 ((RestRoom) AbstractDungeon.getCurrRoom()).fadeIn();
                 GuardianMod.gridScreenForSockets = false;
 
+                DownfallAchievementVariables.gemsSocketed++;
+                BaseMod.logger.info(DownfallAchievementVariables.gemsSocketed);
+                if (DownfallAchievementVariables.gemsSocketed >= 8) {
+                    DownfallAchievementUnlocker.unlockAchievement("BEJEWELED");
+                }
+
             }
 
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
@@ -97,12 +106,9 @@ public class SocketGemEffect extends AbstractGameEffect {
                 AbstractDungeon.effectsQueue.add(new ShowCardBrieflyEffect(cg.makeStatEquivalentCopy()));
                 ((RestRoom) AbstractDungeon.getCurrRoom()).fadeIn();
                 GuardianMod.gridScreenForSockets = false;
-
             }
 
             AbstractDungeon.gridSelectScreen.selectedCards.clear();
-
-
         }
 
         if (this.duration < 1.0F && !this.openedScreen) {

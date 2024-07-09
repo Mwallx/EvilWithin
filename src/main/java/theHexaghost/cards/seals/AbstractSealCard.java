@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import downfall.downfallMod;
+import expansioncontent.util.DownfallAchievementUnlocker;
 import theHexaghost.HexaMod;
 import theHexaghost.cards.AbstractHexaCard;
 import theHexaghost.relics.TheBrokenSeal;
@@ -67,6 +68,7 @@ public abstract class AbstractSealCard extends AbstractHexaCard {
 
                 abstractPlayer.masterDeck.group.removeIf(removeList::contains);
                 addToTop(new VFXAction(new BrokenSealEffect()));
+                DownfallAchievementUnlocker.unlockAchievement("THE_BROKEN_SEAL");
             }
         }
     }

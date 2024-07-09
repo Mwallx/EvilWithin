@@ -5,23 +5,18 @@ import automaton.cards.DazingPulse;
 import automaton.cards.Explode;
 import automaton.cards.Spike;
 import automaton.util.DazingPulseReward;
-import automaton.util.DonuBeamReward;
 import automaton.util.ExplodeReward;
 import automaton.util.SpikeReward;
+import basemod.BaseMod;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
-import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
 import com.megacrit.cardcrawl.monsters.beyond.Exploder;
 import com.megacrit.cardcrawl.monsters.beyond.Repulsor;
 import com.megacrit.cardcrawl.monsters.beyond.Spiker;
-import com.megacrit.cardcrawl.monsters.exordium.SlaverBlue;
-import com.megacrit.cardcrawl.relics.ChampionsBelt;
-import com.megacrit.cardcrawl.relics.CloakClasp;
-import com.megacrit.cardcrawl.relics.WristBlade;
-import slimebound.SlimeboundMod;
+import expansioncontent.util.DownfallAchievementVariables;
 
 public class ShapeFactory extends AbstractImageEvent {
     public static final String ID = "bronze:ShapeFactory";
@@ -52,11 +47,13 @@ public class ShapeFactory extends AbstractImageEvent {
         this.imageEventText.setDialogOption(OPTIONS[1], new DazingPulse());
         this.imageEventText.setDialogOption(OPTIONS[2], new Explode());
         this.imageEventText.setDialogOption(OPTIONS[3]);
+        BaseMod.logger.info(DownfallAchievementVariables.threeShapesFought);
     }
 
     protected void buttonEffect(int buttonPressed) {
         switch (this.screen) {
             case INTRO:
+                DownfallAchievementVariables.threeShapesFought = false;
                 switch (buttonPressed) {
                     case 0:
                         this.screen = CurScreen.CHOOSETWO;
@@ -98,6 +95,7 @@ public class ShapeFactory extends AbstractImageEvent {
                         return;
                 }
             case CHOOSETWO:
+                DownfallAchievementVariables.threeShapesFought = false;
                 switch (buttonPressed) {
                     case 0:
                         this.screen = CurScreen.CHOOSETHREE;
@@ -136,12 +134,14 @@ public class ShapeFactory extends AbstractImageEvent {
             case CHOOSETHREE:
                 switch (buttonPressed) {
                     case 0:
+                        DownfallAchievementVariables.threeShapesFought = true;
                         fightRepulsor = true;
                         fightExploder = true;
                         fightSpiker = true;
                         beginFight();
                         return;
                     case 1:
+                        DownfallAchievementVariables.threeShapesFought = false;
                         beginFight();
                         return;
                     default:

@@ -31,6 +31,7 @@ import javassist.expr.MethodCall;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.lang.reflect.Field;
 import java.util.*;
 
 public class FlipMap {
@@ -633,6 +634,78 @@ public class FlipMap {
                             "$3, $4, $5);" +
                             "}");
                 }
+            }
+        }
+    }
+    @SpirePatch(
+            clz = DungeonMapScreen.class,
+            method = "updateControllerInput"
+    )
+    public static class FixDownfallControllerInput {
+        private static Field visibleMapNodesField;
+        private static MapRoomNode lastSelectedNode;
+
+        static {
+            try {
+                visibleMapNodesField = DungeonMapScreen.class.getDeclaredField("visibleMapNodes");
+                visibleMapNodesField.setAccessible(true);
+            } catch (NoSuchFieldException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @SpireInsertPatch(
+                locator = Locator.class,
+                localvars = {"nodes", "index", "anyHovered"}
+        )
+        public static void Insert(DungeonMapScreen __instance, ArrayList<MapRoomNode> nodes, @ByRef int[] index, @ByRef boolean[] anyHovered) {
+            if (EvilModeCharacterSelect.evilMode && !invalidActs.contains(AbstractDungeon.id) && !AbstractDungeon.firstRoomChosen) {
+                try {
+                    @SuppressWarnings("unchecked")
+                    ArrayList<MapRoomNode> visibleMapNodes = (ArrayList<MapRoomNode>) visibleMapNodesField.get(__instance);
+                    nodes.clear();
+                    for (MapRoomNode n : visibleMapNodes) {
+                        if (n.y == FlipMap.MapFlipper.startY) {
+                            nodes.add(n);
+                        }
+                    }
+
+                    anyHovered[0] = false;
+
+                    for (int i = 0; i < nodes.size(); i++) {
+                        if (nodes.get(i).hb.hovered) {
+                            index[0] = i;
+                            anyHovered[0] = true;
+                            lastSelectedNode = nodes.get(i);
+                            break;
+                        }
+                    }
+
+                    if (!anyHovered[0]) {
+                        if (lastSelectedNode != null && nodes.contains(lastSelectedNode)) {
+                            index[0] = nodes.indexOf(lastSelectedNode);
+                        } else if (!nodes.isEmpty()) {
+                            index[0] = nodes.size() / 2;
+                            lastSelectedNode = nodes.get(index[0]);
+                        }
+
+                        if (!nodes.isEmpty()) {
+                            Gdx.input.setCursorPosition((int)nodes.get(index[0]).hb.cX, Settings.HEIGHT - (int)nodes.get(index[0]).hb.cY);
+                            __instance.mapNodeHb = nodes.get(index[0]).hb;
+                        }
+                    }
+
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctMethodToPatch) throws Exception {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(ArrayList.class, "isEmpty");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
     }

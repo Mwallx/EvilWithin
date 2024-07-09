@@ -18,6 +18,7 @@ import downfall.patches.EvilModeCharacterSelect;
 import downfall.patches.ui.campfire.AddBustKeyButtonPatches;
 import downfall.patches.ui.topPanel.GoldToSoulPatches;
 import downfall.relics.BrokenWingStatue;
+import expansioncontent.util.DownfallAchievementVariables;
 import javassist.CtBehavior;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -283,6 +284,9 @@ public class SaveData {
             SneckoMod.identifyRng = new Random(file.seed, identifyRngCount);
 
             OffclassHelper.updateAllUnknownReplacements();
+
+            DownfallAchievementVariables.gemsSocketed = 0;
+            DownfallAchievementVariables.threeShapesFought = false;
 
             saveLogger.info("Save loaded.");
             //Anything that triggers on load goes here

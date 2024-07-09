@@ -124,6 +124,7 @@ import guardian.relics.PickAxe;
 import guardian.rewards.GemReward;
 import guardian.rewards.GemRewardAllRarities;
 import hermit.HermitMod;
+import hermit.characters.hermit;
 import slimebound.SlimeboundMod;
 import slimebound.characters.SlimeboundCharacter;
 import sneckomod.SneckoMod;
@@ -1372,7 +1373,7 @@ public class downfallMod implements OnPlayerDamagedSubscriber, OnStartBattleSubs
 
 
     public static boolean isDownfallCharacter(AbstractPlayer p) {
-        if (p instanceof SlimeboundCharacter || p instanceof TheHexaghost || p instanceof GuardianCharacter || p instanceof TheSnecko || p instanceof ChampChar || p instanceof AutomatonChar || p instanceof GremlinCharacter || p instanceof hermit.characters.hermit || p instanceof CollectorChar) {
+        if (p instanceof SlimeboundCharacter || p instanceof TheHexaghost || p instanceof GuardianCharacter || p instanceof TheSnecko || p instanceof ChampChar || p instanceof AutomatonChar || p instanceof GremlinCharacter || p instanceof hermit || p instanceof CollectorChar) {
             return true;
         }
         return false;

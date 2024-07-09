@@ -160,5 +160,22 @@
       "Steam Workshop.",
       "Click here to learn how!"
     ]
+  },
+  "downfall:AchievementGrid": {
+    "TEXT": [
+      "#yDownfall #yAchievements"
+    ]
+  },
+  "downfall:CORRUPTED": {
+    "TEXT": [
+      "Corrupted",
+      "Complete the Ending in Downfall mode as Ironclad, Silent, Defect, Watcher, or Hermit."
+    ]
+  },
+  "downfall:UPRISE": {
+    "TEXT": [
+      "Uprise",
+      "Complete the Ending in Standard mode as a Downfall villain."
+    ]
   }
 }

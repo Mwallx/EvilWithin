@@ -9,14 +9,14 @@ Daily/Custom Run modifiers.
 
  */
 
+import automaton.AutomatonChar;
+import automaton.events.ShapeFactory;
 import basemod.BaseMod;
 import basemod.ReflectionHacks;
 import basemod.helpers.RelicType;
-import basemod.interfaces.EditCardsSubscriber;
-import basemod.interfaces.EditRelicsSubscriber;
-import basemod.interfaces.OnPowersModifiedSubscriber;
-import basemod.interfaces.PostInitializeSubscriber;
-import basemod.interfaces.PostUpdateSubscriber;
+import basemod.interfaces.*;
+import champ.ChampChar;
+import collector.CollectorChar;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -26,12 +26,17 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.characters.TheSilent;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import downfall.ui.campfire.WheelSpinButton;
 import downfall.util.CardIgnore;
+import expansioncontent.util.DownfallAchievementUnlocker;
+import expansioncontent.util.DownfallAchievementVariables;
 import downfall.util.TextureLoader;
 import expansioncontent.cards.AbstractExpansionCard;
 import expansioncontent.patches.CardColorEnumPatch;
@@ -40,16 +45,24 @@ import expansioncontent.relics.StudyCardRelic;
 import expansioncontent.util.CardFilter;
 import expansioncontent.util.DownfallMagic;
 import expansioncontent.util.SecondDownfallMagic;
+import gremlin.characters.GremlinCharacter;
+import guardian.characters.GuardianCharacter;
 import javassist.CtClass;
 import javassist.Modifier;
 import javassist.NotFoundException;
 import org.clapper.util.classutil.*;
+import slimebound.characters.SlimeboundCharacter;
+import sneckomod.TheSnecko;
+import theHexaghost.TheHexaghost;
 
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
+
+import static downfall.downfallMod.isDownfallCharacter;
+import static downfall.patches.EvilModeCharacterSelect.evilMode;
 
 @SuppressWarnings({"ConstantConditions", "unused", "WeakerAccess"})
 @SpireInitializer
@@ -60,7 +73,12 @@ public class expansionContentMod implements
         PostInitializeSubscriber,
         //EditStringsSubscriber,
         //EditKeywordsSubscriber,
-        PostUpdateSubscriber {
+        PostUpdateSubscriber,
+        PostDeathSubscriber,
+        OnPlayerTurnStartSubscriber,
+        OnStartBattleSubscriber,
+        OnCardUseSubscriber,
+        PostBattleSubscriber {
 
     @SpireEnum
     public static AbstractCard.CardTags STUDY_HEXAGHOST;
@@ -108,7 +126,7 @@ public class expansionContentMod implements
                 "champResources/images/512/bg_attack_colorless.png", "champResources/images/512/bg_skill_colorless.png",
                 "champResources/images/512/bg_power_colorless.png", "champResources/images/512/card_champ_orb.png",
                 "champResources/images/1024/bg_attack_colorless.png", "champResources/images/1024/bg_skill_colorless.png",
-                "champResources/images/1024/bg_power_colorless.png","champResources/images/1024/card_champ_orb.png");
+                "champResources/images/1024/bg_power_colorless.png", "champResources/images/1024/card_champ_orb.png");
     }
 
     public static void loadJokeCardImage(AbstractCard card, String img) {
@@ -219,7 +237,8 @@ public class expansionContentMod implements
         BaseMod.addDynamicVariable(new SecondDownfallMagic());
         try {
             autoAddCards();
-        } catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException | ClassNotFoundException e) {
+        } catch (URISyntaxException | IllegalAccessException | InstantiationException | NotFoundException |
+                 ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -271,6 +290,140 @@ public class expansionContentMod implements
         UIAtlas.addRegion("exhaustIcon", exhaustIcon, 0, 0, exhaustIcon.getWidth(), exhaustIcon.getHeight());
         UIAtlas.addRegion("retainIcon", retainIcon, 0, 0, retainIcon.getWidth(), retainIcon.getHeight());
         UIAtlas.addRegion("unplayableIcon", unplayableIcon, 0, 0, unplayableIcon.getWidth(), unplayableIcon.getHeight());
+    }
+
+    @Override
+    public void receiveOnBattleStart(AbstractRoom abstractRoom) {
+        DownfallAchievementVariables.resetBattleAchievementVariables();
+    }
+
+    @Override
+    public void receiveOnPlayerTurnStart() {
+        DownfallAchievementVariables.resetTurnAchievementVariables();
+    }
+
+    @Override
+    public void receiveCardUsed(AbstractCard abstractCard) {
+        if (abstractCard.type == AbstractCard.CardType.ATTACK &&
+            AbstractDungeon.player.getPower(VigorPower.POWER_ID) != null &&
+            AbstractDungeon.player.getPower(VigorPower.POWER_ID).amount >= 200) {
+            DownfallAchievementUnlocker.unlockAchievement("OVER_OVERKILL");
+        }
+    }
+
+    @Override
+    public void receivePostBattle(AbstractRoom abstractRoom) {
+        BaseMod.logger.info("receivePostBattle: threeShapesFought is " + DownfallAchievementVariables.threeShapesFought);
+        BaseMod.logger.info("Current room: " + AbstractDungeon.getCurrRoom().getClass().getSimpleName());
+        BaseMod.logger.info("Current event: " + (AbstractDungeon.getCurrRoom().event != null ? AbstractDungeon.getCurrRoom().event.getClass().getSimpleName() : "null"));
+
+        if (AbstractDungeon.getCurrRoom() != null &&
+                AbstractDungeon.getCurrRoom().event instanceof ShapeFactory &&
+                DownfallAchievementVariables.threeShapesFought) {
+            BaseMod.logger.info("Achievement MECHANICAL_GAUNTLET unlocked");
+            DownfallAchievementUnlocker.unlockAchievement("MECHANICAL_GAUNTLET");
+        } else {
+            BaseMod.logger.info("Achievement conditions not met");
+        }
+
+        // Reset the variable after checking for the achievement
+        DownfallAchievementVariables.threeShapesFought = false;
+        BaseMod.logger.info("Reset threeShapesFought to false after battle");
+    }
+
+    @Override
+    public void receivePostDeath() {
+        AbstractPlayer p = AbstractDungeon.player;
+
+        // Any wins
+        if (AbstractDungeon.player.currentHealth > 0 || AbstractDungeon.actNum >= 4) {
+
+            if (p instanceof hermit.characters.hermit) {
+                DownfallAchievementUnlocker.unlockAchievement("TOPAZ");
+            }
+            if (p instanceof SlimeboundCharacter) {
+                DownfallAchievementUnlocker.unlockAchievement("JADE");
+            }
+            if (p instanceof GuardianCharacter) {
+                DownfallAchievementUnlocker.unlockAchievement("CITRINE");
+            }
+            if (p instanceof TheHexaghost) {
+                DownfallAchievementUnlocker.unlockAchievement("TANZANITE");
+            }
+            if (p instanceof ChampChar) {
+                DownfallAchievementUnlocker.unlockAchievement("KYANITE");
+            }
+            if (p instanceof AutomatonChar) {
+                DownfallAchievementUnlocker.unlockAchievement("RUTILE");
+            }
+            if (p instanceof GremlinCharacter) {
+                DownfallAchievementUnlocker.unlockAchievement("SPINEL");
+            }
+            if (p instanceof TheSnecko) {
+                DownfallAchievementUnlocker.unlockAchievement("CHRYSOCOLLA");
+            }
+            if (p instanceof CollectorChar) {
+                DownfallAchievementUnlocker.unlockAchievement("MALACHITE");
+            }
+
+            // Act 4 wins
+            if (AbstractDungeon.actNum == 4) {
+
+                if (p instanceof hermit.characters.hermit) {
+                    DownfallAchievementUnlocker.unlockAchievement("TOPAZ+");
+                }
+                if (p instanceof SlimeboundCharacter) {
+                    DownfallAchievementUnlocker.unlockAchievement("JADE+");
+                }
+                if (p instanceof GuardianCharacter) {
+                    DownfallAchievementUnlocker.unlockAchievement("CITRINE+");
+                }
+                if (p instanceof TheHexaghost) {
+                    DownfallAchievementUnlocker.unlockAchievement("TANZANITE+");
+                }
+                if (p instanceof ChampChar) {
+                    DownfallAchievementUnlocker.unlockAchievement("KYANITE+");
+                }
+                if (p instanceof AutomatonChar) {
+                    DownfallAchievementUnlocker.unlockAchievement("RUTILE+");
+                }
+                if (p instanceof GremlinCharacter) {
+                    DownfallAchievementUnlocker.unlockAchievement("SPINEL+");
+                }
+                if (p instanceof TheSnecko) {
+                    DownfallAchievementUnlocker.unlockAchievement("CHRYSOCOLLA+");
+                }
+                if (p instanceof CollectorChar) {
+                    DownfallAchievementUnlocker.unlockAchievement("MALACHITE+");
+                }
+
+                // Act 4 wins (Standard)
+
+                if (!evilMode) {
+
+                    if (isDownfallCharacter(p)) {
+                        if (!(p instanceof hermit.characters.hermit)) {
+                            DownfallAchievementUnlocker.unlockAchievement("UPRISE");
+                        }
+
+                    }
+                }
+
+                // Act 4 wins (Downfall)
+
+                if (evilMode) {
+
+                    if (p instanceof com.megacrit.cardcrawl.characters.Ironclad || p instanceof TheSilent ||
+                            p instanceof com.megacrit.cardcrawl.characters.Defect || p instanceof com.megacrit.cardcrawl.characters.Watcher ||
+                            p instanceof hermit.characters.hermit) {
+                        DownfallAchievementUnlocker.unlockAchievement("CORRUPTED");
+                    }
+
+                }
+
+            }
+
+        }
     }
 
 }
