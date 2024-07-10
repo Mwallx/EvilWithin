@@ -29,9 +29,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.characters.TheSilent;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.EventRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import downfall.ui.campfire.WheelSpinButton;
 import downfall.util.CardIgnore;
@@ -46,12 +49,14 @@ import expansioncontent.util.CardFilter;
 import expansioncontent.util.DownfallMagic;
 import expansioncontent.util.SecondDownfallMagic;
 import gremlin.characters.GremlinCharacter;
+import gremlin.powers.GremlinNobPower;
 import guardian.characters.GuardianCharacter;
 import javassist.CtClass;
 import javassist.Modifier;
 import javassist.NotFoundException;
 import org.clapper.util.classutil.*;
 import slimebound.characters.SlimeboundCharacter;
+import sneckomod.SneckoMod;
 import sneckomod.TheSnecko;
 import theHexaghost.TheHexaghost;
 
@@ -313,22 +318,19 @@ public class expansionContentMod implements
 
     @Override
     public void receivePostBattle(AbstractRoom abstractRoom) {
-        BaseMod.logger.info("receivePostBattle: threeShapesFought is " + DownfallAchievementVariables.threeShapesFought);
-        BaseMod.logger.info("Current room: " + AbstractDungeon.getCurrRoom().getClass().getSimpleName());
-        BaseMod.logger.info("Current event: " + (AbstractDungeon.getCurrRoom().event != null ? AbstractDungeon.getCurrRoom().event.getClass().getSimpleName() : "null"));
-
-        if (AbstractDungeon.getCurrRoom() != null &&
-                AbstractDungeon.getCurrRoom().event instanceof ShapeFactory &&
-                DownfallAchievementVariables.threeShapesFought) {
-            BaseMod.logger.info("Achievement MECHANICAL_GAUNTLET unlocked");
-            DownfallAchievementUnlocker.unlockAchievement("MECHANICAL_GAUNTLET");
-        } else {
-            BaseMod.logger.info("Achievement conditions not met");
+        if (abstractRoom instanceof EventRoom) {
+            AbstractEvent event = ((EventRoom) abstractRoom).event;
+            if (event instanceof ShapeFactory && DownfallAchievementVariables.threeShapesFought) {
+                DownfallAchievementUnlocker.unlockAchievement("MECHANICAL_GAUNTLET");
+                DownfallAchievementVariables.threeShapesFought = false;
+            }
         }
 
-        // Reset the variable after checking for the achievement
-        DownfallAchievementVariables.threeShapesFought = false;
-        BaseMod.logger.info("Reset threeShapesFought to false after battle");
+        if (abstractRoom instanceof MonsterRoomBoss) {
+            if (AbstractDungeon.player.hasPower(GremlinNobPower.POWER_ID)) {
+                DownfallAchievementUnlocker.unlockAchievement("OUR_TRUE_FORM");
+            }
+        }
     }
 
     @Override
@@ -361,6 +363,9 @@ public class expansionContentMod implements
             }
             if (p instanceof TheSnecko) {
                 DownfallAchievementUnlocker.unlockAchievement("CHRYSOCOLLA");
+                if (SneckoMod.pureSneckoMode) {
+                    DownfallAchievementUnlocker.unlockAchievement("UNBOUND");
+                }
             }
             if (p instanceof CollectorChar) {
                 DownfallAchievementUnlocker.unlockAchievement("MALACHITE");

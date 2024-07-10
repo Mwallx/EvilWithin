@@ -1,13 +1,11 @@
 package automaton.events;
 
-
 import automaton.cards.DazingPulse;
 import automaton.cards.Explode;
 import automaton.cards.Spike;
 import automaton.util.DazingPulseReward;
 import automaton.util.ExplodeReward;
 import automaton.util.SpikeReward;
-import basemod.BaseMod;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
@@ -47,13 +45,11 @@ public class ShapeFactory extends AbstractImageEvent {
         this.imageEventText.setDialogOption(OPTIONS[1], new DazingPulse());
         this.imageEventText.setDialogOption(OPTIONS[2], new Explode());
         this.imageEventText.setDialogOption(OPTIONS[3]);
-        BaseMod.logger.info(DownfallAchievementVariables.threeShapesFought);
     }
 
     protected void buttonEffect(int buttonPressed) {
         switch (this.screen) {
             case INTRO:
-                DownfallAchievementVariables.threeShapesFought = false;
                 switch (buttonPressed) {
                     case 0:
                         this.screen = CurScreen.CHOOSETWO;
@@ -95,7 +91,6 @@ public class ShapeFactory extends AbstractImageEvent {
                         return;
                 }
             case CHOOSETWO:
-                DownfallAchievementVariables.threeShapesFought = false;
                 switch (buttonPressed) {
                     case 0:
                         this.screen = CurScreen.CHOOSETHREE;
@@ -134,14 +129,12 @@ public class ShapeFactory extends AbstractImageEvent {
             case CHOOSETHREE:
                 switch (buttonPressed) {
                     case 0:
-                        DownfallAchievementVariables.threeShapesFought = true;
                         fightRepulsor = true;
                         fightExploder = true;
                         fightSpiker = true;
                         beginFight();
                         return;
                     case 1:
-                        DownfallAchievementVariables.threeShapesFought = false;
                         beginFight();
                         return;
                     default:
@@ -166,6 +159,9 @@ public class ShapeFactory extends AbstractImageEvent {
         }
         if (fightExploder){
             AbstractDungeon.getCurrRoom().rewards.add(new ExplodeReward());
+        }
+        if (fightSpiker && fightRepulsor && fightExploder) {
+            DownfallAchievementVariables.threeShapesFought = true;
         }
         int numShapes = AbstractDungeon.getCurrRoom().rewards.size();
         logMetric(ID, "Fought " + numShapes + " shapes");
