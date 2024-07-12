@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import downfall.downfallMod;
+import expansioncontent.util.DownfallAchievementUnlocker;
 
 import java.util.ArrayList;
 
@@ -47,22 +48,22 @@ public class DownfallAchievementGrid {
         loadAchievement("THE_BIGGER_THEY_ARE");
         loadAchievement("HOARDER");
         loadAchievement("TOPAZ");
-        loadAchievement("TOPAZ+");
         loadAchievement("JADE");
-        loadAchievement("JADE+");
         loadAchievement("CITRINE");
-        loadAchievement("CITRINE+");
         loadAchievement("TANZANITE");
-        loadAchievement("TANZANITE+");
         loadAchievement("KYANITE");
-        loadAchievement("KYANITE+");
         loadAchievement("RUTILE");
-        loadAchievement("RUTILE+");
         loadAchievement("SPINEL");
-        loadAchievement("SPINEL+");
         loadAchievement("CHRYSOCOLLA");
-        loadAchievement("CHRYSOCOLLA+");
         loadAchievement("MALACHITE");
+        loadAchievement("TOPAZ+");
+        loadAchievement("JADE+");
+        loadAchievement("CITRINE+");
+        loadAchievement("TANZANITE+");
+        loadAchievement("KYANITE+");
+        loadAchievement("RUTILE+");
+        loadAchievement("SPINEL+");
+        loadAchievement("CHRYSOCOLLA+");
         loadAchievement("MALACHITE+");
         loadAchievement("EVIL_ONE");
     }
