@@ -18,8 +18,53 @@ public class DownfallAchievementGrid {
 
     public DownfallAchievementGrid() {
         DownfallAchievementItem.atlas = new TextureAtlas(Gdx.files.internal("downfallResources/images/achievements/DownfallAchievements.atlas"));
+        loadAchievement("BULLY");
         loadAchievement("CORRUPTED");
         loadAchievement("UPRISE");
+        loadAchievement("LONGSHOT");
+        loadAchievement("BOUNTY_HUNTER");
+        loadAchievement("WIELDER_OF_WOE");
+        loadAchievement("GORGED");
+        loadAchievement("FOR_THE_BOSS");
+        loadAchievement("PAYMENT_RECEIVED");
+        loadAchievement("HYPER_ACCELERATION");
+        loadAchievement("IMPENETRABLE");
+        loadAchievement("BEJEWELED");
+        loadAchievement("THE_BROKEN_SEAL");
+        loadAchievement("MY_BELT");
+        loadAchievement("I_AM_THE_ONE");
+        loadAchievement("OVER_OVERKILL");
+        loadAchievement("TRIPLE_SETTER");
+        loadAchievement("MECHANICAL_GAUNTLET");
+        loadAchievement("CODERS_BLOCK");
+        loadAchievement("PICKPOCKET_100");
+        loadAchievement("GLASS_BONES");
+        loadAchievement("OUR_TRUE_FORM");
+        loadAchievement("NOODLE_CODE");
+        loadAchievement("MASTER_OF_CONFUSION");
+        loadAchievement("UNBOUND");
+        loadAchievement("SAYONARA");
+        loadAchievement("THE_BIGGER_THEY_ARE");
+        loadAchievement("HOARDER");
+        loadAchievement("TOPAZ");
+        loadAchievement("TOPAZ+");
+        loadAchievement("JADE");
+        loadAchievement("JADE+");
+        loadAchievement("CITRINE");
+        loadAchievement("CITRINE+");
+        loadAchievement("TANZANITE");
+        loadAchievement("TANZANITE+");
+        loadAchievement("KYANITE");
+        loadAchievement("KYANITE+");
+        loadAchievement("RUTILE");
+        loadAchievement("RUTILE+");
+        loadAchievement("SPINEL");
+        loadAchievement("SPINEL+");
+        loadAchievement("CHRYSOCOLLA");
+        loadAchievement("CHRYSOCOLLA+");
+        loadAchievement("MALACHITE");
+        loadAchievement("MALACHITE+");
+        loadAchievement("EVIL_ONE");
     }
 
     private void loadAchievement(String id) {

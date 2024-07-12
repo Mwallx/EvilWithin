@@ -3,30 +3,44 @@ size: 1280,1280
 format: RGB888
 filter: Linear,Linear
 repeat: none
-locked/CORRUPTED
+locked/BULLY
  rotate: false
  xy: 0, 0
  size: 160, 160
  orig: 160, 160
  offset: 0, 0
  index: -1
-unlocked/CORRUPTED
+unlocked/BULLY
  rotate: false
  xy: 160, 0
  size: 160, 160
  orig: 160, 160
  offset: 0, 0
  index: -1
-locked/UPRISE
+locked/CORRUPTED
  rotate: false
  xy: 320, 0
  size: 160, 160
  orig: 160, 160
  offset: 0, 0
  index: -1
-unlocked/UPRISE
+unlocked/CORRUPTED
  rotate: false
  xy: 480, 0
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
+locked/UPRISE
+ rotate: false
+ xy: 640, 0
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
+unlocked/UPRISE
+ rotate: false
+ xy: 800, 0
  size: 160, 160
  orig: 160, 160
  offset: 0, 0

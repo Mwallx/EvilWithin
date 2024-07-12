@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.screens.stats.StatsScreen;
+import expansioncontent.expansionContentMod;
 import javassist.CtBehavior;
 
 import java.util.Iterator;
@@ -23,8 +24,8 @@ public class RenderAchievementGrid {
         renderY[0] += 50.0F * Settings.scale;
 
         StatsScreen.renderHeader(sb, uiStrings.TEXT[0], 300.0F * Settings.scale, renderY[0]);
-        StatsScreenPatch.getDownfallAchievements().render(sb, renderY[0]);
-        renderY[0] -= StatsScreenPatch.getDownfallAchievements().calculateHeight();
+        expansionContentMod.downfallAchievementGrid.render(sb, renderY[0]);
+        renderY[0] -= expansionContentMod.downfallAchievementGrid.calculateHeight();
         renderY[0] -= 100.0F * Settings.scale;
     }
 

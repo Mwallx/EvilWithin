@@ -40,6 +40,7 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import downfall.ui.campfire.WheelSpinButton;
 import downfall.util.CardIgnore;
+import expansioncontent.achievements.DownfallAchievementGrid;
 import expansioncontent.util.DownfallAchievementUnlocker;
 import expansioncontent.util.DownfallAchievementVariables;
 import downfall.util.TextureLoader;
@@ -123,6 +124,7 @@ public class expansionContentMod implements
     public static Texture exhaustIcon;
     public static Texture retainIcon;
     public static Texture unplayableIcon;
+    public static DownfallAchievementGrid downfallAchievementGrid;
 
     public expansionContentMod() {
         BaseMod.subscribe(this);
@@ -298,6 +300,9 @@ public class expansionContentMod implements
         UIAtlas.addRegion("exhaustIcon", exhaustIcon, 0, 0, exhaustIcon.getWidth(), exhaustIcon.getHeight());
         UIAtlas.addRegion("retainIcon", retainIcon, 0, 0, retainIcon.getWidth(), retainIcon.getHeight());
         UIAtlas.addRegion("unplayableIcon", unplayableIcon, 0, 0, unplayableIcon.getWidth(), unplayableIcon.getHeight());
+
+        downfallAchievementGrid = new DownfallAchievementGrid();
+        DownfallAchievementUnlocker.setAchievementGrid(downfallAchievementGrid);
     }
 
     @Override
