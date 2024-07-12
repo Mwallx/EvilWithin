@@ -1,4 +1,4 @@
-package downfall.patches.ui.statsScreen;
+package expansioncontent.patches;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;

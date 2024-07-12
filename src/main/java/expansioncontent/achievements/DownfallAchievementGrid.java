@@ -59,4 +59,13 @@ public class DownfallAchievementGrid {
         }
     }
 
+    public boolean areAllAchievementsUnlockedExceptEvilOne() {
+        for (DownfallAchievementItem item : items) {
+            if (!item.isUnlocked && !item.getKey().equals(downfallMod.makeID("EVIL_ONE"))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }

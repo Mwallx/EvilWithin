@@ -1,4 +1,4 @@
-package downfall.patches.ui.statsScreen;
+package expansioncontent.patches;
 
 import basemod.ReflectionHacks;
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch2;

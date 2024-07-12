@@ -17,6 +17,7 @@ import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import champ.ChampChar;
 import collector.CollectorChar;
+import collector.CollectorCollection;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -28,6 +29,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.characters.TheSilent;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractEvent;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -83,7 +85,8 @@ public class expansionContentMod implements
         OnPlayerTurnStartSubscriber,
         OnStartBattleSubscriber,
         OnCardUseSubscriber,
-        PostBattleSubscriber {
+        PostBattleSubscriber,
+        StartGameSubscriber {
 
     @SpireEnum
     public static AbstractCard.CardTags STUDY_HEXAGHOST;
@@ -298,6 +301,13 @@ public class expansionContentMod implements
     }
 
     @Override
+    public void receiveStartGame() {
+        if (!CardCrawlGame.loadingSave) {
+            DownfallAchievementVariables.resetRunAchievementVariables();
+        }
+    }
+
+    @Override
     public void receiveOnBattleStart(AbstractRoom abstractRoom) {
         DownfallAchievementVariables.resetBattleAchievementVariables();
     }
@@ -331,6 +341,8 @@ public class expansionContentMod implements
                 DownfallAchievementUnlocker.unlockAchievement("OUR_TRUE_FORM");
             }
         }
+
+        DownfallAchievementVariables.bountiesCollectedPerm += DownfallAchievementVariables.bountiesCollectedTemp;
     }
 
     @Override
@@ -369,6 +381,9 @@ public class expansionContentMod implements
             }
             if (p instanceof CollectorChar) {
                 DownfallAchievementUnlocker.unlockAchievement("MALACHITE");
+                if (CollectorCollection.collection.size() >= 20) {
+                    DownfallAchievementUnlocker.unlockAchievement("HOARDER");
+                }
             }
 
             // Act 4 wins

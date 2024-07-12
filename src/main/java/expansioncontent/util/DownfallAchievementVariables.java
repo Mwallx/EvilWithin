@@ -8,10 +8,17 @@ public class DownfallAchievementVariables {
     public static int cardsReturnedFromStasis = 0;
     public static int enteredUltimateStance = 0;
     public static int statusesMutated = 0;
+    public static int bountiesCollectedTemp = 0;
+    public static int bountiesCollectedPerm = 0;
+
+    public static void resetRunAchievementVariables() {
+        bountiesCollectedPerm = 0;
+    }
 
     public static void resetBattleAchievementVariables() {
         slimesEvoked = 0;
         functionCreated = false;
+        bountiesCollectedTemp = 0;
     }
 
     public static void resetTurnAchievementVariables() {

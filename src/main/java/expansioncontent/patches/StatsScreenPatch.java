@@ -1,4 +1,4 @@
-package downfall.patches.ui.statsScreen;
+package expansioncontent.patches;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpirePatch;
 import com.megacrit.cardcrawl.screens.stats.StatsScreen;
