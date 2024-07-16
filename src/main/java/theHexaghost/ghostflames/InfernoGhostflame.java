@@ -1,26 +1,23 @@
 package theHexaghost.ghostflames;
 
+import basemod.BaseMod;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
+import expansioncontent.util.DownfallAchievementUnlocker;
+import expansioncontent.util.DownfallAchievementVariables;
 import theHexaghost.GhostflameHelper;
-import theHexaghost.actions.AdvanceAction;
 import theHexaghost.actions.ExtinguishAction;
-import theHexaghost.powers.ApocalypticArmorPower;
 import theHexaghost.powers.EnhancePower;
 import downfall.util.TextureLoader;
-
-import java.util.ArrayList;
 
 import static theHexaghost.HexaMod.makeUIPath;
 
@@ -56,6 +53,15 @@ public class InfernoGhostflame extends AbstractGhostflame {
         return energySpentThisTurn;
     }
 
+    private boolean areAllGhostflamesIgnited() {
+        for (AbstractGhostflame gf : GhostflameHelper.hexaGhostFlames) {
+            if (!gf.charged) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void onCharge() {
 
@@ -73,6 +79,15 @@ public class InfernoGhostflame extends AbstractGhostflame {
                 amountOfIgnitedGhostflames++;
             }
         }
+
+        if (areAllGhostflamesIgnited()) {
+            DownfallAchievementVariables.fullInfernoIgnitions++;
+            BaseMod.logger.info(DownfallAchievementVariables.fullInfernoIgnitions);
+            if (DownfallAchievementVariables.fullInfernoIgnitions >= 6) {
+                DownfallAchievementUnlocker.unlockAchievement("HEXABURN");
+            }
+        }
+
         /*
         if (GhostflameHelper.activeGhostFlame == this){
             atb(new AdvanceAction(false));
@@ -85,8 +100,6 @@ public class InfernoGhostflame extends AbstractGhostflame {
         }*/
 
     }
-
-
 
 
     @Override

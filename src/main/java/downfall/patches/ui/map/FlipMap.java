@@ -16,9 +16,11 @@ import com.megacrit.cardcrawl.map.DungeonMap;
 import com.megacrit.cardcrawl.map.MapEdge;
 import com.megacrit.cardcrawl.map.MapRoomNode;
 import com.megacrit.cardcrawl.map.RoomTypeAssigner;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.rooms.*;
 import com.megacrit.cardcrawl.screens.DungeonMapScreen;
 import com.megacrit.cardcrawl.ui.buttons.DynamicBanner;
+import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import downfall.downfallMod;
 import downfall.patches.EvilModeCharacterSelect;
 import downfall.patches.actlikeit.MapCompatiblity;
@@ -707,6 +709,39 @@ public class FlipMap {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(ArrayList.class, "isEmpty");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
+        }
+    }
+    @SpirePatch(clz = TopPanel.class, method = "update")
+    public static class DisableTopPanelHoveringPatch {
+        @SpireInsertPatch(locator = Locator.class)
+        public static void Insert(TopPanel __instance) {
+            if (Settings.isControllerMode && EvilModeCharacterSelect.evilMode && !__instance.selectPotionMode) {
+                __instance.goldHb.hovered = false;
+
+                for (AbstractPotion potion : AbstractDungeon.player.potions) {
+                    potion.hb.hovered = false;
+                }
+            }
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(TopPanel.class, "updateButtons");
+                return LineFinder.findInOrder(ctBehavior, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch(clz = TopPanel.class, method = "updateAscensionHover")
+    public static class DisableAscensionHoveringPatch {
+        @SpirePrefixPatch
+        public static SpireReturn<Void> Prefix(TopPanel __instance) {
+            if (Settings.isControllerMode && EvilModeCharacterSelect.evilMode && !__instance.selectPotionMode) {
+                __instance.ascensionHb.hovered = false;
+                return SpireReturn.Return(null);
+            }
+            return SpireReturn.Continue();
         }
     }
 }

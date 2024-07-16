@@ -22,8 +22,11 @@ public class DownfallAchievementUnlocker {
 
             achievementPref.flush();
 
-            if (achievementGrid != null && achievementGrid.areAllAchievementsUnlockedExceptEvilOne()) {
-                unlockAchievement("EVIL_ONE");
+            if (achievementGrid != null) {
+                achievementGrid.updateAchievementStatus();
+                if (!key.equals("EVIL_ONE") && achievementGrid.areAllAchievementsUnlockedExceptEvilOne()) {
+                    unlockAchievement("EVIL_ONE");
+                }
             }
         }
     }

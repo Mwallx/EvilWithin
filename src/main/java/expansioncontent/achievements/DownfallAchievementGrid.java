@@ -8,7 +8,6 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import downfall.downfallMod;
-import expansioncontent.util.DownfallAchievementUnlocker;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class DownfallAchievementGrid {
     private static final int ITEMS_PER_ROW = 5;
 
     public DownfallAchievementGrid() {
-        DownfallAchievementItem.atlas = new TextureAtlas(Gdx.files.internal("downfallResources/images/achievements/DownfallAchievements.atlas"));
+        DownfallAchievementItem.atlas = new TextureAtlas(Gdx.files.internal("expansioncontentResources/images/achievements/DownfallAchievements.atlas"));
         loadAchievement("BULLY");
         loadAchievement("CORRUPTED");
         loadAchievement("UPRISE");
@@ -31,6 +30,8 @@ public class DownfallAchievementGrid {
         loadAchievement("HYPER_ACCELERATION");
         loadAchievement("IMPENETRABLE");
         loadAchievement("BEJEWELED");
+        loadAchievement("HEXABURN");
+        loadAchievement("GHOSTLY");
         loadAchievement("THE_BROKEN_SEAL");
         loadAchievement("MY_BELT");
         loadAchievement("I_AM_THE_ONE");

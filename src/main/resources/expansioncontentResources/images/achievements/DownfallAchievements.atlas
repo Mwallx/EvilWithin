@@ -661,3 +661,31 @@ unlocked/EVIL_ONE
  orig: 160, 160
  offset: 0, 0
  index: -1
+locked/HEXABURN
+ rotate: false
+ xy: 2240, 800
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
+unlocked/HEXABURN
+ rotate: false
+ xy: 2400, 800
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
+locked/GHOSTLY
+ rotate: false
+ xy: 0, 960
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
+unlocked/GHOSTLY
+ rotate: false
+ xy: 160, 960
+ size: 160, 160
+ orig: 160, 160
+ offset: 0, 0
+ index: -1
