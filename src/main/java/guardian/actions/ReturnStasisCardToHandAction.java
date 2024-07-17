@@ -1,6 +1,5 @@
 package guardian.actions;
 
-import basemod.BaseMod;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -21,7 +20,6 @@ public class ReturnStasisCardToHandAction extends AbstractGameAction {
         if (!AbstractDungeon.player.hand.contains(this.card)) {
             AbstractDungeon.player.hand.addToHand(this.card);
             DownfallAchievementVariables.cardsReturnedFromStasis++;
-            BaseMod.logger.info(DownfallAchievementVariables.cardsReturnedFromStasis);
             if (DownfallAchievementVariables.cardsReturnedFromStasis >= 10) {
                 DownfallAchievementUnlocker.unlockAchievement("HYPER_ACCELERATION");
             }

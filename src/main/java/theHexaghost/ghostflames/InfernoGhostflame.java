@@ -1,6 +1,5 @@
 package theHexaghost.ghostflames;
 
-import basemod.BaseMod;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -82,7 +81,6 @@ public class InfernoGhostflame extends AbstractGhostflame {
 
         if (areAllGhostflamesIgnited()) {
             DownfallAchievementVariables.fullInfernoIgnitions++;
-            BaseMod.logger.info(DownfallAchievementVariables.fullInfernoIgnitions);
             if (DownfallAchievementVariables.fullInfernoIgnitions >= 6) {
                 DownfallAchievementUnlocker.unlockAchievement("HEXABURN");
             }

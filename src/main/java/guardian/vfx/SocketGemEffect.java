@@ -1,6 +1,5 @@
 package guardian.vfx;
 
-import basemod.BaseMod;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -84,7 +83,6 @@ public class SocketGemEffect extends AbstractGameEffect {
                 GuardianMod.gridScreenForSockets = false;
 
                 DownfallAchievementVariables.gemsSocketed++;
-                BaseMod.logger.info(DownfallAchievementVariables.gemsSocketed);
                 if (DownfallAchievementVariables.gemsSocketed >= 8) {
                     DownfallAchievementUnlocker.unlockAchievement("BEJEWELED");
                 }
