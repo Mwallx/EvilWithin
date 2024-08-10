@@ -639,7 +639,6 @@ public class FlipMap {
             }
         }
     }
-
     @SpirePatch(
             clz = DungeonMapScreen.class,
             method = "updateControllerInput"
@@ -693,7 +692,7 @@ public class FlipMap {
                         }
 
                         if (!nodes.isEmpty()) {
-                            Gdx.input.setCursorPosition((int) nodes.get(index[0]).hb.cX, Settings.HEIGHT - (int) nodes.get(index[0]).hb.cY);
+                            Gdx.input.setCursorPosition((int)nodes.get(index[0]).hb.cX, Settings.HEIGHT - (int)nodes.get(index[0]).hb.cY);
                             __instance.mapNodeHb = nodes.get(index[0]).hb;
                         }
                     }
@@ -712,7 +711,6 @@ public class FlipMap {
             }
         }
     }
-
     @SpirePatch(clz = TopPanel.class, method = "update")
     public static class DisableTopPanelHoveringPatch {
         @SpireInsertPatch(locator = Locator.class)
