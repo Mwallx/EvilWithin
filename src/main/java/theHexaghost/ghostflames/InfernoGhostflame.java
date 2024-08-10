@@ -4,6 +4,8 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -13,10 +15,12 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
 import expansioncontent.util.DownfallAchievementUnlocker;
 import expansioncontent.util.DownfallAchievementVariables;
+import downfall.util.TextureLoader;
 import theHexaghost.GhostflameHelper;
 import theHexaghost.actions.ExtinguishAction;
 import theHexaghost.powers.EnhancePower;
-import downfall.util.TextureLoader;
+import theHexaghost.powers.FlameAffectAllEnemiesPower;
+import theHexaghost.relics.IceCube;
 
 import static theHexaghost.HexaMod.makeUIPath;
 
@@ -34,11 +38,9 @@ public class InfernoGhostflame extends AbstractGhostflame {
     private Color flameColor = new Color(232F/255F, 164F/255F, 249F/255F, 1F);
     private Color activeColor = new Color(232F/255F * 0.5F, 164F/255F * 0.5F, 249F/255F * 0.5F, 1F);
 
-
     public InfernoGhostflame(float x, float y) {
         super(x, y);
         damage = 4;
-        //this.textColor = new Color(1F,.75F,.75F,1F);
         this.triggersRequired = 3;
 
         this.effectIconXOffset = 80F;
@@ -63,19 +65,39 @@ public class InfernoGhostflame extends AbstractGhostflame {
 
     @Override
     public void onCharge() {
+        int damage = getEffectCount();
+        int amountOfIgnitedGhostflames = 0;
 
-        atb(new VFXAction(AbstractDungeon.player, new ScreenOnFireEffect(), 1.0F));
-        int x = damage, amountOfIgnitedGhostflames = 0;
-        if (AbstractDungeon.player.hasPower(EnhancePower.POWER_ID)) {
-            x += AbstractDungeon.player.getPower(EnhancePower.POWER_ID).amount;
+        if(AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)){
+            atb(new VFXAction(AbstractDungeon.player, new ScreenOnFireEffect(), 1.0F));
+            for (int j = GhostflameHelper.hexaGhostFlames.size() - 1; j >= 0; j--) {
+                AbstractGhostflame gf = GhostflameHelper.hexaGhostFlames.get(j);
+                if (gf.charged) {
+                    for(int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++){
+                        atb(new DamageAllEnemiesAction(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                        atb(new WaitAction(0.1F));
+                    }
+
+                    if (gf != this) atb(new ExtinguishAction(gf));
+                    amountOfIgnitedGhostflames++;
+                }
+            }
+        } else {
+            atb(new VFXAction(AbstractDungeon.player, new ScreenOnFireEffect(), 0.8F));
+            for (int j = GhostflameHelper.hexaGhostFlames.size() - 1; j >= 0; j--) {
+                AbstractGhostflame gf = GhostflameHelper.hexaGhostFlames.get(j);
+                if (gf.charged) {
+                    atb(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                    atb(new WaitAction(0.1F));
+                    if (gf != this) atb(new ExtinguishAction(gf));
+                    amountOfIgnitedGhostflames++;
+                }
+            }
         }
-        for (int j = GhostflameHelper.hexaGhostFlames.size() - 1; j >= 0; j--) {
-            AbstractGhostflame gf = GhostflameHelper.hexaGhostFlames.get(j);
-            if (gf.charged) {
-                atb(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, x, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-                atb(new WaitAction(0.1F));  //Critical for keeping the UI not broken, and helps sell the anim
-                if (gf != this) atb(new ExtinguishAction(gf));
-                amountOfIgnitedGhostflames++;
+
+        if (amountOfIgnitedGhostflames == 6) {
+            if(!AbstractDungeon.player.hasRelic(IceCube.ID)){
+                atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new EnhancePower(2), 2));
             }
         }
 
@@ -85,20 +107,7 @@ public class InfernoGhostflame extends AbstractGhostflame {
                 DownfallAchievementUnlocker.unlockAchievement("HEXABURN");
             }
         }
-
-        /*
-        if (GhostflameHelper.activeGhostFlame == this){
-            atb(new AdvanceAction(false));
-        }
-        */
-
-        /*
-        if (amountOfIgnitedGhostflames == 6) {
-            atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new EnhancePower(2), 2));
-        }*/
-
     }
-
 
     @Override
     public String returnHoverHelperText() {
@@ -116,7 +125,6 @@ public class InfernoGhostflame extends AbstractGhostflame {
             return (x + "x" + (chargedFlames + 1));
         }
     }
-
 
     public int getEffectCount() {
         int x = damage;
@@ -140,8 +148,6 @@ public class InfernoGhostflame extends AbstractGhostflame {
                 }
                 if (energySpentThisTurn >= 3) {
                     charge();
-                } else {
-                    //activeGhostFlame.flash();
                 }
             }
         }
@@ -163,7 +169,7 @@ public class InfernoGhostflame extends AbstractGhostflame {
     }
 
     @Override
-    public void reset() {
+    public void resetVariable() {
         energySpentThisTurn = 0;
     }
 
@@ -200,19 +206,16 @@ public class InfernoGhostflame extends AbstractGhostflame {
         int x = getEffectCount();
         s = s + DESCRIPTIONS[6] + x + DESCRIPTIONS[7];
         if (GhostflameHelper.activeGhostFlame == this) {
-            s = s + DESCRIPTIONS[9];
+            s = s + DESCRIPTIONS[8];
         }
         return s;
     }
 
-
     public Color getFlameColor() {
         return activeColor.cpy();
-        //return Color.SKY.cpy();
     }
 
     public Color getActiveColor() {
-        //return activeColor.cpy();
         return Color.PURPLE.cpy();
     }
 }

@@ -281,7 +281,7 @@ public class expansionContentMod implements
     }
 
     public void addPotions() {
-        BaseMod.addPotion(BossPotion.class, Color.MAROON, Color.MAROON, new Color(0x470000ff), BossPotion.POTION_ID);
+
 
         if (Loader.isModLoaded("widepotions")) {
             WidePotionsMod.whitelistSimplePotion(BossPotion.POTION_ID);
