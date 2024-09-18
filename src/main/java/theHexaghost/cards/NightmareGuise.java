@@ -15,7 +15,7 @@ public class NightmareGuise extends AbstractHexaCard implements HexaPurpleTextIn
 
     public NightmareGuise() {
         super(ID, 1, CardType.SKILL, CardRarity.COMMON, CardTarget.SELF);
-        baseBlock = 6;
+        baseBlock = 2;
         isEthereal = true;
         cardsToPreview = new ShadowGuise();
         tags.add(HexaMod.AFTERLIFE);
@@ -26,18 +26,23 @@ public class NightmareGuise extends AbstractHexaCard implements HexaPurpleTextIn
         blck();
         superFlash(Color.PURPLE);
         AbstractCard q = new ShadowGuise(this);
+        if (upgraded) q.upgrade();
         atb(new MakeTempCardInHandAction(q));
     }
 
     @Override
     public void afterlife() {
-        blck();
+        AbstractCard q = new ShadowGuise(this);
+        if (upgraded) q.upgrade();
+        atb(new MakeTempCardInHandAction(q));
     }
 
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeBlock(3);
+            this.cardsToPreview.upgrade();
+            rawDescription = cardStrings.UPGRADE_DESCRIPTION;
+            initializeDescription();
         }
     }
 

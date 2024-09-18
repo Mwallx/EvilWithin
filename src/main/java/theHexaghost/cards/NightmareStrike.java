@@ -17,7 +17,7 @@ public class NightmareStrike extends AbstractHexaCard implements HexaPurpleTextI
 
     public NightmareStrike() {
         super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
-        baseDamage = 7;
+        baseDamage = 3;
         isEthereal = true;
         cardsToPreview = new ShadowStrike();
         tags.add(CardTags.STRIKE);
@@ -29,27 +29,23 @@ public class NightmareStrike extends AbstractHexaCard implements HexaPurpleTextI
         dmg(m, makeInfo(), AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
         superFlash(Color.PURPLE);
         AbstractCard q = new ShadowStrike(this);
+        if (upgraded) q.upgrade();
         atb(new MakeTempCardInHandAction(q));
     }
 
     @Override
     public void afterlife() {
-        AbstractMonster m = AbstractDungeon.getRandomMonster();
-        if (m == null) return;
-        this.calculateCardDamage(m);
-        if(AbstractDungeon.player.hasPower("Pen Nib") ){
-            this.damage /= 2;
-            dmg(m, makeInfo(), AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-            this.damage *= 2;
-        }else {
-            dmg(m, makeInfo(), AbstractGameAction.AttackEffect.SLASH_DIAGONAL);
-        }
+        AbstractCard q = new ShadowStrike(this);
+        if (upgraded) q.upgrade();
+        atb(new MakeTempCardInHandAction(q));
     }
 
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-            upgradeDamage(3);
+            this.cardsToPreview.upgrade();
+            rawDescription = cardStrings.UPGRADE_DESCRIPTION;
+            initializeDescription();
         }
     }
 

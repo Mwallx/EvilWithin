@@ -3,7 +3,7 @@
     "NAME": "Guarda Avançada",
     "DESCRIPTION": "Ganhe !B! de Proteção. NL hexamod:Avançar."
   },
-  "hexamod:MomentaryResurgence": {
+  "hexamod:FleetingFlash": {
     "NAME": "Novamente!",
     "DESCRIPTION": "hexamod:Acender a chama fantasma atual e, em seguida, hexamod:Extingua."
   },
@@ -212,7 +212,8 @@
   },
   "hexamod:PhantomFireball": {
     "NAME": "Bola de Fogo Fantasma",
-    "DESCRIPTION": "Cause !D! de dano. NL Se o inimigo tiver *Angústia, detone-o."
+    "DESCRIPTION": "Cause !D! de dano. NL Se o inimigo tiver *Angústia, detone-o.",
+    "UPGRADE_DESCRIPTION": "Cause !D! de dano. NL Se o inimigo tiver *Angústia, detone-o."
   },
   "hexamod:PowerFromBeyond": {
     "NAME": "Poder Além",
