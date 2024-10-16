@@ -17,7 +17,9 @@ import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.AnimatedSlashEffect;
 import com.megacrit.cardcrawl.vfx.combat.GoldenSlashEffect;
+import curatedchallenges.CuratedChallenges;
 import downfall.util.TextureLoader;
+import expansioncontent.HexaghostChallenge;
 import theHexaghost.GhostflameHelper;
 import theHexaghost.HexaMod;
 import theHexaghost.powers.EnhancePower;
@@ -71,53 +73,65 @@ public class CrushingGhostflame extends AbstractGhostflame {
         return skillsPlayedThisTurn;
     }
 
-        @Override
+    @Override
     public void onCharge() {
         atb(new AbstractGameAction() {
             @Override
             public void update() {
                 int x = getEffectCount();
                 isDone = true;
+              //  boolean isHexaghostChallengeActive = HexaghostChallenge.ID.equals(CuratedChallenges.currentChallengeId);
 
-                if(AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)){
-                    for(int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++){
-
-                            addToTop(new VFXAction(
-                                    new AbstractGameEffect() {
-
-                                        public void update() {
-                                            CardCrawlGame.sound.playA("ATTACK_IRON_2", -0.4F);
-                                            CardCrawlGame.sound.playA("ATTACK_HEAVY", -0.4F);
-                                            for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
-                                                if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-                                                    AbstractDungeon.effectsQueue.add(new AnimatedSlashEffect(m.hb.cX, m.hb.cY - 30.0F * Settings.scale, 0.0F, -500.0F, 180.0F, 5.0F, Color.GOLD, Color.GOLD));
-                                                }
-                                            }
-                                            this.isDone = true;
-                                        }
-
-                                        @Override
-                                        public void render(SpriteBatch spriteBatch) {}
-
-                                        @Override
-                                        public void dispose() {}
-                                    }
-                            ));
-//                                if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-//                                    addToTop(new DamageAction(m, new DamageInfo(AbstractDungeon.player, x, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.NONE));
-//                                    addToTop(new VFXAction(new GoldenSlashEffect(m.hb.cX, m.hb.cY, true)));
-//                                }
-                            att(new DamageAllEnemiesAction(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS, AttackEffect.NONE));
+                if (AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)) {
+                    for (int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++) {
+                        applyEffectToAllEnemies(x);
+                    //    if (isHexaghostChallengeActive) {
+                     //       applyEffectToPlayer(x);
+                     //   }
                     }
                 } else {
                     AbstractMonster m = AbstractDungeon.getRandomMonster();
                     if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-                        addToTop(new DamageAction(m, new DamageInfo(AbstractDungeon.player, x, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.NONE));
-                        addToTop(new VFXAction(new GoldenSlashEffect(m.hb.cX, m.hb.cY, true)));
+                        applyEffectToSingleEnemy(m, x);
+                       // if (isHexaghostChallengeActive) {
+                       //     applyEffectToPlayer(x);
+                      //  }
                     }
                 }
             }
         });
+    }
+
+    private void applyEffectToAllEnemies(int x) {
+        AbstractDungeon.actionManager.addToTop(new VFXAction(
+                new AbstractGameEffect() {
+                    public void update() {
+                        CardCrawlGame.sound.playA("ATTACK_IRON_2", -0.4F);
+                        CardCrawlGame.sound.playA("ATTACK_HEAVY", -0.4F);
+                        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                            if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
+                                AbstractDungeon.effectsQueue.add(new AnimatedSlashEffect(m.hb.cX, m.hb.cY - 30.0F * Settings.scale, 0.0F, -500.0F, 180.0F, 5.0F, Color.GOLD, Color.GOLD));
+                            }
+                        }
+                        this.isDone = true;
+                    }
+                    @Override
+                    public void render(SpriteBatch spriteBatch) {}
+                    @Override
+                    public void dispose() {}
+                }
+        ));
+        att(new DamageAllEnemiesAction(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.NONE));
+    }
+
+    private void applyEffectToSingleEnemy(AbstractMonster m, int x) {
+        AbstractDungeon.actionManager.addToTop(new DamageAction(m, new DamageInfo(AbstractDungeon.player, x, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.NONE));
+        AbstractDungeon.actionManager.addToTop(new VFXAction(new GoldenSlashEffect(m.hb.cX, m.hb.cY, true)));
+    }
+
+    private void applyEffectToPlayer(int x) {
+        AbstractDungeon.actionManager.addToTop(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, x, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.NONE));
+        AbstractDungeon.actionManager.addToTop(new VFXAction(new GoldenSlashEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, true)));
     }
 
     @Override

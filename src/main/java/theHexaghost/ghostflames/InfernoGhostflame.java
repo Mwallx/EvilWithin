@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.actions.common.DamageRandomEnemyAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
@@ -13,6 +14,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
+import curatedchallenges.CuratedChallenges;
+import expansioncontent.HexaghostChallenge;
 import expansioncontent.util.DownfallAchievementUnlocker;
 import expansioncontent.util.DownfallAchievementVariables;
 import downfall.util.TextureLoader;
@@ -67,17 +70,20 @@ public class InfernoGhostflame extends AbstractGhostflame {
     public void onCharge() {
         int damage = getEffectCount();
         int amountOfIgnitedGhostflames = 0;
+      //  boolean isHexaghostChallengeActive = HexaghostChallenge.ID.equals(CuratedChallenges.currentChallengeId);
 
-        if(AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)){
+        if (AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)) {
             atb(new VFXAction(AbstractDungeon.player, new ScreenOnFireEffect(), 1.0F));
             for (int j = GhostflameHelper.hexaGhostFlames.size() - 1; j >= 0; j--) {
                 AbstractGhostflame gf = GhostflameHelper.hexaGhostFlames.get(j);
                 if (gf.charged) {
-                    for(int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++){
+                    for (int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++) {
                         atb(new DamageAllEnemiesAction(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                      //  if (isHexaghostChallengeActive) {
+                     //       atb(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                     //   }
                         atb(new WaitAction(0.1F));
                     }
-
                     if (gf != this) atb(new ExtinguishAction(gf));
                     amountOfIgnitedGhostflames++;
                 }
@@ -88,6 +94,9 @@ public class InfernoGhostflame extends AbstractGhostflame {
                 AbstractGhostflame gf = GhostflameHelper.hexaGhostFlames.get(j);
                 if (gf.charged) {
                     atb(new DamageRandomEnemyAction(new DamageInfo(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                   // if (isHexaghostChallengeActive) {
+                  //      atb(new DamageAction(AbstractDungeon.player, new DamageInfo(AbstractDungeon.player, damage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+                  //  }
                     atb(new WaitAction(0.1F));
                     if (gf != this) atb(new ExtinguishAction(gf));
                     amountOfIgnitedGhostflames++;
@@ -95,12 +104,12 @@ public class InfernoGhostflame extends AbstractGhostflame {
             }
         }
 
+        // Rest of the method remains unchanged
         if (amountOfIgnitedGhostflames == 6) {
-            if(!AbstractDungeon.player.hasRelic(IceCube.ID)){
+            if (!AbstractDungeon.player.hasRelic(IceCube.ID)) {
                 atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new EnhancePower(2), 2));
             }
         }
-
         if (areAllGhostflamesIgnited()) {
             DownfallAchievementVariables.fullInfernoIgnitions++;
             if (DownfallAchievementVariables.fullInfernoIgnitions >= 6) {

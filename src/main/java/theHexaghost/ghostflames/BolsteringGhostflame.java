@@ -8,9 +8,12 @@ import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.vfx.combat.InflameEffect;
+import curatedchallenges.CuratedChallenges;
 import downfall.util.TextureLoader;
+import expansioncontent.HexaghostChallenge;
 import theHexaghost.GhostflameHelper;
 import theHexaghost.HexaMod;
 import theHexaghost.powers.EnhancePower;
@@ -42,16 +45,35 @@ public class BolsteringGhostflame extends AbstractGhostflame {
     @Override
     public void onCharge() {
         int x = getEffectCount();
-        if(!AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)) {
-            atb(new VFXAction(AbstractDungeon.player, new InflameEffect(AbstractDungeon.player), 0.5F));
-            atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
-            atb(new GainBlockAction(AbstractDungeon.player, x));
-        }else {
+      //  boolean isHexaghostChallengeActive = HexaghostChallenge.ID.equals(CuratedChallenges.currentChallengeId);
+
+        if (!AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)) {
+            applyEffectToPlayer(x);
+           // if (isHexaghostChallengeActive) {
+           //     applyEffectToRandomEnemy(x);
+          //  }
+        } else {
             for (int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++) {
-                atb(new VFXAction(AbstractDungeon.player, new InflameEffect(AbstractDungeon.player), 0.4F));
-                atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
-                atb(new GainBlockAction(AbstractDungeon.player, x));
+                applyEffectToPlayer(x);
+               // if (isHexaghostChallengeActive) {
+               //     applyEffectToRandomEnemy(x);
+              //  }
             }
+        }
+    }
+
+    private void applyEffectToPlayer(int x) {
+        atb(new VFXAction(AbstractDungeon.player, new InflameEffect(AbstractDungeon.player), 0.5F));
+        atb(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
+        atb(new GainBlockAction(AbstractDungeon.player, x));
+    }
+
+    private void applyEffectToRandomEnemy(int x) {
+        AbstractMonster randomEnemy = AbstractDungeon.getRandomMonster();
+        if (randomEnemy != null) {
+            atb(new VFXAction(randomEnemy, new InflameEffect(randomEnemy), 0.5F));
+            atb(new ApplyPowerAction(randomEnemy, AbstractDungeon.player, new StrengthPower(randomEnemy, 1), 1));
+            atb(new GainBlockAction(randomEnemy, x));
         }
     }
 

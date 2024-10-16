@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.relics.Ectoplasm;
 import com.megacrit.cardcrawl.rooms.CampfireUI;
 import com.megacrit.cardcrawl.ui.campfire.AbstractCampfireOption;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
@@ -18,6 +19,7 @@ import javassist.CannotCompileException;
 import javassist.CtBehavior;
 import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
+import slimebound.relics.GreedOozeRelic;
 
 import java.util.ArrayList;
 
@@ -48,14 +50,21 @@ public class AddBustKeyButtonPatches {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(CampfireUI __instance, ArrayList<AbstractCampfireOption> ___buttons) {
             if (EvilModeCharacterSelect.evilMode) {
-                if (Settings.hasRubyKey && !KeyFields.bustedRuby.get(AbstractDungeon.player)) {
-                    ___buttons.add(new BustKeyOption(BustKeyOption.Keys.RUBY));
-                }
-                if (Settings.hasEmeraldKey && !KeyFields.bustedEmerald.get(AbstractDungeon.player)) {
-                    ___buttons.add(new BustKeyOption(BustKeyOption.Keys.EMERALD));
-                }
-                if (Settings.hasSapphireKey && !KeyFields.bustedSapphire.get(AbstractDungeon.player)) {
-                    ___buttons.add(new BustKeyOption(BustKeyOption.Keys.SAPPHIRE));
+                AbstractPlayer player = AbstractDungeon.player;
+                boolean hasGreedOoze = player.hasRelic(GreedOozeRelic.ID);
+                boolean hasEctoplasm = player.hasRelic(Ectoplasm.ID);
+
+                // Only add buttons if player doesn't have GreedOozeRelic OR if they have both GreedOozeRelic and Ectoplasm
+                if (!hasGreedOoze || (hasGreedOoze && hasEctoplasm)) {
+                    if (Settings.hasRubyKey && !KeyFields.bustedRuby.get(player)) {
+                        ___buttons.add(new BustKeyOption(BustKeyOption.Keys.RUBY));
+                    }
+                    if (Settings.hasEmeraldKey && !KeyFields.bustedEmerald.get(player)) {
+                        ___buttons.add(new BustKeyOption(BustKeyOption.Keys.EMERALD));
+                    }
+                    if (Settings.hasSapphireKey && !KeyFields.bustedSapphire.get(player)) {
+                        ___buttons.add(new BustKeyOption(BustKeyOption.Keys.SAPPHIRE));
+                    }
                 }
             }
         }

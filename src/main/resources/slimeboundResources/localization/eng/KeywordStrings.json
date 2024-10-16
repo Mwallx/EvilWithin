@@ -37,7 +37,7 @@
       "commands"
     ],
     "PROPER_NAME": "Command",
-    "DESCRIPTION": "Your leading Slime attacks."
+    "DESCRIPTION": "Your frontmost unstunned Slime attacks."
   },
   {
     "NAMES": [
@@ -135,7 +135,7 @@
       "tackles"
     ],
     "PROPER_NAME": "Tackle",
-    "DESCRIPTION": "High-damage #yAttacks that also deal a small amount of damage to you."
+    "DESCRIPTION": "High-damage #yAttacks that #yStun your first non-stunned Slime."
   },
   {
     "NAMES": [
@@ -206,5 +206,12 @@
     ],
     "PROPER_NAME": "Buried",
     "DESCRIPTION": "Buried cards will always be chosen last for random #yExhume effects."
+  },
+  {
+    "NAMES": [
+      "reckless"
+    ],
+    "PROPER_NAME": "Reckless",
+    "DESCRIPTION": "Reckless cards will #yStun your frontmost unstunned Slime, if one is available."
   }
 ]

@@ -5,7 +5,7 @@
   },
   "Slimebound:BestDefense": {
     "NAME": "Recklessness",
-    "DESCRIPTION": "Your \"Tackle\" cards deal !M! more damage to enemies, and 1 more damage to you."
+    "DESCRIPTION": "Your \"Tackle\" cards deal !M! more damage to enemies."
   },
   "Slimebound:CheckThePlaybook": {
     "NAME": "Consult Playbook",
@@ -18,7 +18,7 @@
   },
   "Slimebound:ComboTackle": {
     "NAME": "Spear Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL Draw !M! cards."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL Draw !M! cards."
   },
   "Slimebound:CorrosiveSpit": {
     "NAME": "Corrosive Spit",
@@ -64,7 +64,7 @@
   },
   "Slimebound:FinishingTackle": {
     "NAME": "Opening Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. slimeboundmod:Consume - Apply !M! Vulnerable."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL slimeboundmod:Consume - Apply !M! Vulnerable."
   },
   "Slimebound:FirmFortitude": {
     "NAME": "Liquidate",
@@ -72,7 +72,7 @@
   },
   "Slimebound:FlameTackle": {
     "NAME": "Flame Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL Your \"Tackle\" cards deal !M! more damage this combat."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL Your \"Tackle\" cards deal !M! more damage this combat."
   },
   "Slimebound:FormOfPuddle": {
     "NAME": "Shape of Puddle",
@@ -80,8 +80,8 @@
   },
   "Slimebound:ForwardTackle": {
     "NAME": "Forward Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL slimeboundmod:Command twice.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL slimeboundmod:Command three times."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL slimeboundmod:Command twice.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL slimeboundmod:Command three times."
   },
   "Slimebound:Gluttony": {
     "NAME": "Gluttony",
@@ -94,8 +94,8 @@
   },
   "Slimebound:GoopTackle": {
     "NAME": "Combo Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL Gain a random \"Tackle\" card. It costs 0 this turn.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL Gain a random Upgraded \"Tackle\" card. It costs 0 this turn."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL Gain a random \"Tackle\" card. It costs 0 this turn.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL Gain a random Upgraded \"Tackle\" card. It costs 0 this turn."
   },
   "Slimebound:Grow": {
     "NAME": "Grow",
@@ -112,8 +112,8 @@
   },
   "Slimebound:HungryTackle": {
     "NAME": "Hungry Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL expansioncontent:Exhume a random \"Lick\" card.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL expansioncontent:Exhume 2 random \"Lick\" cards."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL expansioncontent:Exhume a random \"Lick\" card.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL expansioncontent:Exhume 2 random \"Lick\" cards."
   },
   "Slimebound:ItLooksTasty": {
     "NAME": "It Looks Tasty",
@@ -207,7 +207,12 @@
   "Slimebound:PressTheAttack": {
     "NAME": "Press the Attack",
     "DESCRIPTION": "Deal !D! damage. slimeboundmod:Consume - slimeboundmod:Command.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. slimeboundmod:Consume - slimeboundmod:Command twice."
+    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL slimeboundmod:Command."
+  },
+  "Slimebound:Reprimand": {
+    "NAME": "Reprimand",
+    "DESCRIPTION": "*Stun ALL Slimes. NL Gain 1 slimeboundmod:Potency for each. NL Exhaust.",
+    "UPGRADE_DESCRIPTION": "*Stun ALL Slimes. NL Gain 1 slimeboundmod:Potency for each."
   },
   "Slimebound:ProtectTheBoss": {
     "NAME": "Protect the Boss",
@@ -257,7 +262,7 @@
   },
   "Slimebound:RollThrough": {
     "NAME": "Roll Through",
-    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL You do not take damage from the next !M! \"Tackle\" cards."
+    "DESCRIPTION": "Deal !D! damage to ALL enemies. NL The next !M! \"Tackle\" cards will not *Stun your Slimes."
   },
   "Slimebound:SamplingLick": {
     "NAME": "Sampling Lick",
@@ -354,7 +359,7 @@
   },
   "Slimebound:Tackle": {
     "NAME": "Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage."
   },
   "Slimebound:TagTeam": {
     "NAME": "Glop Chop",
@@ -372,8 +377,8 @@
   },
   "Slimebound:ViciousTackle": {
     "NAME": "Vicious Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. This gains twice the damage bonus from slimeboundmod:Goop.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. This gains twice the damage bonus AND healing from slimeboundmod:Goop."
+    "DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL This gains twice the damage bonus from slimeboundmod:Goop.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Reckless. NL Deal !D! damage. NL This gains twice the damage bonus AND healing from slimeboundmod:Goop."
   },
   "Slimebound:WasteNot": {
     "NAME": "Waste Not",

@@ -113,6 +113,9 @@ import downfall.potions.CursedFountainPotion;
 import downfall.relics.KnowingSkull;
 import downfall.relics.*;
 import downfall.util.*;
+import expansioncontent.Clashtastic;
+import expansioncontent.HexaghostChallenge;
+import expansioncontent.MemeChallenges;
 import expansioncontent.cardmods.PropertiesMod;
 import expansioncontent.expansionContentMod;
 import expansioncontent.patches.CenterGridCardSelectScreen;
@@ -141,6 +144,7 @@ import sneckomod.cards.unknowns.*;
 import sneckomod.potions.MuddlingPotion;
 import sneckomod.util.ColorfulCardReward;
 import sneckomod.util.UpgradedUnknownReward;
+import theHexaghost.CuratedChallengesHandler;
 import theHexaghost.HexaMod;
 import theHexaghost.TheHexaghost;
 import theHexaghost.potions.SoulburnPotion;
@@ -159,7 +163,7 @@ import static reskinContent.reskinContent.unlockAllReskin;
 public class downfallMod implements OnPlayerDamagedSubscriber, OnStartBattleSubscriber, PostDrawSubscriber, PostDungeonInitializeSubscriber, EditStringsSubscriber, EditKeywordsSubscriber, AddCustomModeModsSubscriber, PostInitializeSubscriber, EditRelicsSubscriber, EditCardsSubscriber, PostUpdateSubscriber, StartGameSubscriber, StartActSubscriber, AddAudioSubscriber, RenderSubscriber, PostDeathSubscriber {
     public static final String modID = "downfall";
 
-    public static final boolean STEAM_MODE = true;
+    public static final boolean STEAM_MODE = false;
 
     public static boolean neowtextoverride = false;
 
@@ -623,6 +627,11 @@ public class downfallMod implements OnPlayerDamagedSubscriber, OnStartBattleSubs
             GuardianMod.logger.info("gems saved");
             return new RewardSave(customReward.type.toString(), null);
         });
+
+        if (CuratedChallengesHandler.isCuratedChallengesLoaded()) {
+           // CuratedChallengesHandler.registerChallenge(new Clashtastic());
+           // CuratedChallengesHandler.registerChallenge(new MemeChallenges());
+        }
 
     }
 
@@ -1368,6 +1377,9 @@ public class downfallMod implements OnPlayerDamagedSubscriber, OnStartBattleSubs
                 AbstractDungeon.player.increaseMaxOrbSlots(1, false);
             }
         }
+       // if (CardCrawlGame.loadingSave && (EvilModeCharacterSelect.evilMode || downfallMod.contentSharing_events)) {
+       //     addPotions();
+      //  }
     }
 
     @Override

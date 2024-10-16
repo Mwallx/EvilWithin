@@ -17,8 +17,8 @@
   "Slimebound:PreventTackleDamagePower": {
     "NAME": "Protected",
     "DESCRIPTIONS": [
-      "You do not take damage from the next #b",
-      " #yTackles you play."
+      "The next #b",
+      " #yTackles you play do not stun Slimes."
     ]
   },
   "Slimebound:SplitDailyTriggerPower": {

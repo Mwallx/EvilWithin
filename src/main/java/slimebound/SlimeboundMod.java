@@ -35,6 +35,7 @@ import expansioncontent.relics.StudyCardRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimebound.actions.SlimeSpawnAction;
+import slimebound.actions.UnstunSlimesAction;
 import slimebound.cards.*;
 import slimebound.characters.SlimeboundCharacter;
 import slimebound.events.*;
@@ -67,7 +68,7 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         basemod.interfaces.EditCardsSubscriber,
         OnPowersModifiedSubscriber,
         //EditStringsSubscriber,
-        //basemod.interfaces.PostDrawSubscriber,
+        OnPlayerTurnStartPostDrawSubscriber,
         basemod.interfaces.OnStartBattleSubscriber {
     public static final boolean hasHubris;
 //    public static final String PROP_RELIC_SHARING = "contentSharing_relics";
@@ -391,8 +392,9 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new GoopArmor());
         BaseMod.addCard(new MassRepurpose());
         BaseMod.addCard(new DouseInSlime());
-        BaseMod.addCard(new Chomp());
+      //  BaseMod.addCard(new Chomp());
         BaseMod.addCard(new BestDefense());
+        BaseMod.addCard(new Reprimand());
         BaseMod.addCard(new OozeBath());
         //BaseMod.addCard(new zzzSoTasty());
         BaseMod.addCard(new LivingWall());
@@ -619,6 +621,10 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
     }
 
+    @Override
+    public void receiveOnPlayerTurnStartPostDraw() {
+        AbstractDungeon.actionManager.addToBottom(new UnstunSlimesAction());
+    }
 
     public boolean receivePreMonsterTurn(AbstractMonster abstractMonster) {
         slimeDelay = true;

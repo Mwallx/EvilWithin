@@ -3,7 +3,7 @@
     "NAME": "Heart of Goo",
     "FLAVOR": "I feel so funky.",
     "DESCRIPTIONS": [
-      "Whenever you #yslimeboundmod:Consume, heal #b2 HP, up to #b8 each combat."
+      "Whenever you #yslimeboundmod:Consume, #yslimeboundmod:Split into a #yslimeboundmod:Guerilla #ySlime, up to #b3 times each combat."
     ]
   },
   "Slimebound:AbsorbEndCombatUpgraded": {
@@ -11,7 +11,7 @@
     "FLAVOR": "The Secret of the Ooze.",
     "DESCRIPTIONS": [
       "Replaces ",
-      ".[] NL Whenever you #yslimeboundmod:Consume, heal #b3 HP, up to #b15 each combat."
+      ".[] NL Whenever you #yslimeboundmod:Consume, #yslimeboundmod:Split into a #yslimeboundmod:Leeching #ySlime (up to #b3 times each combat) and #yslimeboundmod:Command."
     ]
   },
   "Slimebound:SlimedTailRelic": {
@@ -50,7 +50,8 @@
     "NAME": "Greed Ooze",
     "FLAVOR": "A friend found in the Spire who devours souls.",
     "DESCRIPTIONS": [
-      "At the start of combat, spawn #yGreed #yOoze (can be revived if #yAbsorbed). NL At Rest Sites, #yGreed #yOoze will take #b50 of your souls, increasing its damage by #b1."
+      "At the start of combat, spawn #yGreed #yOoze (can be revived if #yAbsorbed). NL At Rest Sites, #yGreed #yOoze will take #b50 of your souls, increasing its damage by #b1.",
+      "At the start of combat, spawn #yGreed #yOoze (can be revived if #yAbsorbed). NL At Rest Sites, #yGreed #yOoze will take #b50 of your souls, increasing its damage by #b1 and breaking any unbroken Keys."
     ]
   },
   "Slimebound:PreparedRelic": {
@@ -86,7 +87,7 @@
     "NAME": "Protective Gear",
     "FLAVOR": "The best defense is a good offense.",
     "DESCRIPTIONS": [
-      "Reduce the damage you take from #yslimeboundmod:Tackles by #b3."
+      "#yslimeboundmod:Tackles no longer #yStun your Slimes."
     ]
   },
   "Slimebound:TarBlob": {

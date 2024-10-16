@@ -34,7 +34,7 @@ public class BestDefense extends AbstractSlimeboundCard {
 
     public BestDefense() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 7;
+        this.magicNumber = this.baseMagicNumber = 5;
         SlimeboundMod.loadJokeCardImage(this, "BestDefense.png");
 
        // this.tags.add(SneckoMod.BANNEDFORSNECKO);
@@ -42,7 +42,7 @@ public class BestDefense extends AbstractSlimeboundCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleBuffPower(p, p, this.magicNumber), this.magicNumber));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleModifyDamagePower(p, p, 1), 1));
+       // AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleModifyDamagePower(p, p, 1), 1));
 
     }
 
@@ -53,7 +53,7 @@ public class BestDefense extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(4);
+            upgradeMagicNumber(3);
         }
     }
 }

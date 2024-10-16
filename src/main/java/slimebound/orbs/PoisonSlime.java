@@ -27,17 +27,21 @@ public class PoisonSlime
     }
 
 
+    @Override
     public void updateDescription() {
-
-        this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1];
+        if (this.beingStunned) {
+            this.description = this.stunnedDescription;
+        } else {
+            this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1];
+        }
     }
 
 
     public void activateEffectUnique() {
 
-
-        AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_LIGHT, this, false, false, false, 0, false, 0, false, true));
-
+        if (!beingStunned) {
+            AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_LIGHT, this, false, false, false, 0, false, 0, false, true));
+        }
     }
 
 

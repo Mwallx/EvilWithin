@@ -52,15 +52,19 @@ public class SlowingSlime
     }
 
     public void updateDescription() {
-        this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1] + this.debuffAmount + this.descriptions[2];
+        if (this.beingStunned) {
+            this.description = this.stunnedDescription;
+        } else {
+            this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1] + this.debuffAmount + this.descriptions[2];
+        }
     }
 
 
     public void activateEffectUnique() {
+        if (!beingStunned) {
 
-
-        AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_HEAVY, this, false, false, true, debuffAmount, false, 0, false, false, false, false, false));
-
+            AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_HEAVY, this, false, false, true, debuffAmount, false, 0, false, false, false, false, false));
+        }
     }
 
 
