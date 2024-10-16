@@ -117,11 +117,5 @@
       "Deals #b",
       " damage at the start of your turn. When you Command, all Darklings will attack (regardless of position)."
     ]
-  },
-  "Slimebound:Stunned": {
-    "NAME": "Stunned",
-    "DESCRIPTION": [
-      "This Slime is #yStunned! It won't respond to #yCommands or trigger its passive at the start of your next turn."
-    ]
   }
 }
