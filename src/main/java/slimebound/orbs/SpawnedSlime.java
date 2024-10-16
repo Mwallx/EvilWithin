@@ -1,6 +1,5 @@
 package slimebound.orbs;
 
-import basemod.BaseMod;
 import basemod.animations.AbstractAnimation;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -13,6 +12,7 @@ import com.esotericsoftware.spine.*;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.utility.WaitAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -21,15 +21,13 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.MathHelper;
 import com.megacrit.cardcrawl.helpers.SlimeAnimListener;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.monsters.beyond.Darkling;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
-import expansioncontent.util.DownfallAchievementUnlocker;
-import expansioncontent.util.DownfallAchievementVariables;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import reskinContent.patches.CharacterSelectScreenPatches;
@@ -61,18 +59,14 @@ public abstract class SpawnedSlime
     public boolean activatedThisTurn = false;
     public int UniqueFocus;
     public boolean noEvokeSound = false;
-    public boolean beingStunned = false;
     public float animX;
     public float animY;
-    protected String[] normalDescriptions;
-    protected String stunnedDescription;
     public int slimeBonus;
     public boolean movesToAttack;
     public int upgradedInitialBoost;
     public String originalRelic = "";
     public String[] descriptions;
     public com.badlogic.gdx.graphics.Texture intentImage;
-    public Texture originalIntentImage;
     public boolean noEvokeBonus;
     public float scale = 1.15F;
     public float x;
@@ -165,8 +159,6 @@ public abstract class SpawnedSlime
             this.atlas = new TextureAtlas(Gdx.files.internal(atlasString));
         }
 
-        this.normalDescriptions = CardCrawlGame.languagePack.getOrbString(this.ID).DESCRIPTION;
-        this.stunnedDescription = CardCrawlGame.languagePack.getOrbString("Slimebound:Stunned").DESCRIPTION[0];
 
         //this.renderBehind=true;
         SkeletonJson json = new SkeletonJson(this.atlas);
@@ -183,7 +175,7 @@ public abstract class SpawnedSlime
                     this.yOffset = -27F * Settings.scale;
                 }
             } else {
-                json.setScale(Settings.scale / .5F * .4F);
+                json.setScale(Settings.scale / .5F * .7F);
                 if (alt) {
                     this.yOffset = -17F * Settings.scale;
                 } else {
@@ -231,19 +223,13 @@ public abstract class SpawnedSlime
         this.passiveAmount = this.basePassiveAmount;
         this.OrbVFXColor = OrbFlareColor;
         this.intentImage = intentImage;
-        this.originalIntentImage = intentImage;
         this.upgradedInitialBoost = 0;
 
 
         this.channelAnimTimer = 0.5F;
 
         this.projectileColor = projectileColor;
-
-        if (this.beingStunned) {
-            this.descriptions = CardCrawlGame.languagePack.getOrbString("Slimebound:Stunned").DESCRIPTION;
-        } else {
-            this.descriptions = CardCrawlGame.languagePack.getOrbString(this.ID).DESCRIPTION;
-        }
+        this.descriptions = CardCrawlGame.languagePack.getOrbString(this.ID).DESCRIPTION;
 
         this.name = CardCrawlGame.languagePack.getOrbString(this.ID).NAME;
         SlimeboundMod.mostRecentSlime = this;
@@ -311,17 +297,6 @@ public abstract class SpawnedSlime
         updateDescription();
     }
 
-    public void updateStunnedState(boolean stunned) {
-        this.beingStunned = stunned;
-        if (stunned) {
-            this.stunnedDescription = CardCrawlGame.languagePack.getOrbString("Slimebound:Stunned").DESCRIPTION[0];
-        } else {
-            this.stunnedDescription = null;
-        }
-        updateDescription();
-    }
-
-
     public void applyUniqueFocus(int StrAmount) {
 
         this.UniqueFocus = this.UniqueFocus + StrAmount;
@@ -330,14 +305,6 @@ public abstract class SpawnedSlime
         //AbstractDungeon.effectsQueue.add(new FireBurstParticleEffect(this.cX, this.cY));
     }
 
-    @Override
-    public void updateDescription() {
-        if (this.beingStunned) {
-            this.description = this.stunnedDescription;
-        } else {
-            this.description = this.normalDescriptions[0];
-        }
-    }
 
     public void onEvoke() {
         if (!noEvokeBonus) {
@@ -353,12 +320,6 @@ public abstract class SpawnedSlime
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new StrengthPower(AbstractDungeon.player, 1), 1));
 
         triggerEvokeAnimation();
-
-        DownfallAchievementVariables.slimesEvoked++;
-        if (DownfallAchievementVariables.slimesEvoked >= 15) {
-            DownfallAchievementUnlocker.unlockAchievement("FOR_THE_BOSS");
-        }
-
     }
 
 
@@ -397,18 +358,6 @@ public abstract class SpawnedSlime
     public void activateEffectUnique() {
     }
 
-
-    /*
-    public void updateIntentImage() {
-        if (this.beingStunned) {
-            this.intentImage = new Texture("images/stslib/powers/32/stun.png");
-        } else {
-            // Reset to the default intent image for this slime type
-            this.intentImage = new Texture("images/stslib/powers/32/stun.png");
-        }
-    }
-
-     */
 
     public void playChannelSFX() {
 
@@ -516,35 +465,26 @@ public abstract class SpawnedSlime
 
 
     public void renderText(SpriteBatch sb) {
-        if (this.beingStunned) {
-            // Render stun effect
-            sb.setColor(Settings.CREAM_COLOR);
-            sb.draw(ImageMaster.INTENT_STUN,
-                    this.cX - 32.0F,
-                    this.cY - 32.0F + this.bobEffect.y - 30.0F * Settings.scale, // Added offset here
-                    32.0F, 32.0F,
-                    64.0F, 64.0F,
-                    Settings.scale, Settings.scale,
-                    0.0F, 0, 0,
-                    64, 64,
-                    false, false);
+        if (this.extraFontColor != null) {
+
+
+            float fontOffset = 26 * Settings.scale;
+            if (this.passiveAmount > 9) fontOffset = fontOffset + (6 * Settings.scale);
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + "/", this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
+
+
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.debuffAmount + this.slimeBonus), this.cX + this.NUM_X_OFFSET + fontOffset, this.cY + this.NUM_Y_OFFSET + 1F, this.extraFontColor, this.fontScale);
+
+        } else if (this instanceof PoisonSlime) {
+
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + " All", this.cX + this.NUM_X_OFFSET - (Settings.scale * 0.01F), this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
         } else {
-            // Original text rendering logic
-            if (this.extraFontColor != null) {
-                float fontOffset = 26 * Settings.scale;
-                if (this.passiveAmount > 9) fontOffset = fontOffset + (6 * Settings.scale);
-                FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + "/", this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
-                FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.debuffAmount + this.slimeBonus), this.cX + this.NUM_X_OFFSET + fontOffset, this.cY + this.NUM_Y_OFFSET + 1F, this.extraFontColor, this.fontScale);
-            } else if (this instanceof PoisonSlime) {
-                FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + " All", this.cX + this.NUM_X_OFFSET - (Settings.scale * 0.01F), this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
-            } else {
-                FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.passiveAmount), this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
-            }
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.passiveAmount), this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
+
         }
     }
 
 }
-
 
 
 

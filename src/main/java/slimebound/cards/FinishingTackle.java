@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 import slimebound.SlimeboundMod;
-import slimebound.actions.StunSlimeAction;
 import slimebound.actions.TackleSelfDamageAction;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PreventTackleDamagePower;
@@ -47,7 +46,7 @@ public class FinishingTackle extends AbstractSlimeboundCard {
     public FinishingTackle() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
         tags.add(SlimeboundMod.TACKLE);
-        this.baseDamage = 10;
+        this.baseDamage = 11;
         baseSelfDamage = this.selfDamage = 3;
         baseMagicNumber = magicNumber = 2;
         SlimeboundMod.loadJokeCardImage(this, "FinishingTackle.png");
@@ -55,7 +54,8 @@ public class FinishingTackle extends AbstractSlimeboundCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        AbstractDungeon.actionManager.addToBottom(new StunSlimeAction());
+        if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
+            addToBot(new TackleSelfDamageAction(new DamageInfo(p, selfDamage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SMASH));
         if (m.hasPower(SlimedPower.POWER_ID)) {
             AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, p, new VulnerablePower(m, this.magicNumber, false), this.magicNumber, true, AbstractGameAction.AttackEffect.NONE));
         }
@@ -78,5 +78,4 @@ public class FinishingTackle extends AbstractSlimeboundCard {
         }
     }
 }
-
 

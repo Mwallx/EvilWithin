@@ -39,25 +39,21 @@ public class ChampSlime
     public void postSpawnEffects() {
         this.crownVFX = new CrownParticle(this);
         if(CharacterSelectScreenPatches.characters[1].isOriginal()){
-        AbstractDungeon.effectList.add(this.crownVFX);
+            AbstractDungeon.effectList.add(this.crownVFX);
         }
     }
 
 
     public void updateDescription() {
-        if (this.beingStunned) {
-            this.description = this.stunnedDescription;
-        } else {
-            this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1] + this.debuffAmount + this.descriptions[2];
-        }
+        this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1] + this.debuffAmount + this.descriptions[2];
     }
 
 
     public void activateEffectUnique() {
 
-        if (!beingStunned) {
-            AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_HEAVY, this, false, false, false, debuffAmount, false, 0, false, false, true, false, false));
-        }
+
+        AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_HEAVY, this, false, false, false, debuffAmount, false, 0, false, false, true, false, false));
+
     }
 
     @Override
@@ -68,7 +64,7 @@ public class ChampSlime
 
     public void cleanUpVFX() {
         if(CharacterSelectScreenPatches.characters[1].isOriginal())
-        this.crownVFX.finish();
+            this.crownVFX.finish();
     }
 
     @Override
@@ -82,5 +78,4 @@ public class ChampSlime
         return new ChampSlime();
     }
 }
-
 

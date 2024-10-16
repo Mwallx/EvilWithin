@@ -16,16 +16,13 @@ public class BronzeSlime
     public static final String ID = "Slimebound:BronzeSlime";
     public static final String atlasString = SlimeboundMod.getResourcePath("orbs/bronze.atlas");
     public static final String skeletonString = "images/monsters/theBottom/slimeAltM/skeleton.json";
-    public boolean stunned;
+
+    public boolean stunned = false;
     public BronzeSlime() {
 
         super(ID, new Color(1.0F, 217F / 255F, 70F / 255F, 100F), atlasString, skeletonString, true, true, 10, 0, false, new Color(.63F, .58F, .41F, 1), SlimeFlareEffect.OrbFlareColor.BRONZE, new Texture("slimeboundResources/SlimeboundImages/orbs/attackDefend.png"));
         //this.extraFontColor = Color.ROYAL;
         spawnVFX();
-    }
-
-    public void setStunned(boolean stunned) {
-        this.stunned = stunned;
     }
 
     public void squish(){
@@ -38,26 +35,18 @@ public class BronzeSlime
         stunned = false;
     }
 
-    @Override
     public void updateDescription() {
-        if (this.beingStunned) {
-            this.description = this.stunnedDescription;
-        } else {
-            // Implement the normal description logic here
-            this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1];
-        }
+        this.description = this.descriptions[0] + this.passiveAmount + this.descriptions[1];
     }
 
 
     public void activateEffectUnique() {
-        if (!beingStunned) {
-            AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_LIGHT, this, false, false, false, 0, true, this.debuffAmount, false, true));
-        }
+        AbstractDungeon.actionManager.addToBottom(new SlimeAutoAttack(AbstractDungeon.player, this.passiveAmount, AbstractGameAction.AttackEffect.BLUNT_LIGHT, this, false, false, false, 0, true, this.debuffAmount, false, true));
+
     }
 
     public AbstractOrb makeCopy() {
         return new BronzeSlime();
     }
 }
-
 

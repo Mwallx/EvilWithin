@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
 import slimebound.actions.CommandAction;
-import slimebound.actions.StunSlimeAction;
 import slimebound.actions.TackleSelfDamageAction;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PreventTackleDamagePower;
@@ -46,7 +45,7 @@ public class ForwardTackle extends AbstractSlimeboundCard {
         tags.add(SlimeboundMod.TACKLE);
 
 
-        this.baseDamage = 16;
+        this.baseDamage = 15;
         baseSelfDamage = this.selfDamage = 3;
         SlimeboundMod.loadJokeCardImage(this, "ForwardTackle.png");
 
@@ -56,7 +55,8 @@ public class ForwardTackle extends AbstractSlimeboundCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        AbstractDungeon.actionManager.addToBottom(new StunSlimeAction());
+        if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
+            addToBot(new TackleSelfDamageAction(new DamageInfo(p, selfDamage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SMASH));
         addToBot(new CommandAction());
         addToBot(new CommandAction());
         if (upgraded) addToBot(new CommandAction());
@@ -68,11 +68,10 @@ public class ForwardTackle extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(4);
+            upgradeDamage(2);
             rawDescription = UPGRADED_DESCRIPTION;
             initializeDescription();
         }
     }
 }
-
 

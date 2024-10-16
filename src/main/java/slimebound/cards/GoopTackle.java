@@ -13,7 +13,6 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
-import slimebound.actions.StunSlimeAction;
 import slimebound.actions.TackleSelfDamageAction;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PreventTackleDamagePower;
@@ -47,7 +46,7 @@ public class GoopTackle extends AbstractSlimeboundCard {
 
     public GoopTackle() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        this.baseDamage = 10;
+        this.baseDamage = 12;
         baseSelfDamage = this.selfDamage = 3;
         tags.add(SlimeboundMod.TACKLE);
         SlimeboundMod.loadJokeCardImage(this, "GoopTackle.png");
@@ -55,7 +54,8 @@ public class GoopTackle extends AbstractSlimeboundCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         addToBot(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        AbstractDungeon.actionManager.addToBottom(new StunSlimeAction());
+        if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
+            addToBot(new TackleSelfDamageAction(new DamageInfo(p, selfDamage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SMASH));
 
         ArrayList<AbstractCard> qCardList = new ArrayList<>();
         for (AbstractCard q : CardLibrary.getAllCards()) {
@@ -75,9 +75,8 @@ public class GoopTackle extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(7);
+            upgradeDamage(4);
         }
     }
 }
-
 

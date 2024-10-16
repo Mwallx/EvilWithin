@@ -19,7 +19,6 @@ import downfall.relics.HeartBlessingGreen;
 import downfall.relics.HeartBlessingRed;
 import downfall.util.TextureLoader;
 import downfall.vfx.campfire.BustKeyEffect;
-import slimebound.relics.GreedOozeRelic;
 
 public class BustKeyOption extends AbstractCampfireOption {
     private static final UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(downfallMod.makeID("BustKeyButton"));
@@ -38,13 +37,13 @@ public class BustKeyOption extends AbstractCampfireOption {
     public BustKeyOption(Keys key) {
         this.key = key;
         if (AbstractDungeon.player.hasRelic(Ectoplasm.ID)) soulToCost = 0;
-        if (AbstractDungeon.player.gold < soulToCost ||
-                (AbstractDungeon.player.hasRelic(GreedOozeRelic.ID) && GreedOozeRelic.wasKeyBrokenByGreedOoze())) {
+        if (AbstractDungeon.player.gold < soulToCost) {
             this.usable = false;
+            updateImage(key);
         } else {
             this.usable = true;
+            updateImage(key);
         }
-        updateImage(key);
     }
 
 
@@ -54,9 +53,6 @@ public class BustKeyOption extends AbstractCampfireOption {
         } else {
             this.description = TEXT[3];
         }
-
-        boolean greedOozeBroke = AbstractDungeon.player.hasRelic(GreedOozeRelic.ID) && GreedOozeRelic.wasKeyBrokenByGreedOoze();
-
         switch (key) {
             case SAPPHIRE:
                 this.label = TEXT[1];
@@ -68,8 +64,6 @@ public class BustKeyOption extends AbstractCampfireOption {
                 if (!this.used) {
                     if (this.usable) {
                         this.description += TEXT[5];
-                    } else if (greedOozeBroke) {
-                        this.description = TEXT[7];
                     } else {
                         this.description = TEXT[8] + soulToCost + TEXT[9];
                     }
@@ -87,8 +81,6 @@ public class BustKeyOption extends AbstractCampfireOption {
                 if (!this.used) {
                     if (this.usable) {
                         this.description += TEXT[6];
-                    } else if (greedOozeBroke) {
-                        this.description = TEXT[7];
                     } else {
                         this.description = TEXT[8] + soulToCost + TEXT[9];
                     }
@@ -106,8 +98,6 @@ public class BustKeyOption extends AbstractCampfireOption {
                 if (!this.used) {
                     if (this.usable) {
                         this.description += TEXT[4];
-                    } else if (greedOozeBroke) {
-                        this.description = TEXT[7];
                     } else {
                         this.description = TEXT[8] + soulToCost + TEXT[9];
                     }
@@ -121,11 +111,14 @@ public class BustKeyOption extends AbstractCampfireOption {
         float hackScale = (float) ReflectionHacks.getPrivate(this, AbstractCampfireOption.class, "scale");
 
         if (this.hb.hovered) {
+
             if (!this.hb.clickStarted) {
                 ReflectionHacks.setPrivate(this, AbstractCampfireOption.class, "scale", MathHelper.scaleLerpSnap(hackScale, Settings.scale));
                 ReflectionHacks.setPrivate(this, AbstractCampfireOption.class, "scale", MathHelper.scaleLerpSnap(hackScale, Settings.scale));
+
             } else {
                 ReflectionHacks.setPrivate(this, AbstractCampfireOption.class, "scale", MathHelper.scaleLerpSnap(hackScale, 0.9F * Settings.scale));
+
             }
         } else {
             ReflectionHacks.setPrivate(this, AbstractCampfireOption.class, "scale", MathHelper.scaleLerpSnap(hackScale, 0.9F * Settings.scale));
@@ -134,21 +127,18 @@ public class BustKeyOption extends AbstractCampfireOption {
         super.update();
 
         if (!this.used) {
-            if ((AbstractDungeon.player.gold < soulToCost ||
-                    (AbstractDungeon.player.hasRelic(GreedOozeRelic.ID) && GreedOozeRelic.wasKeyBrokenByGreedOoze()))
-                    && this.usable) {
+            if (AbstractDungeon.player.gold < soulToCost && this.usable) {
                 this.usable = false;
                 updateImage(key);
             }
-            if (AbstractDungeon.player.gold >= soulToCost &&
-                    !(AbstractDungeon.player.hasRelic(GreedOozeRelic.ID) && GreedOozeRelic.wasKeyBrokenByGreedOoze()) &&
-                    !this.usable) {
+            if (AbstractDungeon.player.gold >= soulToCost && !this.usable) {
                 this.usable = true;
                 updateImage(key);
             }
         }
 
         CampfireUI campfire = ((RestRoom) AbstractDungeon.getCurrRoom()).campfireUI;
+
 
         if (this.used && !this.hacked) {
             this.hacked = true;
@@ -157,9 +147,11 @@ public class BustKeyOption extends AbstractCampfireOption {
             campfire.confirmButton.hide();
             campfire.confirmButton.hideInstantly();
             campfire.confirmButton.isDisabled = true;
+
             AbstractDungeon.overlayMenu.proceedButton.hide();
             AbstractDungeon.overlayMenu.proceedButton.hideInstantly();
             AbstractDungeon.getCurrRoom().phase = AbstractRoom.RoomPhase.INCOMPLETE;
+
         }
     }
 

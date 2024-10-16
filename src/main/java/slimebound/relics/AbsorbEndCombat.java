@@ -6,14 +6,13 @@ import com.megacrit.cardcrawl.actions.common.RelicAboveCreatureAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import slimebound.SlimeboundMod;
-import slimebound.actions.SlimeSpawnAction;
 
 public class AbsorbEndCombat extends CustomRelic {
     public static final String ID = "Slimebound:AbsorbEndCombat";
     public static final String IMG_PATH = "relics/heartofgoo.png";
     public static final String OUTLINE_IMG_PATH = "relics/heartofgooOutline.png";
-    private static final int MAX_SLIMES_PER_COMBAT = 3;
+    private static final int HP_PER_SLURP = 2;
+    private static final int HP_PER_COMBAT = 8;
 
     public AbsorbEndCombat() {
         super(ID, new Texture(slimebound.SlimeboundMod.getResourcePath(IMG_PATH)), new Texture(slimebound.SlimeboundMod.getResourcePath(OUTLINE_IMG_PATH)),
@@ -28,17 +27,17 @@ public class AbsorbEndCombat extends CustomRelic {
     @Override
     public void atBattleStart() {
         grayscale = false;
-        counter = MAX_SLIMES_PER_COMBAT;
+        counter = HP_PER_COMBAT;
     }
 
     @Override
     public void onTrigger() {
-        int bonus = 0;
-        if (counter > 0) {
+        int realAmount = Math.min(HP_PER_SLURP, counter);
+        if (realAmount > 0) {
             flash();
             addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
-            AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new slimebound.orbs.PoisonSlime(), false, true, 0, bonus));
-            counter--;
+            addToBot(new com.megacrit.cardcrawl.actions.common.HealAction(AbstractDungeon.player, AbstractDungeon.player, realAmount));
+            counter -= realAmount;
             if (counter == 0) {
                 grayscale = true;
             }
