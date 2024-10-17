@@ -21,6 +21,7 @@ public class ShieldSlime extends SpawnedSlime {
         super(ID, new Color(0f, 1f, 1.00F, 100F), atlasString, skeletonString, false, false, 0, 3, false, new Color(0F, .4F, 1F, 1), SlimeFlareEffect.OrbFlareColor.LICKING, new Texture("slimeboundResources/SlimeboundImages/orbs/attackDefend.png"));
         this.debuffAmount = 3;
         this.extraFontColor = Color.ROYAL;
+        this.useDebuffForDescription = true;
         spawnVFX();
     }
 

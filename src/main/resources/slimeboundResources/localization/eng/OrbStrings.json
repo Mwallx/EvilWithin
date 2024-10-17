@@ -20,6 +20,13 @@
       " damage at the start of your turn. When upgraded, increase damage by #b3."
     ]
   },
+  "Slimebound:GeneralSlime": {
+    "NAME": "General Slime",
+    "DESCRIPTION": [
+      "#yCommands #b",
+      " random other Slimes at the start of your turn or when Commanded."
+    ]
+  },
   "Slimebound:ScrapOozeSlime": {
     "NAME": "Scrap Ooze",
     "DESCRIPTION": [
@@ -59,14 +66,14 @@
     "NAME": "Guerilla Slime",
     "DESCRIPTION": [
       "Deals #b",
-      " damage to ALL enemies at the start of your turn. When upgraded, increase Goop by #b3."
+      " damage to ALL enemies at the start of your turn. When upgraded, increase damage by #b2."
     ]
   },
   "Slimebound:SlimingSlime": {
     "NAME": "Mire Slime",
     "DESCRIPTION": [
       "Applies #b",
-      " #yGoop at the start of your turn."
+      " #yGoop at the start of your turn. When upgraded, increase Goop by #b3."
     ]
   },
   "Slimebound:HexSlime": {

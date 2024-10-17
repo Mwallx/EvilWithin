@@ -21,6 +21,7 @@ public class SlimingSlime extends SpawnedSlime {
         super(ID, new Color(1.0F, .5F, 1.0F, 100F), atlasString, skeletonString, false, true, 0, 5, false, new Color(.6F, .47F, .59F, 1), SlimeFlareEffect.OrbFlareColor.SLIMING, new Texture("slimeboundResources/SlimeboundImages/orbs/debuff2.png"));
         this.extraFontColor = new Color(.7F, .3F, .7F, 1F);
         this.debuffAmount = 5;
+        this.useDebuffForDescription = true;
         spawnVFX();
     }
 
