@@ -1,8 +1,6 @@
 package slimebound.cards;
 
 
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -11,7 +9,9 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
 import slimebound.actions.CommandAction;
+import slimebound.actions.RotateAction;
 import slimebound.actions.SlimeSpawnAction;
+import slimebound.orbs.PoisonSlime;
 import slimebound.patches.AbstractCardEnum;
 
 
@@ -39,24 +39,22 @@ public class SplitAcid extends AbstractSlimeboundCard {
     public SplitAcid() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
 
-
         this.baseDamage = 7;
-        this.exhaust = true;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 0;
         this.isMultiDamage = true;
         SlimeboundMod.loadJokeCardImage(this, "SplitAcid.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int bonus = 0;
-        //AbstractDungeon.actionManager.addToBottom(new DamageAllEnemiesAction(p, this.multiDamage, this.damageTypeForTurn, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
         AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new slimebound.orbs.PoisonSlime(), false, true, 0, bonus));
-        for (int i = 0; i < this.magicNumber; i++) {
+        AbstractDungeon.actionManager.addToBottom(new RotateAction(PoisonSlime.class));
+
+        if (this.upgraded) {
             addToBot(new CommandAction());
         }
 
         checkMinionMaster();
-
     }
 
     public AbstractCard makeCopy() {
@@ -66,10 +64,8 @@ public class SplitAcid extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
-
-
+            this.rawDescription = UPGRADED_DESCRIPTION;
+            initializeDescription();
         }
     }
 }
-

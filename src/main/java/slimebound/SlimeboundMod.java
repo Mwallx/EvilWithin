@@ -36,6 +36,7 @@ import expansioncontent.relics.StudyCardRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimebound.actions.SlimeSpawnAction;
+import slimebound.actions.TriggerSpecificSlimeAttackAction;
 import slimebound.cards.*;
 import slimebound.characters.SlimeboundCharacter;
 import slimebound.events.*;
@@ -618,11 +619,24 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
 
     public void receiveCardUsed(AbstractCard c) {
-
         if (c.type == AbstractCard.CardType.ATTACK) {
             ++attacksPlayedThisTurn;
         }
 
+        // Check if the card is a Tackle
+        if (c.hasTag(SlimeboundMod.TACKLE)) {
+            // Get the player
+            AbstractPlayer p = AbstractDungeon.player;
+
+            // Iterate through all orbs
+            for (AbstractOrb orb : p.orbs) {
+                // Check if the orb is a RecklessSlime
+                if (orb instanceof RecklessSlime) {
+                    // Trigger the RecklessSlime's attack
+                    AbstractDungeon.actionManager.addToBottom(new TriggerSpecificSlimeAttackAction((SpawnedSlime)orb));
+                }
+            }
+        }
     }
 
 

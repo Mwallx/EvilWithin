@@ -156,9 +156,9 @@
     "DESCRIPTION": "Deal !D! damage to ALL enemies. NL If Fatal, raise your Max HP by !M!. NL Exhaust."
   },
   "Slimebound:MassRepurpose": {
-    "NAME": "Mass Repurpose",
-    "DESCRIPTION": "slimeboundmod:Absorb ALL Slimes. Split into a random slimeboundmod:Specialist for each. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Absorb ALL Slimes. Split into a random slimeboundmod:Specialist for each. slimeboundmod:Command them. NL Exhaust."
+    "NAME": "Mass Upgrade",
+    "DESCRIPTION": "slimeboundmod:Split into one of each Slime you already have.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Split twice into one of each Slime you already have."
   },
   "Slimebound:MegaLick": {
     "NAME": "Mega-Licks",
@@ -321,13 +321,13 @@
   },
   "Slimebound:SplitAcid": {
     "NAME": "Split: Guerilla",
-    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Guerilla_Slime. NL slimeboundmod:Command !M! times. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Guerilla_Slime. NL slimeboundmod:Command three times. NL Exhaust."
+    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Guerilla_Slime. NL slimeboundmod:Rotate it to the front.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Guerilla_Slime. NL slimeboundmod:Rotate it to the front. NL slimeboundmod:Command."
   },
   "Slimebound:SplitBruiser": {
     "NAME": "Split: Bruiser",
-    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Bruiser_Slime. NL slimeboundmod:Command !M! times. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Bruiser_Slime. NL slimeboundmod:Command three times. NL Exhaust."
+    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Bruiser_Slime. NL slimeboundmod:Rotate it to the front.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Bruiser_Slime. NL slimeboundmod:Rotate it to the front. NL slimeboundmod:Command."
   },
   "Slimebound:SplitGreed": {
     "NAME": "Revive Greed",
@@ -335,13 +335,13 @@
   },
   "Slimebound:SplitLeeching": {
     "NAME": "Split: Leeching",
-    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Leeching_Slime. NL slimeboundmod:Command !M! times. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Leeching_Slime. NL slimeboundmod:Command three times. NL Exhaust."
+    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Leeching_Slime. NL slimeboundmod:Rotate it to the front.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Leeching_Slime. NL slimeboundmod:Rotate it to the front. NL slimeboundmod:Command."
   },
   "Slimebound:SplitMire": {
     "NAME": "Split: Mire",
-    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Mire_Slime. NL slimeboundmod:Command !M! times. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Mire_Slime. NL slimeboundmod:Command three times. NL Exhaust."
+    "DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Mire_Slime. NL slimeboundmod:Rotate it to the front.",
+    "UPGRADE_DESCRIPTION": "slimeboundmod:Split into a slimeboundmod:Mire_Slime. NL slimeboundmod:Rotate it to the front. NL slimeboundmod:Command."
   },
   "Slimebound:SplitScrap": {
     "NAME": "Revive Scrap",

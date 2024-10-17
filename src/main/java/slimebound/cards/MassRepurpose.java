@@ -17,11 +17,14 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import slimebound.SlimeboundMod;
 import slimebound.actions.CommandAction;
 import slimebound.actions.MassRepurposeAction;
+import slimebound.actions.SlimeSpawnAction;
 import slimebound.actions.TriggerSlimeAttacksAction;
 import slimebound.orbs.SpawnedSlime;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PotencyPower;
 import sneckomod.SneckoMod;
+
+import java.util.ArrayList;
 
 
 public class MassRepurpose extends AbstractSlimeboundCard {
@@ -50,21 +53,32 @@ public class MassRepurpose extends AbstractSlimeboundCard {
         this.baseMagicNumber = magicNumber = 2;
         this.exhaust = true;
         SlimeboundMod.loadJokeCardImage(this, "MassRepurpose.png");
-
-
-       // this.tags.add(SneckoMod.BANNEDFORSNECKO);
-
-//         this.tags.add(CardTags.HEALING);
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        for (AbstractOrb o : p.orbs){
+        ArrayList<String> uniqueSlimes = new ArrayList<>();
+
+        // Identify unique slimes
+        for (AbstractOrb o : p.orbs) {
             if (o instanceof SpawnedSlime) {
-                AbstractDungeon.actionManager.addToBottom(new EvokeSpecificOrbAction(o));
-                SlimeboundMod.spawnSpecialistSlime();
+                String slimeType = ((SpawnedSlime) o).getSlimeType();
+                if (!uniqueSlimes.contains(slimeType)) {
+                    uniqueSlimes.add(slimeType);
+                }
             }
         }
-        if (upgraded) AbstractDungeon.actionManager.addToBottom(new TriggerSlimeAttacksAction(p));
+
+        // Spawn one of each unique slime
+        for (String slimeType : uniqueSlimes) {
+            AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
+        }
+
+        // Repeat the process if upgraded
+        if (upgraded) {
+            for (String slimeType : uniqueSlimes) {
+                AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
+            }
+        }
     }
 
     public void upgrade() {
@@ -75,5 +89,3 @@ public class MassRepurpose extends AbstractSlimeboundCard {
         }
     }
 }
-
-

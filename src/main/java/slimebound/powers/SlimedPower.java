@@ -10,16 +10,21 @@ import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.PoisonPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimebound.SlimeboundMod;
+import slimebound.actions.TriggerSpecificSlimeAttackAction;
 import slimebound.cards.AfterDinnerTackle;
 import slimebound.cards.OneTwoCombo;
+import slimebound.orbs.HungrySlime;
+import slimebound.orbs.SpawnedSlime;
 import slimebound.relics.AbsorbEndCombat;
 import slimebound.relics.AbsorbEndCombatUpgraded;
 import slimebound.vfx.FakeFlashAtkImgEffect;
@@ -109,15 +114,25 @@ public class SlimedPower extends AbstractPower {
             if (this.source.hasPower(GluttonyPower.POWER_ID)) {
                 ((GluttonyPower) this.source.getPower(GluttonyPower.POWER_ID)).activate();
             }
-        }
 
-        for (AbstractCard q : AbstractDungeon.player.discardPile.group) {
-            if (q instanceof AfterDinnerTackle) {
-                ((AfterDinnerTackle) q).onConsume();
+           // triggerHungrySlimes();
+            for (AbstractCard q : AbstractDungeon.player.discardPile.group) {
+                if (q instanceof AfterDinnerTackle) {
+                    ((AfterDinnerTackle) q).onConsume();
+                }
             }
         }
 
         return super.onAttacked(info, damageAmount);
+    }
+
+    private void triggerHungrySlimes() {
+        AbstractPlayer p = AbstractDungeon.player;
+        for (AbstractOrb orb : p.orbs) {
+            if (orb instanceof HungrySlime) {
+                AbstractDungeon.actionManager.addToBottom(new TriggerSpecificSlimeAttackAction((SpawnedSlime)orb));
+            }
+        }
     }
 
     @Override

@@ -169,14 +169,14 @@ public abstract class SpawnedSlime
 
         } else {
             if (medScale) {
-                json.setScale(Settings.scale / .85F * .7F);
+                json.setScale(Settings.scale / .85F * .4F);
                 if (alt) {
                     this.yOffset = -7F * Settings.scale;
                 } else {
                     this.yOffset = -27F * Settings.scale;
                 }
             } else {
-                json.setScale(Settings.scale / .5F * .7F);
+                json.setScale(Settings.scale / .5F * .4F);
                 if (alt) {
                     this.yOffset = -17F * Settings.scale;
                 } else {
@@ -279,7 +279,6 @@ public abstract class SpawnedSlime
     }
     */
 
-
     public void applyFocus() {
         AbstractPower power = AbstractDungeon.player.getPower(PotencyPower.POWER_ID);
         int bonus = 0;
@@ -287,11 +286,11 @@ public abstract class SpawnedSlime
             bonus = AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount;
 
         if (power != null) {
-            this.passiveAmount = this.basePassiveAmount + power.amount + this.UniqueFocus + bonus;
-            this.debuffAmount = this.debuffBaseAmount + (power.amount / 2);
+            this.passiveAmount = Math.max(this.passiveAmount, this.basePassiveAmount + power.amount + this.UniqueFocus + bonus);
+            this.debuffAmount = Math.max(this.debuffAmount, this.debuffBaseAmount + (power.amount / 2));
         } else {
-            this.passiveAmount = this.basePassiveAmount + this.UniqueFocus + bonus;
-            this.debuffAmount = this.debuffBaseAmount;
+            this.passiveAmount = Math.max(this.passiveAmount, this.basePassiveAmount + this.UniqueFocus + bonus);
+            this.debuffAmount = Math.max(this.debuffAmount, this.debuffBaseAmount);
         }
         updateDescription();
     }
@@ -304,6 +303,7 @@ public abstract class SpawnedSlime
         updateDescription();
         //AbstractDungeon.effectsQueue.add(new FireBurstParticleEffect(this.cX, this.cY));
     }
+
 
     @Override
     public void updateDescription() {

@@ -9,13 +9,13 @@ import slimebound.SlimeboundMod;
 import slimebound.actions.SlimeAutoAttack;
 import slimebound.vfx.SlimeFlareEffect;
 
-public class RecklessSlime
+public class HungrySlime
         extends SpawnedSlime {
-    public static final String ID = "Slimebound:RecklessSlime";
-    public static final String atlasString = SlimeboundMod.getResourcePath("orbs/champ2.atlas");
-    public static final String skeletonString = "images/monsters/theBottom/slimeAltM/skeleton.json";
+    public static final String ID = "Slimebound:HungrySlime";
+    public static final String atlasString = SlimeboundMod.getResourcePath("orbs/cultist2.atlas");
+    public static final String skeletonString = "images/monsters/theBottom/slimeM/skeleton.json";
 
-    public RecklessSlime() {
+    public HungrySlime() {
 
         super(ID, new Color(1.0F, 100F / 255F, 100F / 255F, 100F), atlasString, skeletonString, false, true, 3, 0, true, new Color(.45F, .58F, .58F, 1), SlimeFlareEffect.OrbFlareColor.AGGRESSIVE, new Texture("slimeboundResources/SlimeboundImages/orbs/3.png"));
         spawnVFX();
@@ -41,7 +41,7 @@ public class RecklessSlime
 
 
     public AbstractOrb makeCopy() {
-        return new RecklessSlime();
+        return new HungrySlime();
     }
 }
 

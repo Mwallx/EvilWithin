@@ -11,7 +11,7 @@ import slimebound.vfx.SlimeFlareEffect;
 
 public class GeneralSlime extends SpawnedSlime {
     public static final String ID = "Slimebound:GeneralSlime";
-    public static final String atlasString = SlimeboundMod.getResourcePath("orbs/slowing.atlas");
+    public static final String atlasString = SlimeboundMod.getResourcePath("orbs/slowing2.atlas");
     public static final String skeletonString = "images/monsters/theBottom/slimeAltS/skeleton.json";
 
     public GeneralSlime() {

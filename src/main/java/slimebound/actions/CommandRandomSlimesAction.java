@@ -37,7 +37,7 @@ public class CommandRandomSlimesAction extends AbstractGameAction {
 
                 for (int i = 0; i < slimesToCommand; i++) {
                     AbstractOrb slimeToCommand = commandableSlimes.get(i);
-                    AbstractDungeon.actionManager.addToTop(new TrigggerSpecificSlimeAttackAction((SpawnedSlime)slimeToCommand));
+                    AbstractDungeon.actionManager.addToTop(new TriggerSpecificSlimeAttackAction((SpawnedSlime)slimeToCommand));
                 }
             }
         }

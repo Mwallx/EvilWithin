@@ -14,7 +14,7 @@
       "splitting"
     ],
     "PROPER_NAME": "Split",
-    "DESCRIPTION": "Spawn a Slime minion, who attacks at the start of each turn. NL If you try to Split into a Slime that already exists, Upgrade the existing one instead."
+    "DESCRIPTION": "Spawn a Slime, who takes action at the start of each turn. NL If you try to Split into a Slime that already exists, upgrade the existing one instead."
   },
   {
     "NAMES": [
@@ -206,5 +206,12 @@
     ],
     "PROPER_NAME": "Buried",
     "DESCRIPTION": "Buried cards will always be chosen last for random #yExhume effects."
+  },
+  {
+    "NAMES": [
+      "rotate"
+    ],
+    "PROPER_NAME": "Rotate",
+    "DESCRIPTION": "Move the frontmost slime to the back, unless otherwise specified."
   }
 ]

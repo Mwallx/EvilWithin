@@ -27,6 +27,13 @@
       " random other Slimes at the start of your turn or when Commanded."
     ]
   },
+  "Slimebound:RecklessSlime": {
+    "NAME": "Reckless Slime",
+    "DESCRIPTION": [
+      "Deals #b",
+      " damage at the start of your turn. Whenever you play a #yTackle, #yCommand this."
+    ]
+  },
   "Slimebound:ScrapOozeSlime": {
     "NAME": "Scrap Ooze",
     "DESCRIPTION": [

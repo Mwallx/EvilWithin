@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
 import slimebound.actions.CommandAction;
+import slimebound.actions.RotateAction;
 import slimebound.actions.SlimeSpawnAction;
 import slimebound.orbs.ShieldSlime;
 import slimebound.patches.AbstractCardEnum;
@@ -37,23 +38,21 @@ public class SplitLeeching extends AbstractSlimeboundCard {
 
     public SplitLeeching() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-
         this.baseBlock = 8;
-        this.magicNumber = this.baseMagicNumber = 2;
-        this.exhaust = true;
+        this.magicNumber = this.baseMagicNumber = 0;
         SlimeboundMod.loadJokeCardImage(this, "SplitLeeching.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int bonus = 0;
-        //AbstractDungeon.actionManager.addToBottom(new com.megacrit.cardcrawl.actions.common.GainBlockAction(p, p, this.block));
         AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new ShieldSlime(), false, true, 0, bonus));
-        for (int i = 0; i < this.magicNumber; i++) {
+        AbstractDungeon.actionManager.addToBottom(new RotateAction(ShieldSlime.class));
+
+        if (this.upgraded) {
             addToBot(new CommandAction());
         }
 
         checkMinionMaster();
-
     }
 
     public AbstractCard makeCopy() {
@@ -63,9 +62,8 @@ public class SplitLeeching extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
-
+            this.rawDescription = UPGRADED_DESCRIPTION;
+            initializeDescription();
         }
     }
 }
-
