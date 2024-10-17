@@ -72,7 +72,7 @@
   },
   "Slimebound:FlameTackle": {
     "NAME": "Flame Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage. NL Your \"Tackle\" cards deal !M! more damage this combat."
+    "DESCRIPTION": "Deal !D! damage. NL Gain !M! hermit:Bruise. NL Your \"Tackle\" cards deal !M! more damage this combat."
   },
   "Slimebound:FormOfPuddle": {
     "NAME": "Shape of Puddle",
@@ -106,9 +106,8 @@
     "DESCRIPTION": "Gain !B! Block. NL Deal !D! damage. NL slimeboundmod:Consume - Increase this card's effects by !M! this combat."
   },
   "Slimebound:HauntingLick": {
-    "NAME": "Haunting Lick",
-    "DESCRIPTION": "Apply !M! Vulnerable and !slime! slimeboundmod:Goop. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Apply !M! Vulnerable and !slime! slimeboundmod:Goop. NL Draw a card. NL Exhaust."
+    "NAME": "Haunting Licks",
+    "DESCRIPTION": "Whenever you play a *Lick, apply !M! Vulnerable."
   },
   "Slimebound:HungryTackle": {
     "NAME": "Hungry Tackle",
@@ -162,9 +161,8 @@
     "UPGRADE_DESCRIPTION": "slimeboundmod:Absorb ALL Slimes. Split into a random slimeboundmod:Specialist for each. slimeboundmod:Command them. NL Exhaust."
   },
   "Slimebound:MegaLick": {
-    "NAME": "Mega-Lick",
-    "DESCRIPTION": "Apply !M! Weak and !slime! slimeboundmod:Goop to ALL enemies. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Apply !M! Weak and !slime! slimeboundmod:Goop to ALL enemies. NL Draw a card. NL Exhaust."
+    "NAME": "Mega-Licks",
+    "DESCRIPTION": "Whenever you play a *Lick, apply !M! Weak."
   },
   "Slimebound:MinionMaster": {
     "NAME": "Minion Master",
@@ -172,9 +170,8 @@
     "UPGRADE_DESCRIPTION": "Innate. NL Whenever you play a card with slimeboundmod:Command, slimeboundmod:Command again."
   },
   "Slimebound:Nibble": {
-    "NAME": "Nibble and Lick",
-    "DESCRIPTION": "Deal !D! damage. NL Gain a *Lick. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Deal !D! damage. NL Gain a *Lick. NL Draw a card. NL Exhaust."
+    "NAME": "Nibble Licks",
+    "DESCRIPTION": "Whenever you play a *Lick, deal !M! damage."
   },
   "Slimebound:OneTwoCombo": {
     "NAME": "One-Two Combo",
@@ -260,9 +257,8 @@
     "DESCRIPTION": "Deal !D! damage to ALL enemies. NL You do not take damage from the next !M! \"Tackle\" cards."
   },
   "Slimebound:SamplingLick": {
-    "NAME": "Sampling Lick",
-    "DESCRIPTION": "Apply !slime! slimeboundmod:Goop. NL Gain !B! Block. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "Apply !slime! slimeboundmod:Goop. NL Gain !B! Block. NL Draw a card. NL Exhaust."
+    "NAME": "Sampling Licks",
+    "DESCRIPTION": "Whenever you play a *Lick, gain !M! Block."
   },
   "Slimebound:Schlurp": {
     "NAME": "Schlurp",
@@ -285,6 +281,14 @@
   "Slimebound:SlimeBrawl": {
     "NAME": "Slime Brawl",
     "DESCRIPTION": "Play the top card of your draw pile. Repeat for each of your spawned Slimes. NL Exhaust."
+  },
+  "Slimebound:PainToPower": {
+    "NAME": "Pain To Power",
+    "DESCRIPTION": "At the end of your turn, gain 1 Strength for every 3 hermit:Bruise you have."
+  },
+  "Slimebound:BlockAndTackle": {
+    "NAME": "Block And Tackle",
+    "DESCRIPTION": "Deal !D! damage. NL Gain !B! Block. NL Gain !M! hermit:Bruise."
   },
   "Slimebound:SlimeCrush": {
     "NAME": "SLIME CRUSH!!!",
@@ -354,7 +358,11 @@
   },
   "Slimebound:Tackle": {
     "NAME": "Tackle",
-    "DESCRIPTION": "Deal !D! damage. NL Take !SlimeboundSelfharm! damage."
+    "DESCRIPTION": "Deal !D! damage. NL Gain !M! hermit:Bruise."
+  },
+  "Slimebound:AfterDinnerTackle": {
+    "NAME": "After-Dinner Tackle",
+    "DESCRIPTION": "Deal !D! damage. NL Gain !M! hermit:Bruise. NL Whenever you slimeboundmod:Consume, return this from the discard pile to your hand."
   },
   "Slimebound:TagTeam": {
     "NAME": "Glop Chop",

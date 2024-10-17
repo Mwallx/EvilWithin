@@ -394,6 +394,9 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new MassRepurpose());
         BaseMod.addCard(new DouseInSlime());
         BaseMod.addCard(new Chomp());
+        BaseMod.addCard(new AfterDinnerTackle());
+        BaseMod.addCard(new PainToPower());
+        BaseMod.addCard(new BlockAndTackle());
         BaseMod.addCard(new BestDefense());
         BaseMod.addCard(new OozeBath());
         //BaseMod.addCard(new zzzSoTasty());

@@ -1,38 +1,25 @@
 package slimebound.cards;
 
-
-import com.badlogic.gdx.graphics.Color;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.WeakPower;
 import slimebound.SlimeboundMod;
 import slimebound.patches.AbstractCardEnum;
-import slimebound.powers.MegaLickPower;
-import slimebound.powers.SlimedPower;
-import slimebound.vfx.LickEffect;
-import slimebound.vfx.SlimeDripsEffect;
+import slimebound.powers.PainToPowerPower;
 
-import static com.badlogic.gdx.graphics.Color.GREEN;
-
-
-public class MegaLick extends AbstractSlimeboundCard {
-    public static final String ID = "Slimebound:MegaLick";
+public class PainToPower extends AbstractSlimeboundCard {
+    public static final String ID = "Slimebound:PainToPower";
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = "cards/megalick.png";
+    public static final String IMG_PATH = "cards/paintopower.png";
     private static final CardType TYPE = CardType.POWER;
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
-    private static final int COST = 1;
+    private static final int COST = 2;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -42,24 +29,24 @@ public class MegaLick extends AbstractSlimeboundCard {
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
     }
 
-    public MegaLick() {
+    public PainToPower() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 1;
-        SlimeboundMod.loadJokeCardImage(this, "MegaLick.png");
+        this.magicNumber = this.baseMagicNumber = 3;
+        SlimeboundMod.loadJokeCardImage(this, "PainToPower.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        addToBot(new ApplyPowerAction(p, p, new MegaLickPower(p, this.magicNumber), this.magicNumber));
+        addToBot(new ApplyPowerAction(p, p, new PainToPowerPower(p, 1, this.magicNumber), 1));
     }
 
     public AbstractCard makeCopy() {
-        return new MegaLick();
+        return new PainToPower();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(0);
+            upgradeBaseCost(1);
             this.rawDescription = UPGRADED_DESCRIPTION;
             initializeDescription();
         }

@@ -36,6 +36,11 @@ public class AttackSlime
 
     }
 
+    public void upgrade() {
+        this.passiveAmount += 3;
+        updateDescription();
+    }
+
 
     public AbstractOrb makeCopy() {
         return new AttackSlime();

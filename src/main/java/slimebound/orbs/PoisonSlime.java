@@ -40,6 +40,11 @@ public class PoisonSlime
 
     }
 
+    public void upgrade() {
+        this.passiveAmount += 2;
+        updateDescription();
+    }
+
 
     public AbstractOrb makeCopy() {
         return new PoisonSlime();

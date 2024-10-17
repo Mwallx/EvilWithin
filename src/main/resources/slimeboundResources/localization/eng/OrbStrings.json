@@ -17,7 +17,7 @@
     "NAME": "Bruiser Slime",
     "DESCRIPTION": [
       "Deals #b",
-      " damage at the start of your turn."
+      " damage at the start of your turn. When upgraded, increase damage by #b3."
     ]
   },
   "Slimebound:ScrapOozeSlime": {
@@ -49,25 +49,23 @@
     ]
   },
   "Slimebound:ShieldSlime": {
-    "NAME": "Leeching Slime",
+    "NAME": "Armored Slime",
     "DESCRIPTION": [
-      "Deals #b",
-      " damage at the start of your turn and grants you #b",
-      " #yBlock."
+      "Grants you #b",
+      " #yBlock at the start of your turn. When upgraded, increase #yBlock by #b2."
     ]
   },
   "Slimebound:PoisonSlime": {
     "NAME": "Guerilla Slime",
     "DESCRIPTION": [
       "Deals #b",
-      " damage to ALL enemies at the start of your turn."
+      " damage to ALL enemies at the start of your turn. When upgraded, increase Goop by #b3."
     ]
   },
   "Slimebound:SlimingSlime": {
     "NAME": "Mire Slime",
     "DESCRIPTION": [
-      "Deals #b",
-      " damage and applies #b",
+      "Applies #b",
       " #yGoop at the start of your turn."
     ]
   },

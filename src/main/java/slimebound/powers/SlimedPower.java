@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -17,6 +18,8 @@ import com.megacrit.cardcrawl.powers.PoisonPower;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimebound.SlimeboundMod;
+import slimebound.cards.AfterDinnerTackle;
+import slimebound.cards.OneTwoCombo;
 import slimebound.relics.AbsorbEndCombat;
 import slimebound.relics.AbsorbEndCombatUpgraded;
 import slimebound.vfx.FakeFlashAtkImgEffect;
@@ -105,6 +108,12 @@ public class SlimedPower extends AbstractPower {
 
             if (this.source.hasPower(GluttonyPower.POWER_ID)) {
                 ((GluttonyPower) this.source.getPower(GluttonyPower.POWER_ID)).activate();
+            }
+        }
+
+        for (AbstractCard q : AbstractDungeon.player.discardPile.group) {
+            if (q instanceof AfterDinnerTackle) {
+                ((AfterDinnerTackle) q).onConsume();
             }
         }
 

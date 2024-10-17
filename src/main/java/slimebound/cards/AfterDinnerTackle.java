@@ -1,35 +1,27 @@
 package slimebound.cards;
 
-
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.combat.InflameEffect;
-import com.megacrit.cardcrawl.vfx.combat.SearingBlowEffect;
 import hermit.powers.Bruise;
 import slimebound.SlimeboundMod;
-import slimebound.actions.TackleSelfDamageAction;
+import slimebound.actions.ExhaustToHandDirectlyAction;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PreventTackleDamagePower;
-import slimebound.powers.TackleBuffPower;
-import slimebound.powers.TackleDebuffPower;
 
-
-public class FlameTackle extends AbstractSlimeboundCard {
-    public static final String ID = "Slimebound:FlameTackle";
+public class AfterDinnerTackle extends AbstractSlimeboundCard {
+    public static final String ID = "Slimebound:AfterDinnerTackle";
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = "cards/flametackle.png";
+    public static final String IMG_PATH = "cards/afterdinnertackle.png";
     private static final CardType TYPE = CardType.ATTACK;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    private static final CardRarity RARITY = CardRarity.COMMON;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
     private static final int COST = 0;
@@ -43,31 +35,29 @@ public class FlameTackle extends AbstractSlimeboundCard {
 
     }
 
-    public FlameTackle() {
+    public AfterDinnerTackle() {
+
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
         tags.add(SlimeboundMod.TACKLE);
         this.baseDamage = 9;
-        baseSelfDamage = this.selfDamage = 3;
-        this.magicNumber = this.baseMagicNumber = 2;
-        SlimeboundMod.loadJokeCardImage(this, "FlameTackle.png");
+        magicNumber = this.baseMagicNumber = 3;
+        SlimeboundMod.loadJokeCardImage(this, "Tackle.png");
+    }
+
+    public void onConsume() {
+        addToBot(new ExhaustToHandDirectlyAction(this));
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        if (m != null) {
-            this.addToBot(new VFXAction(new SearingBlowEffect(m.hb.cX, m.hb.cY, this.timesUpgraded * 3), 0.2F));
-        }
-        AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
+        AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
         if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
-            this.addToBot(new ApplyPowerAction(p, p, new Bruise(p, selfDamage), selfDamage, true, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        AbstractDungeon.actionManager.addToBottom(new VFXAction(p, new InflameEffect(p), 0.5F));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleBuffPower(p, p, this.magicNumber), this.magicNumber, true, AbstractGameAction.AttackEffect.NONE));
+            this.addToBot(new ApplyPowerAction(p, p, new Bruise(p, magicNumber), magicNumber, true, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
             upgradeDamage(3);
-            upgradeMagicNumber(1);
         }
     }
 }

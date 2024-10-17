@@ -278,6 +278,8 @@ public abstract class SpawnedSlime
     }
     */
 
+
+    /*
     public void applyFocus() {
         super.applyFocus();
         AbstractPower power = AbstractDungeon.player.getPower(PotencyPower.POWER_ID);
@@ -296,6 +298,8 @@ public abstract class SpawnedSlime
         }
         updateDescription();
     }
+
+     */
 
     public void applyUniqueFocus(int StrAmount) {
 
@@ -461,6 +465,10 @@ public abstract class SpawnedSlime
             }
             //this.hb.render(sb);
         }
+    }
+
+    public void upgrade() {
+
     }
 
 

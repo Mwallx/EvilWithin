@@ -65,70 +65,28 @@ public class SlimeSpawnAction extends AbstractGameAction {
         if (AbstractDungeon.player.maxOrbs > 0 || (AbstractDungeon.player.masterMaxOrbs == 0 && AbstractDungeon.player.maxOrbs == 0)) {
 
             int currentHealth = AbstractDungeon.player.currentHealth;
-
-            /*
-            int maxFortitudes = 0;
-            if (AbstractDungeon.player.hasPower("FirmFortitudePower"))
-                maxFortitudes = AbstractDungeon.player.getPower("FirmFortitudePower").amount;
-            if (AbstractDungeon.player.hasPower("Buffer"))
-                maxFortitudes = maxFortitudes + AbstractDungeon.player.getPower("Buffer").amount;
-
-
-            int usedFortitudes = 0;
-            */
-
-/*
-            if (SelfDamage) {
-
-                if (currentAmount >= currentHealth) {
-                    AbstractDungeon.effectList.add(new SpeechBubble(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 1.0F, "Need... health...", true));
-                    this.isDone = true;
-                    return;
-                }
-                if (currentAmount > 0) {
-                    ////SlimeboundMod.logger.info("Losing HP" + this.currentAmount);
-
-
-                    if (AbstractDungeon.player.chosenClass == SlimeboundEnum.SLIMEBOUND) {
-                        SlimeboundMod.disabledStrikeVFX = true;
+            if (this.orbType != null) {
+                // Check if the player already has this type of Slime
+                boolean slimeExists = false;
+                AbstractOrb existingSlime = null;
+                for (AbstractOrb orb : AbstractDungeon.player.orbs) {
+                    if (orb.getClass().equals(this.orbType.getClass())) {
+                        slimeExists = true;
+                        existingSlime = orb;
+                        break;
                     }
-                    ////SlimeboundMod.logger.info("No buffer, proceeding");
-
-
-                    //AbstractDungeon.player.damageFlash = true;
-                    //AbstractDungeon.player.damageFlashFrames = 4;
-
-                    ////SlimeboundMod.logger.info("Reducing max HP");
-                    int MaxHPActuallyLost = 4;
-                    if (AbstractDungeon.player.hasRelic(TarBlob.ID)) {
-                        MaxHPActuallyLost++;
-                        MaxHPActuallyLost++;
-                    }
-                    if (AbstractDungeon.player.maxHealth <= MaxHPActuallyLost) {
-                        MaxHPActuallyLost = AbstractDungeon.player.maxHealth - 1;
-                    }
-
-                    if (MaxHPActuallyLost > 0)
-                        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DuplicatedFormNoHealPower(AbstractDungeon.player, AbstractDungeon.player, MaxHPActuallyLost), MaxHPActuallyLost));
-
                 }
 
-            }
-            */
-            // AbstractDungeon.effectsQueue.add(new SlimeDripsEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, 0));
-
-            ////SlimeboundMod.logger.info("Channeling slime orb");
-            if (this.orbType == null) {
-
-                //OLD RANDOM, NOW UNUSED, CLEAN UP LATER
-
-            } else {
-
-                if (this.bonusUniqueFocus > 0) {
-                    ((SpawnedSlime) this.orbType).applyUniqueFocus(bonusUniqueFocus);
+                if (slimeExists && existingSlime instanceof SpawnedSlime) {
+                    // Upgrade existing Slime
+                    ((SpawnedSlime) existingSlime).upgrade();
+                } else {
+                    // Spawn new Slime as before
+                    if (this.bonusUniqueFocus > 0) {
+                        ((SpawnedSlime) this.orbType).applyUniqueFocus(bonusUniqueFocus);
+                    }
+                    AbstractDungeon.player.channelOrb(this.orbType);
                 }
-
-                AbstractDungeon.player.channelOrb(this.orbType);
                 for (AbstractCard q : AbstractDungeon.player.exhaustPile.group) {
                     if (q instanceof OneTwoCombo) {
                         ((OneTwoCombo) q).onSplit();
