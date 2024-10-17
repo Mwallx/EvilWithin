@@ -25,6 +25,7 @@ import slimebound.powers.PotencyPower;
 import sneckomod.SneckoMod;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class MassRepurpose extends AbstractSlimeboundCard {
@@ -51,31 +52,27 @@ public class MassRepurpose extends AbstractSlimeboundCard {
     public MassRepurpose() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
         this.baseMagicNumber = magicNumber = 2;
-        this.exhaust = true;
         SlimeboundMod.loadJokeCardImage(this, "MassRepurpose.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        ArrayList<String> uniqueSlimes = new ArrayList<>();
+        HashSet<String> uniqueSlimeTypes = new HashSet<>();
 
-        // Identify unique slimes
+        // Collect unique Slime types
         for (AbstractOrb o : p.orbs) {
             if (o instanceof SpawnedSlime) {
-                String slimeType = ((SpawnedSlime) o).getSlimeType();
-                if (!uniqueSlimes.contains(slimeType)) {
-                    uniqueSlimes.add(slimeType);
-                }
+                uniqueSlimeTypes.add(((SpawnedSlime) o).ID);
             }
         }
 
-        // Spawn one of each unique slime
-        for (String slimeType : uniqueSlimes) {
+        // Spawn one of each unique Slime type
+        for (String slimeType : uniqueSlimeTypes) {
             AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
         }
 
         // Repeat the process if upgraded
         if (upgraded) {
-            for (String slimeType : uniqueSlimes) {
+            for (String slimeType : uniqueSlimeTypes) {
                 AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
             }
         }
