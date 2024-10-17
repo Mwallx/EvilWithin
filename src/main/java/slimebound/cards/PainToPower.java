@@ -47,7 +47,6 @@ public class PainToPower extends AbstractSlimeboundCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeBaseCost(1);
-            this.rawDescription = UPGRADED_DESCRIPTION;
             initializeDescription();
         }
     }

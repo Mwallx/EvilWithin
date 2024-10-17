@@ -44,7 +44,7 @@
   },
   "Slimebound:DivideAndConquer": {
     "NAME": "Divide & Conquer",
-    "DESCRIPTION": "Deal !D! damage to a random enemy for each Slime. NL slimeboundmod:Absorb all Slimes. NL Exhaust."
+    "DESCRIPTION": "Deal !D! damage to a random enemy for each spawned Slime."
   },
   "Slimebound:DouseInSlime": {
     "NAME": "Douse in Slime",
@@ -248,9 +248,8 @@
     ]
   },
   "Slimebound:Repurpose": {
-    "NAME": "Repurpose",
-    "DESCRIPTION": "slimeboundmod:Absorb - Split into a random slimeboundmod:Specialist. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Absorb - Split into a random slimeboundmod:Specialist. NL slimeboundmod:Command. NL Exhaust."
+    "NAME": "I Choose You",
+    "DESCRIPTION": "slimeboundmod:Rotate. NL slimeboundmod:Split into the leading Slime !M! times. NL Exhaust."
   },
   "Slimebound:RollThrough": {
     "NAME": "Roll Through",
@@ -271,7 +270,7 @@
   },
   "Slimebound:ServeAndProtect": {
     "NAME": "Serve & Protect",
-    "DESCRIPTION": "Gain !B! Block and 1 bronze:Blur for each Slime. NL slimeboundmod:Absorb all Slimes. NL Exhaust."
+    "DESCRIPTION": "Gain !B! Block for each spawned Slime. NL Gain 1 bronze:Blur."
   },
   "Slimebound:SlimeBarrage": {
     "NAME": "Pile On!",
@@ -305,11 +304,7 @@
   },
   "Slimebound:SlimeTap": {
     "NAME": "Slime Tap",
-    "DESCRIPTION": "slimeboundmod:Absorb - Gain [E] and draw !M! cards. NL Exhaust.",
-    "UPGRADE_DESCRIPTION": "slimeboundmod:Absorb - Gain [E] [E] and draw !M! cards. NL Exhaust.",
-    "EXTENDED_DESCRIPTION": [
-      "Need... slimes..."
-    ]
+    "DESCRIPTION": "slimeboundmod:Rotate. NL Draw !M! cards."
   },
   "Slimebound:SpikyOuterGoop": {
     "NAME": "Goop Armor",

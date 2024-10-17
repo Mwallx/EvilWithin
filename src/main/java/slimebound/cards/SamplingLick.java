@@ -58,7 +58,6 @@ public class SamplingLick extends AbstractSlimeboundCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeBaseCost(0);
-            this.rawDescription = UPGRADED_DESCRIPTION;
             initializeDescription();
         }
     }

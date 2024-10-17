@@ -377,9 +377,9 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new SplitAcid());
         BaseMod.addCard(new SplitLeeching());
         BaseMod.addCard(new SplitLicking());
-        BaseMod.addCard(new ProtectTheBoss());
+      //  BaseMod.addCard(new ProtectTheBoss());
         //BaseMod.addCard(new slimebound.cards.zzzAbsorbAll());
-        BaseMod.addCard(new Overexert());
+       // BaseMod.addCard(new Overexert());
         BaseMod.addCard(new Split());
         //BaseMod.addCard(new SuperSplit());
         BaseMod.addCard(new LeadByExample());

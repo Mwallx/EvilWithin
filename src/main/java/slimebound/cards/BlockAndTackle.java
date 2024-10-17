@@ -56,7 +56,6 @@ public class BlockAndTackle extends AbstractSlimeboundCard {
             upgradeName();
             upgradeDamage(2);
             upgradeBlock(2);
-            this.rawDescription = UPGRADED_DESCRIPTION;
             initializeDescription();
         }
     }

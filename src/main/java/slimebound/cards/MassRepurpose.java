@@ -19,7 +19,7 @@ import slimebound.actions.CommandAction;
 import slimebound.actions.MassRepurposeAction;
 import slimebound.actions.SlimeSpawnAction;
 import slimebound.actions.TriggerSlimeAttacksAction;
-import slimebound.orbs.SpawnedSlime;
+import slimebound.orbs.*;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.PotencyPower;
 import sneckomod.SneckoMod;
@@ -66,14 +66,41 @@ public class MassRepurpose extends AbstractSlimeboundCard {
         }
 
         // Spawn one of each unique Slime type
-        for (String slimeType : uniqueSlimeTypes) {
-            AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
-        }
+        spawnUniqueSlimes(uniqueSlimeTypes);
 
         // Repeat the process if upgraded
         if (upgraded) {
-            for (String slimeType : uniqueSlimeTypes) {
-                AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(slimeType));
+            spawnUniqueSlimes(uniqueSlimeTypes);
+        }
+    }
+
+    private void spawnUniqueSlimes(HashSet<String> slimeTypes) {
+        for (String slimeID : slimeTypes) {
+            switch (slimeID) {
+                case AttackSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new AttackSlime(), false, true));
+                    break;
+                case ShieldSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new ShieldSlime(), false, true));
+                    break;
+                case SlimingSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new SlimingSlime(), false, true));
+                    break;
+                case PoisonSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new PoisonSlime(), false, true));
+                    break;
+                case GeneralSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new GeneralSlime(), false, true));
+                    break;
+                case RecklessSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new RecklessSlime(), false, true));
+                    break;
+                case HungrySlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new HungrySlime(), false, true));
+                    break;
+                case GreedOozeSlime.ID:
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new GreedOozeSlime(), false, true));
+                    break;
             }
         }
     }

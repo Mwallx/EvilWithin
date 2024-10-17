@@ -38,7 +38,6 @@ public class Nibble extends AbstractSlimeboundCard {
         if (!this.upgraded) {
             upgradeName();
             upgradeBaseCost(0);
-            this.rawDescription = cardStrings.UPGRADE_DESCRIPTION;
             initializeDescription();
         }
     }
