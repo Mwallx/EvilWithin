@@ -113,9 +113,6 @@ import downfall.potions.CursedFountainPotion;
 import downfall.relics.KnowingSkull;
 import downfall.relics.*;
 import downfall.util.*;
-import expansioncontent.Clashtastic;
-import expansioncontent.HexaghostChallenge;
-import expansioncontent.MemeChallenges;
 import expansioncontent.cardmods.PropertiesMod;
 import expansioncontent.expansionContentMod;
 import expansioncontent.patches.CenterGridCardSelectScreen;
@@ -144,7 +141,6 @@ import sneckomod.cards.unknowns.*;
 import sneckomod.potions.MuddlingPotion;
 import sneckomod.util.ColorfulCardReward;
 import sneckomod.util.UpgradedUnknownReward;
-import theHexaghost.CuratedChallengesHandler;
 import theHexaghost.HexaMod;
 import theHexaghost.TheHexaghost;
 import theHexaghost.potions.SoulburnPotion;
@@ -627,11 +623,6 @@ public class downfallMod implements OnPlayerDamagedSubscriber, OnStartBattleSubs
             GuardianMod.logger.info("gems saved");
             return new RewardSave(customReward.type.toString(), null);
         });
-
-        if (CuratedChallengesHandler.isCuratedChallengesLoaded()) {
-           // CuratedChallengesHandler.registerChallenge(new Clashtastic());
-           // CuratedChallengesHandler.registerChallenge(new MemeChallenges());
-        }
 
     }
 
