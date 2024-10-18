@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FireballEffect;
 import curatedchallenges.CuratedChallenges;
 import downfall.util.TextureLoader;
-import expansioncontent.HexaghostChallenge;
 import theHexaghost.GhostflameHelper;
 import theHexaghost.HexaMod;
 import theHexaghost.powers.BurnPower;

@@ -14,8 +14,6 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.vfx.combat.ScreenOnFireEffect;
-import curatedchallenges.CuratedChallenges;
-import expansioncontent.HexaghostChallenge;
 import expansioncontent.util.DownfallAchievementUnlocker;
 import expansioncontent.util.DownfallAchievementVariables;
 import downfall.util.TextureLoader;
