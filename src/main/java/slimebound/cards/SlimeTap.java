@@ -26,7 +26,7 @@ public class SlimeTap extends AbstractSlimeboundCard {
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.SELF;
-    private static final int COST = 0;
+    private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
 
     static {

@@ -1,30 +1,28 @@
 package slimebound.cards;
 
-
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.defect.DecreaseMaxOrbAction;
+import com.megacrit.cardcrawl.actions.common.ExhaustSpecificCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.DexterityPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
 import slimebound.SlimeboundMod;
+import slimebound.actions.SlimeSpawnAction;
+import slimebound.orbs.GeneralSlime;
+import slimebound.actions.RotateAction;
 import slimebound.patches.AbstractCardEnum;
 
-
-public class Grow extends AbstractSlimeboundCard {
-    public static final String ID = "Slimebound:Grow";
+public class SplitGeneral extends AbstractSlimeboundCard {
+    public static final String ID = "Slimebound:SplitGeneral";
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String IMG_PATH = "cards/grow.png";
-    private static final CardStrings cardStrings;
-    private static final CardType TYPE = CardType.POWER;
-    private static final CardRarity RARITY = CardRarity.UNCOMMON;
+    public static final String IMG_PATH = "cards/splitgeneral.png";
+    private static final CardType TYPE = CardType.SKILL;
+    private static final CardRarity RARITY = CardRarity.RARE;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final int COST = 2;
+    private static final CardStrings cardStrings;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -34,33 +32,27 @@ public class Grow extends AbstractSlimeboundCard {
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
     }
 
-    public Grow() {
+    public SplitGeneral() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        this.magicNumber = this.baseMagicNumber = 2;
-        SlimeboundMod.loadJokeCardImage(this, "Grow.png");
-
-
+        SlimeboundMod.loadJokeCardImage(this, "SplitGeneral.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new DexterityPower(p, this.magicNumber), this.magicNumber));
-            AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new StrengthPower(p, this.magicNumber), this.magicNumber));
-
-
+        int bonus = 0;
+        AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new GeneralSlime(), false, true, bonus, 0));
+        AbstractDungeon.actionManager.addToBottom(new RotateAction(GeneralSlime.class));
+        AbstractDungeon.actionManager.addToBottom(new ExhaustSpecificCardAction(this, AbstractDungeon.player.hand));
+        checkMinionMaster();
     }
 
     public AbstractCard makeCopy() {
-        return new Grow();
+        return new SplitGeneral();
     }
 
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
             upgradeBaseCost(1);
-
-
         }
     }
 }
-

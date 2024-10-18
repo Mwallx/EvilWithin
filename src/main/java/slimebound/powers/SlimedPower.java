@@ -115,7 +115,7 @@ public class SlimedPower extends AbstractPower {
                 ((GluttonyPower) this.source.getPower(GluttonyPower.POWER_ID)).activate();
             }
 
-           // triggerHungrySlimes();
+            triggerHungrySlimes();
             for (AbstractCard q : AbstractDungeon.player.discardPile.group) {
                 if (q instanceof AfterDinnerTackle) {
                     ((AfterDinnerTackle) q).onConsume();

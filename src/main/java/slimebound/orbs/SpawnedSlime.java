@@ -164,8 +164,8 @@ public abstract class SpawnedSlime
         //this.renderBehind=true;
         SkeletonJson json = new SkeletonJson(this.atlas);
 
-        if (this instanceof DarklingSlime) {
-            json.setScale(Settings.scale * .45F);
+        if ((this instanceof DarklingSlime) || (this instanceof RecklessSlime)) {
+            json.setScale(Settings.scale * .5F);
 
         } else {
             if (medScale) {

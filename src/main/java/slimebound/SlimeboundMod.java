@@ -299,16 +299,27 @@ public class SlimeboundMod implements OnCardUseSubscriber,
     }
 
     public static AbstractOrb getLeadingSlime() {
-        AbstractOrb oldestOrb = null;
+        AbstractOrb leadingSlime = null;
+        int leadingSlimeIndex = -1;
 
         if (AbstractDungeon.player.maxOrbs > 0) {
-            for (AbstractOrb o : AbstractDungeon.player.orbs) {
+            for (int i = 0; i < AbstractDungeon.player.orbs.size(); i++) {
+                AbstractOrb o = AbstractDungeon.player.orbs.get(i);
                 if (o instanceof SpawnedSlime) {
-                    oldestOrb = o;
+                    leadingSlime = o;
+                    leadingSlimeIndex = i;
+                    // We don't break here because we want to find the last (frontmost) slime
                 }
             }
         }
-        return oldestOrb;
+
+        if (leadingSlime != null) {
+           // BaseMod.logger.info("Leading Slime found: ID = " + leadingSlime.ID + ", Index = " + leadingSlimeIndex);
+        } else {
+           // BaseMod.logger.info("No Leading Slime found");
+        }
+
+        return leadingSlime;
     }
 
     @Override
@@ -423,12 +434,13 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new slimebound.cards.AcidTongue());
         //BaseMod.addCard(new slimebound.cards.TendrilStrike());
         //BaseMod.addCard(new slimebound.cards.PoisonLick());
-        BaseMod.addCard(new slimebound.cards.WasteNot());
+       // BaseMod.addCard(new slimebound.cards.WasteNot());
         BaseMod.addCard(new HungryTackle());
+        BaseMod.addCard(new SplitGeneral());
         BaseMod.addCard(new slimebound.cards.FlameTackle());
         BaseMod.addCard(new RollThrough());
         BaseMod.addCard(new ComboTackle());
-        BaseMod.addCard(new GoopTackle());
+        //BaseMod.addCard(new GoopTackle());
         //BaseMod.addCard(new VenomTackle());
         BaseMod.addCard(new slimebound.cards.Grow());
         BaseMod.addCard(new slimebound.cards.Prepare());
@@ -449,16 +461,17 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
         BaseMod.addCard(new slimebound.cards.Tackle());
         //BaseMod.addCard(new zzzSlimepotheosis());
-        BaseMod.addCard(new slimebound.cards.FinishingTackle());
-        BaseMod.addCard(new FirmFortitude());
+       // BaseMod.addCard(new slimebound.cards.FinishingTackle());
+       // BaseMod.addCard(new FirmFortitude());
         BaseMod.addCard(new Replication());
         BaseMod.addCard(new CheckThePlaybook());
         BaseMod.addCard(new Repurpose());
         BaseMod.addCard(new GrowthPunch());
-        BaseMod.addCard(new slimebound.cards.Recycling());
+        //BaseMod.addCard(new slimebound.cards.Recycling());
         BaseMod.addCard(new slimebound.cards.Recollect());
 
         BaseMod.addCard(new SplitSpecialist());
+        BaseMod.addCard(new BackupTackle());
         BaseMod.addCard(new Darklings());
         BaseMod.addCard(new Schlurp());
         BaseMod.addCard(new SlimeSlap());

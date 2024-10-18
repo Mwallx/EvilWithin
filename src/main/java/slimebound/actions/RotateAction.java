@@ -1,6 +1,7 @@
 package slimebound.actions;
 
 
+import basemod.BaseMod;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -21,6 +22,7 @@ public class RotateAction extends AbstractGameAction {
         this.slimeClass = slimeClass;
     }
 
+
     @Override
     public void update() {
         AbstractPlayer p = AbstractDungeon.player;
@@ -30,19 +32,41 @@ public class RotateAction extends AbstractGameAction {
             return;
         }
 
+        // Log the frontmost orb ID before rotation
+        logFrontmostOrbId(p, "Before rotation");
+
         if (rotateSpecificSlime) {
             rotateSpecificSlime(p);
         } else {
             rotateAllOrbs(p);
         }
 
+        // Log the frontmost orb ID after rotation
+        logFrontmostOrbId(p, "After rotation");
+
         this.isDone = true;
     }
 
     private void rotateAllOrbs(AbstractPlayer p) {
-        AbstractOrb orbToMove = p.orbs.get(p.orbs.size() - 1);
-        p.orbs.remove(p.orbs.size() - 1);
-        p.orbs.add(0, orbToMove);
+        int lastNonEmptyIndex = p.orbs.size() - 1;
+        while (lastNonEmptyIndex >= 0 && p.orbs.get(lastNonEmptyIndex) instanceof EmptyOrbSlot) {
+            lastNonEmptyIndex--;
+        }
+
+        if (lastNonEmptyIndex < 0) {
+            // All orbs are empty, nothing to rotate
+            return;
+        }
+
+        AbstractOrb orbToMove = p.orbs.get(lastNonEmptyIndex);
+        p.orbs.remove(lastNonEmptyIndex);
+
+        int firstNonEmptyIndex = 0;
+        while (firstNonEmptyIndex < p.orbs.size() && p.orbs.get(firstNonEmptyIndex) instanceof EmptyOrbSlot) {
+            firstNonEmptyIndex++;
+        }
+
+        p.orbs.add(firstNonEmptyIndex, orbToMove);
 
         for (int i = 0; i < p.orbs.size(); i++) {
             p.orbs.get(i).setSlot(i, p.maxOrbs);
@@ -81,5 +105,14 @@ public class RotateAction extends AbstractGameAction {
         for (int i = 0; i < p.orbs.size(); i++) {
             p.orbs.get(i).setSlot(i, p.maxOrbs);
         }
+    }
+    private void logFrontmostOrbId(AbstractPlayer p, String phase) {
+        for (int i = p.orbs.size() - 1; i >= 0; i--) {
+            if (!(p.orbs.get(i) instanceof EmptyOrbSlot)) {
+                BaseMod.logger.info(phase + ": Frontmost orb ID is " + p.orbs.get(i).ID + " at index " + i);
+                return;
+            }
+        }
+        BaseMod.logger.info(phase + ": No non-empty orbs found");
     }
 }

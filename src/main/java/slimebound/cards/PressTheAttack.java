@@ -49,6 +49,7 @@ public class PressTheAttack extends AbstractSlimeboundCard {
         }
         checkMinionMaster();
     }
+
     public AbstractCard makeCopy() {
         return new PressTheAttack();
     }

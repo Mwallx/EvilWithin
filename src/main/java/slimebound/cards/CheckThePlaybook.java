@@ -27,7 +27,7 @@ public class CheckThePlaybook extends AbstractSlimeboundCard {
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.RARE;
     private static final CardTarget TARGET = CardTarget.SELF;
-    private static final int COST = 2;
+    private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -63,32 +63,9 @@ public class CheckThePlaybook extends AbstractSlimeboundCard {
 
             AbstractCard cTackle = CardLibrary.cards.get(tmp.get(AbstractDungeon.cardRng.random(0, tmp.size() - 1)));
             cTackle = cTackle.makeCopy();
-            cTackle.modifyCostForCombat(-1);
             AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(cTackle));
 
         }
-        /* FILL version
-
-          int space = BaseMod.MAX_HAND_SIZE - p.hand.size();
-
-        if (space > 0) {
-            for (int i = 0; i <= space; i++) {
-                while (var3.hasNext()) {
-                    Map.Entry<String, AbstractCard> c = (Map.Entry) var3.next();
-                    if (c.getValue().hasTag(SlimeboundMod.TACKLE)) {
-                            tmp.add(c.getKey());
-
-                    }
-                }
-
-                AbstractCard cTackle = CardLibrary.cards.get(tmp.get(AbstractDungeon.cardRng.random(0, tmp.size() - 1)));
-                cTackle = cTackle.makeCopy();
-                cTackle.modifyCostForCombat(-1);
-                AbstractDungeon.actionManager.addToBottom(new MakeTempCardInHandAction(cTackle));
-
-            }
-        }
-        */
 
     }
 
@@ -99,7 +76,7 @@ public class CheckThePlaybook extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBaseCost(1);
+            upgradeBaseCost(0);
 
 
         }

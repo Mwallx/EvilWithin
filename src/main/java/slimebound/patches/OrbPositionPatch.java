@@ -19,22 +19,22 @@ import java.util.Random;
 public class OrbPositionPatch {
     // Adjustable parameters
     private static final float BASE_X_OFFSET = 200F * Settings.scale;
-    private static final float X_SPACING = 70F * Settings.scale;
+    private static final float X_SPACING = 40F * Settings.scale;
     private static final float BASE_Y_OFFSET = 0F * Settings.scale;
-    private static final float Y_SPACING = 60F * Settings.scale;
-    private static final float ALTERNATE_COLUMN_Y_OFFSET = -30F * Settings.scale;
+    private static final float Y_SPACING = 30F * Settings.scale;  // Reduced for a tighter zig-zag
 
     public static SpireReturn<Void> Prefix(AbstractOrb abstractOrb_instance, int slotNum, int maxOrbs) {
         if (AbstractDungeon.player instanceof SlimeboundCharacter && !(abstractOrb_instance instanceof AbstractEnemyOrb)) {
-            int column = slotNum / 2;
-            int row = slotNum % 2;
-            boolean isAlternateColumn = column % 2 == 1;
+            float xPos = AbstractDungeon.player.drawX + BASE_X_OFFSET + (slotNum * X_SPACING);
+            float yPos = AbstractDungeon.player.drawY + BASE_Y_OFFSET;
 
-            float xPos = AbstractDungeon.player.drawX + BASE_X_OFFSET + (column * X_SPACING);
-            float yPos = AbstractDungeon.player.drawY + BASE_Y_OFFSET + (row * Y_SPACING);
-
-            if (isAlternateColumn) {
-                yPos += ALTERNATE_COLUMN_Y_OFFSET;
+            // Create the zig-zag pattern
+            if (slotNum % 2 == 0) {
+                // Even-numbered slots go up
+                yPos += Y_SPACING;
+            } else {
+                // Odd-numbered slots go down
+                yPos -= Y_SPACING;
             }
 
             abstractOrb_instance.tX = xPos;

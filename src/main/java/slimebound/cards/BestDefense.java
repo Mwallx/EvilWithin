@@ -44,7 +44,6 @@ public class BestDefense extends AbstractSlimeboundCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleBuffPower(p, p, this.magicNumber), this.magicNumber));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleModifyDamagePower(p, p, 1), 1));
 
     }
 

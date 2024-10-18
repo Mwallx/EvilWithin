@@ -2,6 +2,7 @@ package slimebound.cards;
 
 
 import com.evacipated.cardcrawl.mod.stslib.actions.defect.EvokeSpecificOrbAction;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.HealAction;
@@ -49,14 +50,22 @@ public class Repurpose extends AbstractSlimeboundCard {
         SlimeboundMod.loadJokeCardImage(this, "Repurpose.png");
     }
 
+    @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         // Rotate
         AbstractDungeon.actionManager.addToBottom(new RotateAction());
 
-        // Split into the frontmost Slime multiple times
-        for (int i = 0; i < this.magicNumber; i++) {
-            AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(SlimeboundMod.getLeadingSlime(), false, true));
-        }
+        // Add a new action to determine the leading slime and spawn
+        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+            @Override
+            public void update() {
+                AbstractOrb leadingSlime = SlimeboundMod.getLeadingSlime();
+                for (int i = 0; i < magicNumber; i++) {
+                    AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(leadingSlime, false, true));
+                }
+                this.isDone = true;
+            }
+        });
     }
 
     public AbstractCard makeCopy() {

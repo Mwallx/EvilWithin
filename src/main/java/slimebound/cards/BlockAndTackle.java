@@ -24,7 +24,7 @@ public class BlockAndTackle extends AbstractSlimeboundCard {
     private static final CardRarity RARITY = CardRarity.COMMON;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
-    private static final int COST = 1;
+    private static final int COST = 0;
     public static String UPGRADED_DESCRIPTION;
 
     static {

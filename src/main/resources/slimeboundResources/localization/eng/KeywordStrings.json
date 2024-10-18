@@ -37,7 +37,7 @@
       "commands"
     ],
     "PROPER_NAME": "Command",
-    "DESCRIPTION": "Your leading Slime attacks."
+    "DESCRIPTION": "Trigger a slime's action. Unless specified otherwise, it targets the leading slime."
   },
   {
     "NAMES": [
@@ -56,7 +56,7 @@
       "bruiser"
     ],
     "PROPER_NAME": "Bruiser Slime",
-    "DESCRIPTION": "Attacks for #b5 each turn."
+    "DESCRIPTION": "Attacks for #b5 each turn. When upgraded, increase damage by #b3."
   },
   {
     "NAMES": [
@@ -68,6 +68,38 @@
   },
   {
     "NAMES": [
+      "reckless slime",
+      "reckless_slime"
+    ],
+    "PROPER_NAME": "Reckless Slime",
+    "DESCRIPTION": "Attacks for #b3 each turn. This slime is #yCommanded whenever you play a #yTackle card. When upgraded, increase damage by #b2."
+  },
+  {
+    "NAMES": [
+      "hungry slime",
+      "hungry_slime"
+    ],
+    "PROPER_NAME": "Hungry Slime",
+    "DESCRIPTION": "Attacks for #b3 each turn. This slime is #yCommanded whenever you #yConsume. When upgraded, increase damage by #b2."
+  },
+  {
+    "NAMES": [
+      "general slime",
+      "general_slime"
+    ],
+    "PROPER_NAME": "General Slime",
+    "DESCRIPTION": "Each turn and when #yCommanded, #yCommands #b2 other Slimes at random. When upgraded, increase the number of Slimes #yCommanded by #b1."
+  },
+  {
+    "NAMES": [
+      "tarr slime",
+      "tarr_slime"
+    ],
+    "PROPER_NAME": "Tarr Slime",
+    "DESCRIPTION": "Each turn and when #yCommanded, #yRotate this to the front. Cannot be upgraded."
+  },
+  {
+    "NAMES": [
       "leeching slime",
       "leeching_slime",
       "leeching slimes",
@@ -75,7 +107,7 @@
       "leeching"
     ],
     "PROPER_NAME": "Leeching Slime",
-    "DESCRIPTION": "Attacks for #b1 and grants you #b3 #yBlock each turn."
+    "DESCRIPTION": "Grants you #b3 #yBlock each turn. When upgraded, increase #yBlock by #b2."
   },
   {
     "NAMES": [
@@ -86,7 +118,7 @@
       "guerilla"
     ],
     "PROPER_NAME": "Guerilla Slime",
-    "DESCRIPTION": "Attacks for #b3 to ALL enemies each turn."
+    "DESCRIPTION": "Attacks for #b3 to ALL enemies each turn. When upgraded, increase damage by #b2."
   },
   {
     "NAMES": [
@@ -97,7 +129,7 @@
       "mire"
     ],
     "PROPER_NAME": "Mire Slime",
-    "DESCRIPTION": "Attacks for #b2 and applies #b2 #yGoop each turn."
+    "DESCRIPTION": "Attacks for #b2 and applies #b2 #yGoop each turn. When upgraded, increase #yGoop by #b3."
   },
   {
     "NAMES": [

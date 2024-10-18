@@ -86,14 +86,14 @@
     "NAME": "Protective Gear",
     "FLAVOR": "The best defense is a good offense.",
     "DESCRIPTIONS": [
-      "Reduce the damage you take from #yslimeboundmod:Tackles by #b3."
+      "#yslimeboundmod:Tackles no longer hermit:Bruise you."
     ]
   },
   "Slimebound:TarBlob": {
     "NAME": "Tarr Blob",
     "FLAVOR": "The bad kind of Slime.",
     "DESCRIPTIONS": [
-      "Gain [E] at the start of your turn. At the start of combat, lose #b1 Slime slot."
+      "Gain [E] at the start of your turn. At the start of combat, #yslimeboundmod:Split into a #yslimeboundmod:Tarr_Slime."
     ]
   },
   "Slimebound:StickyStick": {
