@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
 import slimebound.patches.AbstractCardEnum;
+import slimebound.powers.SamplingLickPower;
 import slimebound.powers.SlimedPower;
 import slimebound.vfx.LickEffect;
 import slimebound.vfx.SlimeDripsEffect;
@@ -25,13 +26,11 @@ public class SamplingLick extends AbstractSlimeboundCard {
     public static final String NAME;
     public static final String DESCRIPTION;
     public static final String IMG_PATH = "cards/samplinglick.png";
-    private static final CardType TYPE = CardType.SKILL;
+    private static final CardType TYPE = CardType.POWER;
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
-    private static final CardTarget TARGET = CardTarget.ENEMY;
+    private static final CardTarget TARGET = CardTarget.SELF;
     private static final CardStrings cardStrings;
-    private static final int COST = 0;
-    private static final int BLOCK = 5;
-    private static final int UPGRADE_BONUS = 3;
+    private static final int COST = 1;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -43,31 +42,12 @@ public class SamplingLick extends AbstractSlimeboundCard {
 
     public SamplingLick() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        tags.add(SlimeboundMod.LICK);
-
-
-        this.slimed = this.baseSlimed = 4;
-        this.baseBlock = 4;
-        this.exhaust = true;
+        this.magicNumber = this.baseMagicNumber = 4;
         SlimeboundMod.loadJokeCardImage(this, "SamplingLick.png");
-
-
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-
-        AbstractDungeon.effectsQueue.add(new SlimeDripsEffect(m.hb.cX, m.hb.cY, 3));
-        AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, p, new SlimedPower(m, p, this.slimed), this.slimed, true, AbstractGameAction.AttackEffect.NONE));
-        AbstractDungeon.actionManager.addToBottom(new VFXAction(new LickEffect(m.hb.cX, m.hb.cY, 0.6F, new Color(Color.GOLDENROD)), 0.1F));
-
-        AbstractDungeon.actionManager.addToBottom(new GainBlockAction(p, p, this.block));
-        if (upgraded)upgradeAction(p,m);
-
-    }
-
-
-    public void upgradeAction(AbstractPlayer p, AbstractMonster m){
-        AbstractDungeon.actionManager.addToBottom(new DrawCardAction(p, 1));
+        addToBot(new ApplyPowerAction(p, p, new SamplingLickPower(p, this.magicNumber), this.magicNumber));
     }
 
     public AbstractCard makeCopy() {
@@ -77,10 +57,8 @@ public class SamplingLick extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            this.rawDescription = UPGRADED_DESCRIPTION;
-            this.initializeDescription();
+            upgradeBaseCost(0);
+            initializeDescription();
         }
     }
 }
-
-

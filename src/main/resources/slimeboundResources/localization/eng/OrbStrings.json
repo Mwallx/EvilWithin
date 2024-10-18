@@ -17,7 +17,34 @@
     "NAME": "Bruiser Slime",
     "DESCRIPTION": [
       "Deals #b",
-      " damage at the start of your turn."
+      " damage at the start of your turn. When upgraded, increase damage by #b3."
+    ]
+  },
+  "Slimebound:GeneralSlime": {
+    "NAME": "General Slime",
+    "DESCRIPTION": [
+      "#yCommands #b",
+      " random other Slimes at the start of your turn or when Commanded. When upgraded, increase the number of Slimes Commanded by #b1."
+    ]
+  },
+  "Slimebound:TarrSlime": {
+    "NAME": "Tarr Slime",
+    "DESCRIPTION": [
+      "#yRotates to the front at the start of your turn. Cannot be upgraded."
+    ]
+  },
+  "Slimebound:RecklessSlime": {
+    "NAME": "Reckless Slime",
+    "DESCRIPTION": [
+      "Deals #b",
+      " damage at the start of your turn. Whenever you play a #yTackle, #yCommand this. When upgraded, increase damage by #b2."
+    ]
+  },
+  "Slimebound:HungrySlime": {
+    "NAME": "Hungry Slime",
+    "DESCRIPTION": [
+      "Deals #b",
+      " damage at the start of your turn. Whenever you #yConsume, #yCommand this. When upgraded, increase damage by #b2."
     ]
   },
   "Slimebound:ScrapOozeSlime": {
@@ -49,26 +76,24 @@
     ]
   },
   "Slimebound:ShieldSlime": {
-    "NAME": "Leeching Slime",
+    "NAME": "Armored Slime",
     "DESCRIPTION": [
-      "Deals #b",
-      " damage at the start of your turn and grants you #b",
-      " #yBlock."
+      "Grants you #b",
+      " #yBlock at the start of your turn. When upgraded, increase #yBlock by #b2."
     ]
   },
   "Slimebound:PoisonSlime": {
     "NAME": "Guerilla Slime",
     "DESCRIPTION": [
       "Deals #b",
-      " damage to ALL enemies at the start of your turn."
+      " damage to ALL enemies at the start of your turn. When upgraded, increase damage by #b2."
     ]
   },
   "Slimebound:SlimingSlime": {
     "NAME": "Mire Slime",
     "DESCRIPTION": [
-      "Deals #b",
-      " damage and applies #b",
-      " #yGoop at the start of your turn."
+      "Applies #b",
+      " #yGoop at the start of your turn. When upgraded, increase Goop by #b3."
     ]
   },
   "Slimebound:HexSlime": {

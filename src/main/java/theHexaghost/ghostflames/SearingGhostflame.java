@@ -13,7 +13,9 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 import com.megacrit.cardcrawl.vfx.combat.FireballEffect;
+import curatedchallenges.CuratedChallenges;
 import downfall.util.TextureLoader;
+import expansioncontent.HexaghostChallenge;
 import theHexaghost.GhostflameHelper;
 import theHexaghost.HexaMod;
 import theHexaghost.powers.BurnPower;
@@ -61,53 +63,63 @@ public class SearingGhostflame extends AbstractGhostflame {
             public void update() {
                 isDone = true;
                 int x = getEffectCount();
+              //  boolean isHexaghostChallengeActive = HexaghostChallenge.ID.equals(CuratedChallenges.currentChallengeId);
 
-                if(AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)){
-                    for(int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++){
-                        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
-                            if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-                                att(new ApplyPowerAction(m, AbstractDungeon.player, new BurnPower(m, x), x));
-                            }
-                        }
-//                                att(new VFXAction(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, m.hb.cX, m.hb.cY), 0.2F));
-                        att(new VFXAction(
-                                new AbstractGameEffect() {
-
-                                    public void update() {
-                                        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
-                                            if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-                                                AbstractDungeon.effectsQueue.add(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, m.hb.cX, m.hb.cY));
-                                            }
-                                        }
-                                        this.isDone = true;
-                                    }
-
-                                    @Override
-                                    public void render(SpriteBatch spriteBatch) {}
-
-                                    @Override
-                                    public void dispose() {}
-                                }
-                        , 0.3F));
-                        if (AbstractDungeon.player.hasRelic(CandleOfCauterizing.ID)) {
-                            AbstractRelic r = AbstractDungeon.player.getRelic(CandleOfCauterizing.ID);
-                            r.flash();
-                        }
+                if (AbstractDungeon.player.hasPower(FlameAffectAllEnemiesPower.POWER_ID)) {
+                    for (int i = 0; i < AbstractDungeon.player.getPower(FlameAffectAllEnemiesPower.POWER_ID).amount; i++) {
+                        applyEffectToAllEnemies(x);
+                       // if (isHexaghostChallengeActive) {
+                      //      applyEffectToPlayer(x);
+                     //   }
                     }
-                }
-                else {
+                } else {
                     AbstractMonster m = AbstractDungeon.getRandomMonster();
                     if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
-                        att(new ApplyPowerAction(m, AbstractDungeon.player, new BurnPower(m, x), x));
-                        att(new VFXAction(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, m.hb.cX, m.hb.cY), 0.4F));
-                        if (AbstractDungeon.player.hasRelic(CandleOfCauterizing.ID)) {
-                            AbstractRelic r = AbstractDungeon.player.getRelic(CandleOfCauterizing.ID);
-                            r.flash();
-                        }
+                        applyEffectToSingleEnemy(m, x);
+                     //   if (isHexaghostChallengeActive) {
+                    //        applyEffectToPlayer(x);
+                    //    }
                     }
+                }
+
+                if (AbstractDungeon.player.hasRelic(CandleOfCauterizing.ID)) {
+                    AbstractRelic r = AbstractDungeon.player.getRelic(CandleOfCauterizing.ID);
+                    r.flash();
                 }
             }
         });
+    }
+
+    private void applyEffectToAllEnemies(int x) {
+        for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+            if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
+                att(new ApplyPowerAction(m, AbstractDungeon.player, new BurnPower(m, x), x));
+            }
+        }
+        att(new VFXAction(new AbstractGameEffect() {
+            public void update() {
+                for (AbstractMonster m : AbstractDungeon.getCurrRoom().monsters.monsters) {
+                    if (m != null && !m.isDead && !m.isDying && !m.halfDead) {
+                        AbstractDungeon.effectsQueue.add(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, m.hb.cX, m.hb.cY));
+                    }
+                }
+                this.isDone = true;
+            }
+            @Override
+            public void render(SpriteBatch spriteBatch) {}
+            @Override
+            public void dispose() {}
+        }, 0.3F));
+    }
+
+    private void applyEffectToSingleEnemy(AbstractMonster m, int x) {
+        att(new ApplyPowerAction(m, AbstractDungeon.player, new BurnPower(m, x), x));
+        att(new VFXAction(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, m.hb.cX, m.hb.cY), 0.4F));
+    }
+
+    private void applyEffectToPlayer(int x) {
+        att(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new BurnPower(AbstractDungeon.player, x), x));
+        att(new VFXAction(new FireballEffect(AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY, AbstractDungeon.player.hb.cX, AbstractDungeon.player.hb.cY), 0.4F));
     }
 
     @Override

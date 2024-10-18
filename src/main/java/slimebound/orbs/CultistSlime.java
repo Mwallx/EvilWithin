@@ -73,9 +73,9 @@ public class CultistSlime
             if (sticksLeftVFX != null) {
                 this.sticksLeftVFX.finish();
             }
-        if (sticksRightVFX != null){
-            this.sticksRightVFX.finish();
-        }
+            if (sticksRightVFX != null){
+                this.sticksRightVFX.finish();
+            }
         }
     }
 
@@ -93,5 +93,4 @@ public class CultistSlime
         return new CultistSlime();
     }
 }
-
 

@@ -14,7 +14,6 @@ import slimebound.actions.CommandAction;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.SlimedPower;
 
-
 public class PressTheAttack extends AbstractSlimeboundCard {
     public static final String ID = "Slimebound:PressTheAttack";
     public static final String NAME;
@@ -25,55 +24,39 @@ public class PressTheAttack extends AbstractSlimeboundCard {
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
     private static final int COST = 1;
-    private static final int POWER = 6;
-    private static final int UPGRADE_BONUS = 3;
+    private static final int DAMAGE = 9;
+    private static final int DAMAGE_UPGRADE = 2;
     public static String UPGRADED_DESCRIPTION;
-
     static {
         cardStrings = CardCrawlGame.languagePack.getCardStrings(ID);
         NAME = cardStrings.NAME;
         DESCRIPTION = cardStrings.DESCRIPTION;
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
-
     }
-
-
     public PressTheAttack() {
-
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-
-        this.baseDamage = 9;
+        this.baseDamage = DAMAGE;
         SlimeboundMod.loadJokeCardImage(this, "PressTheAttack.png");
-
-
     }
-
     @Override
     public void triggerOnGlowCheck() {
         slimedGlowCheck();
     }
-
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
-        if (m.hasPower(SlimedPower.POWER_ID)) {
+        if (upgraded || m.hasPower(SlimedPower.POWER_ID)) {
             addToBot(new CommandAction());
-            if (upgraded) addToBot(new CommandAction());
         }
-
-
         checkMinionMaster();
     }
 
     public AbstractCard makeCopy() {
-
         return new PressTheAttack();
-
     }
-
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            //upgradeDamage(1);
+            upgradeDamage(DAMAGE_UPGRADE);
             this.rawDescription = UPGRADED_DESCRIPTION;
             this.initializeDescription();
         }

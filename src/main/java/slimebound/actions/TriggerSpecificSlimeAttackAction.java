@@ -7,11 +7,11 @@ import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import slimebound.orbs.DarklingSlime;
 
 
-public class TrigggerSpecificSlimeAttackAction extends AbstractGameAction {
+public class TriggerSpecificSlimeAttackAction extends AbstractGameAction {
     public boolean upgradeCard;
     public AbstractOrb o;
 
-    public TrigggerSpecificSlimeAttackAction(AbstractOrb o) {
+    public TriggerSpecificSlimeAttackAction(AbstractOrb o) {
         this.o = o;
 
 

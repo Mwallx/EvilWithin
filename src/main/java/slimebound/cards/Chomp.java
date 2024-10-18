@@ -15,7 +15,10 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.BiteEffect;
 import slimebound.SlimeboundMod;
+import slimebound.actions.CommandAction;
+import slimebound.actions.SlimeSpawnAction;
 import slimebound.patches.AbstractCardEnum;
+import slimebound.powers.SlimedPower;
 
 import java.util.ArrayList;
 
@@ -61,33 +64,15 @@ public class Chomp extends AbstractSlimeboundCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-
+int bonus = 0;
 
         AbstractDungeon.actionManager.addToBottom(new VFXAction(new BiteEffect(m.hb.cX, m.hb.cY, Color.GREEN), 0.2F));
 
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
 
-        addToBot(new AbstractGameAction() {
-            @Override
-            public void update() {
-                isDone = true;
-                ArrayList<AbstractCard> tackleList = new ArrayList<>();
-                for (AbstractCard q : AbstractDungeon.player.hand.group) {
-                    if (q.hasTag(SlimeboundMod.TACKLE) && q.costForTurn > 0) {
-                        tackleList.add(q);
-                    }
-                }
-                if (!tackleList.isEmpty()) {
-                    if (upgraded){
-                        tackleList.get(AbstractDungeon.cardRandomRng.random(tackleList.size() - 1)).modifyCostForCombat(-9);
-
-
-                    } else {
-                        addToTop(new ReduceCostForTurnAction(tackleList.get(AbstractDungeon.cardRandomRng.random(tackleList.size() - 1)), 9));
-                    }
-                }
-            }
-        });
+        if (upgraded || m.hasPower(SlimedPower.POWER_ID)) {
+            AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new slimebound.orbs.HungrySlime(), false, true, bonus, 0));
+        }
     }
 
     public AbstractCard makeCopy() {

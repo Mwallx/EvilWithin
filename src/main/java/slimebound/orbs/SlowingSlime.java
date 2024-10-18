@@ -46,8 +46,8 @@ public class SlowingSlime
         this.stopwatch = new StopwatchParticle(this);
 
         if(CharacterSelectScreenPatches.characters[1].isOriginal()){
-        AbstractDungeon.effectList.add(this.antennae);
-        AbstractDungeon.effectList.add(this.stopwatch);
+            AbstractDungeon.effectList.add(this.antennae);
+            AbstractDungeon.effectList.add(this.stopwatch);
         }
     }
 
@@ -93,5 +93,4 @@ public class SlowingSlime
         return new SlowingSlime();
     }
 }
-
 
