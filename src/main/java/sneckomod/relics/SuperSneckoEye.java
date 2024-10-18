@@ -67,8 +67,8 @@ public class SuperSneckoEye extends CustomRelic {
     public void onEquip() {
         if(!added_hand_size) {
             AbstractDungeon.player.masterHandSize += 2;
-            DownfallAchievementUnlocker.unlockAchievement("MASTER_OF_CONFUSION");
             added_hand_size = true;
+            DownfallAchievementUnlocker.unlockAchievement("MASTER_OF_CONFUSION");
         }
     }
 
