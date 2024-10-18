@@ -18,7 +18,7 @@ public class SuperSneckoEye extends CustomRelic {
     private static final Texture IMG = TextureLoader.getTexture(SneckoMod.makeRelicPath("SuperSneckoEye.png"));
     private static final Texture OUTLINE = TextureLoader.getTexture(SneckoMod.makeRelicOutlinePath("SuperSneckoEye.png"));
     public boolean activated = false;
-
+    private boolean added_hand_size = false;
     public SuperSneckoEye() {
         super(ID, IMG, OUTLINE, RelicTier.UNCOMMON, LandingSound.MAGICAL);
     }
@@ -64,13 +64,13 @@ public class SuperSneckoEye extends CustomRelic {
             });
     }
 
-    public void onEquip() {
-        if(!added_hand_size) {
-            AbstractDungeon.player.masterHandSize += 2;
-            added_hand_size = true;
-            DownfallAchievementUnlocker.unlockAchievement("MASTER_OF_CONFUSION");
-        }
+public void onEquip() {
+    if(!added_hand_size) {
+        AbstractDungeon.player.masterHandSize += 2;
+        added_hand_size = true;
+        DownfallAchievementUnlocker.unlockAchievement("MASTER_OF_CONFUSION");
     }
+}
 
     public void onUnequip() {
         AbstractDungeon.player.masterHandSize -= 2;

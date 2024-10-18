@@ -64,13 +64,8 @@ public class Suspension extends AbstractGuardianCard {
     }
 
     public void updateDescription() {
-
         if (this.socketCount > 0) {
-            if (upgraded && UPGRADED_DESCRIPTION != null) {
-                this.rawDescription = this.updateGemDescription(UPGRADED_DESCRIPTION, true);
-            } else {
-                this.rawDescription = this.updateGemDescription(DESCRIPTION, true);
-            }
+            this.rawDescription = this.updateGemDescription(DESCRIPTION, true);
         }
         this.initializeDescription();
     }
