@@ -14,7 +14,7 @@ import slimebound.characters.SlimeboundCharacter;
 public class MaxOrbsPatch {
     public static SpireReturn<Void> Prefix(AbstractPlayer obj) {
 
-        if (obj instanceof SlimeboundCharacter && obj.maxOrbs == 5) {
+        if (obj instanceof SlimeboundCharacter && obj.maxOrbs == 12) {
             AbstractDungeon.effectList.add(new ThoughtBubble(obj.dialogX, obj.dialogY, 3.0F, AbstractPlayer.MSG[3], true));
             return SpireReturn.Return(null);
         }

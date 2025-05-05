@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.evacipated.cardcrawl.mod.widepotions.WidePotionsMod;
 import com.evacipated.cardcrawl.modthespire.Loader;
+import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.status.Slimed;
@@ -35,6 +36,7 @@ import expansioncontent.relics.StudyCardRelic;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import slimebound.actions.SlimeSpawnAction;
+import slimebound.actions.TriggerSpecificSlimeAttackAction;
 import slimebound.cards.*;
 import slimebound.characters.SlimeboundCharacter;
 import slimebound.events.*;
@@ -53,6 +55,7 @@ import slimebound.relics.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Properties;
 
 import static downfall.patches.EvilModeCharacterSelect.evilMode;
 
@@ -70,10 +73,10 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         //basemod.interfaces.PostDrawSubscriber,
         basemod.interfaces.OnStartBattleSubscriber {
     public static final boolean hasHubris;
-//    public static final String PROP_RELIC_SHARING = "contentSharing_relics";
-//    public static final String PROP_POTION_SHARING = "contentSharing_potions";
-//    public static final String PROP_EVENT_SHARING = "contentSharing_events";
-//    public static final String PROP_UNLOCK_ALL = "unlockEverything";
+    public static final String PROP_RELIC_SHARING = "contentSharing_relics";
+    public static final String PROP_POTION_SHARING = "contentSharing_potions";
+    public static final String PROP_EVENT_SHARING = "contentSharing_events";
+    public static final String PROP_UNLOCK_ALL = "unlockEverything";
     public static final Logger logger = LogManager.getLogger(SlimeboundMod.class.getName());
     public static final com.badlogic.gdx.graphics.Color SLIME_COLOR = com.megacrit.cardcrawl.helpers.CardHelper.getColor(25.0F, 95.0F, 25.0F);
     private static final String SLIMEBOUNDMOD_ASSETS_FOLDER = "slimeboundResources/SlimeboundImages";
@@ -118,11 +121,11 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
     @SpireEnum
     public static AbstractCard.CardTags TACKLE;
-//    public static Properties slimeboundDefault = new Properties();
-//    public static boolean contentSharing_relics = true;
-//    public static boolean contentSharing_potions = true;
-//    public static boolean contentSharing_events = true;
-//    public static boolean unlockEverything = false;
+    public static Properties slimeboundDefault = new Properties();
+    public static boolean contentSharing_relics = true;
+    public static boolean contentSharing_potions = true;
+    public static boolean contentSharing_events = true;
+    public static boolean unlockEverything = false;
     public static ArrayList<AbstractRelic> shareableRelics = new ArrayList<>();
     public static boolean goopGlow = false;
 
@@ -157,10 +160,10 @@ public class SlimeboundMod implements OnCardUseSubscriber,
                 getResourcePath(ATTACK_CARD_PORTRAIT), getResourcePath(SKILL_CARD_PORTRAIT),
                 getResourcePath(POWER_CARD_PORTRAIT), getResourcePath(ENERGY_ORB_PORTRAIT), getResourcePath(CARD_ENERGY_ORB));
 
-//        slimeboundDefault.setProperty(PROP_EVENT_SHARING, "FALSE");
-//        slimeboundDefault.setProperty(PROP_RELIC_SHARING, "FALSE");
-//        slimeboundDefault.setProperty(PROP_POTION_SHARING, "FALSE");
-//        slimeboundDefault.setProperty(PROP_UNLOCK_ALL, "FALSE");
+        slimeboundDefault.setProperty(PROP_EVENT_SHARING, "FALSE");
+        slimeboundDefault.setProperty(PROP_RELIC_SHARING, "FALSE");
+        slimeboundDefault.setProperty(PROP_POTION_SHARING, "FALSE");
+        slimeboundDefault.setProperty(PROP_UNLOCK_ALL, "FALSE");
 
         loadConfigData();
 
@@ -198,32 +201,32 @@ public class SlimeboundMod implements OnCardUseSubscriber,
     }
 
     public static void saveData() {
-//        try {
-//            SpireConfig config = new SpireConfig("SlimeboundMod", "SlimeboundSaveData", slimeboundDefault);
-//            config.setBool(PROP_EVENT_SHARING, contentSharing_events);
-//            config.setBool(PROP_RELIC_SHARING, contentSharing_relics);
-//            config.setBool(PROP_POTION_SHARING, contentSharing_potions);
-//            config.setBool(PROP_UNLOCK_ALL, unlockEverything);
-//
-//            config.save();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            SpireConfig config = new SpireConfig("SlimeboundMod", "SlimeboundSaveData", slimeboundDefault);
+            config.setBool(PROP_EVENT_SHARING, contentSharing_events);
+            config.setBool(PROP_RELIC_SHARING, contentSharing_relics);
+            config.setBool(PROP_POTION_SHARING, contentSharing_potions);
+            config.setBool(PROP_UNLOCK_ALL, unlockEverything);
+
+            config.save();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void loadConfigData() {
-//        try {
-//            logger.info("SlimeboundMod | Loading Config Preferences...");
-//            SpireConfig config = new SpireConfig("SlimeboundMod", "SlimeboundSaveData", slimeboundDefault);
-//            config.load();
-//            contentSharing_events = config.getBool(PROP_EVENT_SHARING);
-//            contentSharing_relics = config.getBool(PROP_RELIC_SHARING);
-//            contentSharing_potions = config.getBool(PROP_POTION_SHARING);
-//            unlockEverything = config.getBool(PROP_UNLOCK_ALL);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            clearData();
-//        }
+        try {
+            logger.info("SlimeboundMod | Loading Config Preferences...");
+            SpireConfig config = new SpireConfig("SlimeboundMod", "SlimeboundSaveData", slimeboundDefault);
+            config.load();
+            contentSharing_events = config.getBool(PROP_EVENT_SHARING);
+            contentSharing_relics = config.getBool(PROP_RELIC_SHARING);
+            contentSharing_potions = config.getBool(PROP_POTION_SHARING);
+            unlockEverything = config.getBool(PROP_UNLOCK_ALL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            clearData();
+        }
     }
 
     public static void loadJokeCardImage(AbstractCard card, String img) {
@@ -296,16 +299,27 @@ public class SlimeboundMod implements OnCardUseSubscriber,
     }
 
     public static AbstractOrb getLeadingSlime() {
-        AbstractOrb oldestOrb = null;
+        AbstractOrb leadingSlime = null;
+        int leadingSlimeIndex = -1;
 
         if (AbstractDungeon.player.maxOrbs > 0) {
-            for (AbstractOrb o : AbstractDungeon.player.orbs) {
+            for (int i = 0; i < AbstractDungeon.player.orbs.size(); i++) {
+                AbstractOrb o = AbstractDungeon.player.orbs.get(i);
                 if (o instanceof SpawnedSlime) {
-                    oldestOrb = o;
+                    leadingSlime = o;
+                    leadingSlimeIndex = i;
+                    // We don't break here because we want to find the last (frontmost) slime
                 }
             }
         }
-        return oldestOrb;
+
+        if (leadingSlime != null) {
+           // BaseMod.logger.info("Leading Slime found: ID = " + leadingSlime.ID + ", Index = " + leadingSlimeIndex);
+        } else {
+           // BaseMod.logger.info("No Leading Slime found");
+        }
+
+        return leadingSlime;
     }
 
     @Override
@@ -358,12 +372,12 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addDynamicVariable(new SelfDamageVariable());
         BaseMod.addDynamicVariable(new SlimedVariable());
 
-       // BaseMod.addCard(new DivideAndConquerDivide());
-       // BaseMod.addCard(new DivideAndConquerConquer());
+        // BaseMod.addCard(new DivideAndConquerDivide());
+        // BaseMod.addCard(new DivideAndConquerConquer());
         BaseMod.addCard(new DivideAndConquer());
 
-      //  BaseMod.addCard(new ServeAndProtectProtect());
-     //   BaseMod.addCard(new ServeAndProtectServe());
+        //  BaseMod.addCard(new ServeAndProtectProtect());
+        //   BaseMod.addCard(new ServeAndProtectServe());
         BaseMod.addCard(new ServeAndProtect());
 
         BaseMod.addCard(new slimebound.cards.Defend_Slimebound());
@@ -374,9 +388,9 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new SplitAcid());
         BaseMod.addCard(new SplitLeeching());
         BaseMod.addCard(new SplitLicking());
-        BaseMod.addCard(new ProtectTheBoss());
+      //  BaseMod.addCard(new ProtectTheBoss());
         //BaseMod.addCard(new slimebound.cards.zzzAbsorbAll());
-        BaseMod.addCard(new Overexert());
+       // BaseMod.addCard(new Overexert());
         BaseMod.addCard(new Split());
         //BaseMod.addCard(new SuperSplit());
         BaseMod.addCard(new LeadByExample());
@@ -392,6 +406,9 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new MassRepurpose());
         BaseMod.addCard(new DouseInSlime());
         BaseMod.addCard(new Chomp());
+        BaseMod.addCard(new AfterDinnerTackle());
+        BaseMod.addCard(new PainToPower());
+        BaseMod.addCard(new BlockAndTackle());
         BaseMod.addCard(new BestDefense());
         BaseMod.addCard(new OozeBath());
         //BaseMod.addCard(new zzzSoTasty());
@@ -417,12 +434,13 @@ public class SlimeboundMod implements OnCardUseSubscriber,
         BaseMod.addCard(new slimebound.cards.AcidTongue());
         //BaseMod.addCard(new slimebound.cards.TendrilStrike());
         //BaseMod.addCard(new slimebound.cards.PoisonLick());
-        BaseMod.addCard(new slimebound.cards.WasteNot());
+       // BaseMod.addCard(new slimebound.cards.WasteNot());
         BaseMod.addCard(new HungryTackle());
+        BaseMod.addCard(new SplitGeneral());
         BaseMod.addCard(new slimebound.cards.FlameTackle());
         BaseMod.addCard(new RollThrough());
         BaseMod.addCard(new ComboTackle());
-        BaseMod.addCard(new GoopTackle());
+        //BaseMod.addCard(new GoopTackle());
         //BaseMod.addCard(new VenomTackle());
         BaseMod.addCard(new slimebound.cards.Grow());
         BaseMod.addCard(new slimebound.cards.Prepare());
@@ -443,16 +461,17 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
         BaseMod.addCard(new slimebound.cards.Tackle());
         //BaseMod.addCard(new zzzSlimepotheosis());
-        BaseMod.addCard(new slimebound.cards.FinishingTackle());
-        BaseMod.addCard(new FirmFortitude());
+       // BaseMod.addCard(new slimebound.cards.FinishingTackle());
+       // BaseMod.addCard(new FirmFortitude());
         BaseMod.addCard(new Replication());
         BaseMod.addCard(new CheckThePlaybook());
         BaseMod.addCard(new Repurpose());
         BaseMod.addCard(new GrowthPunch());
-        BaseMod.addCard(new slimebound.cards.Recycling());
+        //BaseMod.addCard(new slimebound.cards.Recycling());
         BaseMod.addCard(new slimebound.cards.Recollect());
 
         BaseMod.addCard(new SplitSpecialist());
+        BaseMod.addCard(new BackupTackle());
         BaseMod.addCard(new Darklings());
         BaseMod.addCard(new Schlurp());
         BaseMod.addCard(new SlimeSlap());
@@ -598,10 +617,10 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
     public void addPotions() {
 
+        BaseMod.addPotion(ThreeZeroPotion.class, Color.FOREST, Color.BLACK, Color.BLACK, ThreeZeroPotion.POTION_ID);
         BaseMod.addPotion(SlimedPotion.class, Color.PURPLE, Color.PURPLE, Color.MAROON, SlimedPotion.POTION_ID, SlimeboundEnum.SLIMEBOUND);
         BaseMod.addPotion(SpawnSlimePotion.class, Color.GREEN, Color.FOREST, Color.BLACK, SpawnSlimePotion.POTION_ID, SlimeboundEnum.SLIMEBOUND);
         BaseMod.addPotion(SlimyTonguePotion.class, Color.PURPLE, Color.PURPLE, Color.MAROON, SlimyTonguePotion.POTION_ID, SlimeboundEnum.SLIMEBOUND);
-        //        BanSharedContentPatch.registerRunLockedPotion(SlimeboundEnum.SLIMEBOUND, ThreeZeroPotion.POTION_ID);
 
         if (Loader.isModLoaded("widepotions")) {
             WidePotionsMod.whitelistSimplePotion(ThreeZeroPotion.POTION_ID);
@@ -613,11 +632,24 @@ public class SlimeboundMod implements OnCardUseSubscriber,
 
 
     public void receiveCardUsed(AbstractCard c) {
-
         if (c.type == AbstractCard.CardType.ATTACK) {
             ++attacksPlayedThisTurn;
         }
 
+        // Check if the card is a Tackle
+        if (c.hasTag(SlimeboundMod.TACKLE)) {
+            // Get the player
+            AbstractPlayer p = AbstractDungeon.player;
+
+            // Iterate through all orbs
+            for (AbstractOrb orb : p.orbs) {
+                // Check if the orb is a RecklessSlime
+                if (orb instanceof RecklessSlime) {
+                    // Trigger the RecklessSlime's attack
+                    AbstractDungeon.actionManager.addToBottom(new TriggerSpecificSlimeAttackAction((SpawnedSlime)orb));
+                }
+            }
+        }
     }
 
 

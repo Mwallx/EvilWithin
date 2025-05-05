@@ -180,7 +180,7 @@ public class SlimeboundCharacter extends CustomPlayer {
 
 
     public void movePosition(float x, float y) {
-        super.movePosition(x, y);
+        super.movePosition(x - (180F * Settings.scale), y - (100F * Settings.scale));
         this.drawY = this.drawY + mainRenderYOffset;
         this.dialogY = this.drawY + 30F * Settings.scale;
         this.refreshHitboxLocation();
@@ -209,7 +209,7 @@ public class SlimeboundCharacter extends CustomPlayer {
     }
 
     public CharSelectInfo getLoadout() {
-        return new CharSelectInfo(NAME, DESCRIPTION,65, 65, 3, 99, 5, this,
+        return new CharSelectInfo(NAME, DESCRIPTION,65, 65, 10, 99, 5, this,
 
                 getStartingRelics(), getStartingDeck(), false);
     }
@@ -289,5 +289,4 @@ public class SlimeboundCharacter extends CustomPlayer {
 
 
 }
-
 

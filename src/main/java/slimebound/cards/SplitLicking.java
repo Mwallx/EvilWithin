@@ -12,7 +12,9 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import slimebound.SlimeboundMod;
 import slimebound.actions.CommandAction;
+import slimebound.actions.RotateAction;
 import slimebound.actions.SlimeSpawnAction;
+import slimebound.orbs.SlimingSlime;
 import slimebound.patches.AbstractCardEnum;
 import slimebound.powers.SlimedPower;
 import slimebound.vfx.SlimeProjectileEffect;
@@ -41,26 +43,21 @@ public class SplitLicking extends AbstractSlimeboundCard {
 
     public SplitLicking() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 0;
         this.slimed = this.baseSlimed = 8;
-        this.exhaust = true;
         SlimeboundMod.loadJokeCardImage(this, "SplitMire.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         int bonus = 0;
-        // AbstractDungeon.actionManager.addToBottom(new VFXAction(new SlimeProjectileEffect(p.hb.cX, p.hb.cY, m.hb.cX, m.hb.cY, 2F, false, 0.6F), 0.3F));
-
-        // AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, p, new SlimedPower(m, p, this.slimed), this.slimed, true, AbstractGameAction.AttackEffect.NONE));
-
         AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new slimebound.orbs.SlimingSlime(), false, true, 0, bonus));
-        for (int i = 0; i < this.magicNumber; i++) {
+        AbstractDungeon.actionManager.addToBottom(new RotateAction(SlimingSlime.class));
+
+        if (this.upgraded) {
             addToBot(new CommandAction());
         }
 
         checkMinionMaster();
-
     }
 
     public AbstractCard makeCopy() {
@@ -70,10 +67,8 @@ public class SplitLicking extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeMagicNumber(1);
-
-
+            this.rawDescription = UPGRADED_DESCRIPTION;
+            initializeDescription();
         }
     }
 }
-

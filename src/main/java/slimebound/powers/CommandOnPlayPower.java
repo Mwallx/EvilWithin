@@ -11,9 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.orbs.AbstractOrb;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import slimebound.SlimeboundMod;
-import slimebound.actions.TrigggerSpecificSlimeAttackAction;
-import slimebound.orbs.SpawnedSlime;
-import theHexaghost.HexaMod;
+import slimebound.actions.TriggerSpecificSlimeAttackAction;
 import downfall.util.TextureLoader;
 
 public class CommandOnPlayPower extends AbstractPower implements CloneablePowerInterface {
@@ -44,7 +42,7 @@ public class CommandOnPlayPower extends AbstractPower implements CloneablePowerI
         flash();
         AbstractOrb o = SlimeboundMod.getLeadingSlime();
         if (o != null) {
-            addToBot(new TrigggerSpecificSlimeAttackAction(o));
+            addToBot(new TriggerSpecificSlimeAttackAction(o));
         }
         addToBot(new ReducePowerAction(AbstractDungeon.player, AbstractDungeon.player, this, 1));
     }

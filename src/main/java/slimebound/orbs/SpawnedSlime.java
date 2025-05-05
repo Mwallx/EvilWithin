@@ -55,6 +55,7 @@ public abstract class SpawnedSlime
     public float NUM_Y_OFFSET = -35.0F * Settings.scale;
     public AbstractCard lockedCard;
     public boolean upgraded = false;
+    protected boolean useDebuffForDescription = false;
     public boolean showPassive = true;
     public boolean activatedThisTurn = false;
     public int UniqueFocus;
@@ -163,19 +164,19 @@ public abstract class SpawnedSlime
         //this.renderBehind=true;
         SkeletonJson json = new SkeletonJson(this.atlas);
 
-        if (this instanceof DarklingSlime) {
-            json.setScale(Settings.scale * .45F);
+        if ((this instanceof DarklingSlime) || (this instanceof RecklessSlime)) {
+            json.setScale(Settings.scale * .5F);
 
         } else {
             if (medScale) {
-                json.setScale(Settings.scale / .85F * .7F);
+                json.setScale(Settings.scale / .85F * .4F);
                 if (alt) {
                     this.yOffset = -7F * Settings.scale;
                 } else {
                     this.yOffset = -27F * Settings.scale;
                 }
             } else {
-                json.setScale(Settings.scale / .5F * .7F);
+                json.setScale(Settings.scale / .5F * .4F);
                 if (alt) {
                     this.yOffset = -17F * Settings.scale;
                 } else {
@@ -279,23 +280,21 @@ public abstract class SpawnedSlime
     */
 
     public void applyFocus() {
-        super.applyFocus();
         AbstractPower power = AbstractDungeon.player.getPower(PotencyPower.POWER_ID);
         int bonus = 0;
         if (this instanceof TorchHeadSlime && AbstractDungeon.player.hasPower(StrengthPower.POWER_ID))
             bonus = AbstractDungeon.player.getPower(StrengthPower.POWER_ID).amount;
 
         if (power != null) {
-            this.passiveAmount = this.basePassiveAmount + power.amount + this.UniqueFocus + bonus;
-            this.debuffAmount = this.debuffBaseAmount + (power.amount / 2) ;
-
+            this.passiveAmount = Math.max(this.passiveAmount, this.basePassiveAmount + power.amount + this.UniqueFocus + bonus);
+            this.debuffAmount = Math.max(this.debuffAmount, this.debuffBaseAmount + (power.amount / 2));
         } else {
-            this.passiveAmount = this.basePassiveAmount + this.UniqueFocus + bonus;
-            this.debuffAmount = this.debuffBaseAmount;
-
+            this.passiveAmount = Math.max(this.passiveAmount, this.basePassiveAmount + this.UniqueFocus + bonus);
+            this.debuffAmount = Math.max(this.debuffAmount, this.debuffBaseAmount);
         }
         updateDescription();
     }
+
 
     public void applyUniqueFocus(int StrAmount) {
 
@@ -303,6 +302,14 @@ public abstract class SpawnedSlime
         this.passiveAmount = this.passiveAmount + StrAmount;
         updateDescription();
         //AbstractDungeon.effectsQueue.add(new FireBurstParticleEffect(this.cX, this.cY));
+    }
+
+
+    @Override
+    public void updateDescription() {
+        if (useDebuffForDescription) {
+            this.description = this.descriptions[0] + this.debuffAmount + this.descriptions[1];
+        }
     }
 
 
@@ -463,29 +470,56 @@ public abstract class SpawnedSlime
         }
     }
 
+    public void upgrade() {
+
+    }
+
 
     public void renderText(SpriteBatch sb) {
-        if (this.extraFontColor != null) {
-
-
+        if (this instanceof ShieldSlime || this instanceof SlimingSlime) {
+            // For ShieldSlime and SlimingSlime, only show the debuff number
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                    Integer.toString(this.debuffAmount + this.slimeBonus),
+                    this.cX + this.NUM_X_OFFSET,
+                    this.cY + this.NUM_Y_OFFSET,
+                    this.extraFontColor != null ? this.extraFontColor : this.c,
+                    this.fontScale);
+        } else if (this.extraFontColor != null) {
+            // For other slimes with extra font color, show both numbers
             float fontOffset = 26 * Settings.scale;
             if (this.passiveAmount > 9) fontOffset = fontOffset + (6 * Settings.scale);
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + "/", this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
-
-
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.debuffAmount + this.slimeBonus), this.cX + this.NUM_X_OFFSET + fontOffset, this.cY + this.NUM_Y_OFFSET + 1F, this.extraFontColor, this.fontScale);
-
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                    this.passiveAmount + "/",
+                    this.cX + this.NUM_X_OFFSET,
+                    this.cY + this.NUM_Y_OFFSET,
+                    this.c,
+                    this.fontScale);
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                    Integer.toString(this.debuffAmount + this.slimeBonus),
+                    this.cX + this.NUM_X_OFFSET + fontOffset,
+                    this.cY + this.NUM_Y_OFFSET + 1F,
+                    this.extraFontColor,
+                    this.fontScale);
         } else if (this instanceof PoisonSlime) {
-
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, this.passiveAmount + " All", this.cX + this.NUM_X_OFFSET - (Settings.scale * 0.01F), this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
+            // For PoisonSlime, show "X All"
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                    this.passiveAmount + " All",
+                    this.cX + this.NUM_X_OFFSET - (Settings.scale * 0.01F),
+                    this.cY + this.NUM_Y_OFFSET,
+                    this.c,
+                    this.fontScale);
         } else {
-            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L, Integer.toString(this.passiveAmount), this.cX + this.NUM_X_OFFSET, this.cY + this.NUM_Y_OFFSET, this.c, this.fontScale);
-
+            // For all other slimes, show only the passive amount
+            FontHelper.renderFontCentered(sb, FontHelper.cardEnergyFont_L,
+                    Integer.toString(this.passiveAmount),
+                    this.cX + this.NUM_X_OFFSET,
+                    this.cY + this.NUM_Y_OFFSET,
+                    this.c,
+                    this.fontScale);
         }
     }
 
 }
-
 
 
 

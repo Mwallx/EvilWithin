@@ -17,8 +17,8 @@
   "Slimebound:PreventTackleDamagePower": {
     "NAME": "Protected",
     "DESCRIPTIONS": [
-      "You do not take damage from the next #b",
-      " #yTackles you play."
+      "The next #b",
+      " #yTackles you play do not #yBruise you."
     ]
   },
   "Slimebound:SplitDailyTriggerPower": {
@@ -516,6 +516,42 @@
     "DESCRIPTIONS": [
       "Adds ",
       " Goop at the start of this enemy's turn."
+    ]
+  },
+  "Slimebound:HauntingLickPower": {
+    "NAME": "Haunting Licks",
+    "DESCRIPTIONS": [
+      "Whenever you play a #yLick, apply #b",
+      " #yVulnerable."
+    ]
+  },
+  "Slimebound:NibblePower": {
+    "NAME": "Nibble Licks",
+    "DESCRIPTIONS": [
+      "Whenever you play a #yLick, deal #b",
+      " damage."
+    ]
+  },
+  "Slimebound:MegaLickPower": {
+    "NAME": "Mega Licks",
+    "DESCRIPTIONS": [
+      "Whenever you play a #yLick, apply #b",
+      " #yWeak."
+    ]
+  },
+  "Slimebound:SamplingLickPower": {
+    "NAME": "Sampling Licks",
+    "DESCRIPTIONS": [
+      "Whenever you play a #yLick, gain #b",
+      " #yBlock."
+    ]
+  },
+  "Slimebound:PainToPowerPower": {
+    "NAME": "Pain To Power",
+    "DESCRIPTIONS": [
+      "At the end of your turn, gain #b",
+      " #yStrength for every #b",
+      " #yBruise you have."
     ]
   }
 }

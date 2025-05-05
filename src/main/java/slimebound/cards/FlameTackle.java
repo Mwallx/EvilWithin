@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.InflameEffect;
 import com.megacrit.cardcrawl.vfx.combat.SearingBlowEffect;
+import hermit.powers.Bruise;
 import slimebound.SlimeboundMod;
 import slimebound.actions.TackleSelfDamageAction;
 import slimebound.patches.AbstractCardEnum;
@@ -31,7 +32,7 @@ public class FlameTackle extends AbstractSlimeboundCard {
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
-    private static final int COST = 2;
+    private static final int COST = 0;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -45,9 +46,9 @@ public class FlameTackle extends AbstractSlimeboundCard {
     public FlameTackle() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
         tags.add(SlimeboundMod.TACKLE);
-        this.baseDamage = 18;
+        this.baseDamage = 9;
         baseSelfDamage = this.selfDamage = 3;
-        this.magicNumber = this.baseMagicNumber = 5;
+        this.magicNumber = this.baseMagicNumber = 2;
         SlimeboundMod.loadJokeCardImage(this, "FlameTackle.png");
     }
 
@@ -57,7 +58,7 @@ public class FlameTackle extends AbstractSlimeboundCard {
         }
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new com.megacrit.cardcrawl.cards.DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.NONE));
         if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
-            addToBot(new TackleSelfDamageAction(new DamageInfo(p, selfDamage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SMASH));
+            this.addToBot(new ApplyPowerAction(p, p, new Bruise(p, selfDamage), selfDamage, true, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
         AbstractDungeon.actionManager.addToBottom(new VFXAction(p, new InflameEffect(p), 0.5F));
         AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(p, p, new TackleBuffPower(p, p, this.magicNumber), this.magicNumber, true, AbstractGameAction.AttackEffect.NONE));
     }
@@ -65,10 +66,9 @@ public class FlameTackle extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(4);
-            upgradeMagicNumber(2);
+            upgradeDamage(3);
+            upgradeMagicNumber(1);
         }
     }
 }
-
 

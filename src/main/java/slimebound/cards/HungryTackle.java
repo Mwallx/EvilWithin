@@ -2,14 +2,18 @@ package slimebound.cards;
 
 
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.tempCards.Shiv;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import hermit.powers.Bruise;
 import slimebound.SlimeboundMod;
 import slimebound.actions.ExhumeLickAction;
 import slimebound.actions.ReturnRandom0Cost;
@@ -29,7 +33,7 @@ public class HungryTackle extends AbstractSlimeboundCard {
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.ENEMY;
     private static final CardStrings cardStrings;
-    private static final int COST = 1;
+    private static final int COST = 0;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -46,7 +50,7 @@ public class HungryTackle extends AbstractSlimeboundCard {
         tags.add(SlimeboundMod.TACKLE);
 
 
-        this.baseDamage = 12;
+        this.baseDamage = 9;
         baseSelfDamage = this.selfDamage = 3;
 
 
@@ -59,10 +63,8 @@ public class HungryTackle extends AbstractSlimeboundCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         AbstractDungeon.actionManager.addToBottom(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
         if (!AbstractDungeon.player.hasPower(PreventTackleDamagePower.POWER_ID))
-            AbstractDungeon.actionManager.addToBottom(new TackleSelfDamageAction(new DamageInfo(AbstractDungeon.player, selfDamage, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
-        //  AbstractDungeon.actionManager.addToBottom(new ApplyPowerAction(m, p, new WeakPower(m, this.magicNumber, false), this.magicNumber, true, AbstractGameAction.AttackEffect.NONE));
-        AbstractDungeon.actionManager.addToBottom(new ExhumeLickAction(this.magicNumber, false));
-        //AbstractDungeon.actionManager.addToBottom(new RemoveSpecificPowerAction(p,p,TackleBuffPower.POWER_ID));
+            this.addToBot(new ApplyPowerAction(p, p, new Bruise(p, baseSelfDamage), baseSelfDamage, true, AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+        this.addToBot(new MakeTempCardInHandAction(new Lick(), this.magicNumber));
     }
 
     public AbstractCard makeCopy() {
@@ -77,15 +79,14 @@ public class HungryTackle extends AbstractSlimeboundCard {
 
             upgradeName();
 
-            upgradeDamage(4);
+            upgradeDamage(3);
 
-            // this.rawDescription = UPGRADED_DESCRIPTION;
-            //this.initializeDescription();
-            //upgradeMagicNumber(1);
+             this.rawDescription = UPGRADED_DESCRIPTION;
+            this.initializeDescription();
+            upgradeMagicNumber(1);
 
         }
 
     }
 }
-
 

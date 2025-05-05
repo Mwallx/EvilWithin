@@ -53,9 +53,8 @@ public class DivideAndConquer extends AbstractSlimeboundCard {
 
     public DivideAndConquer() {
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        this.exhaust = true;
         this.isMultiDamage = true;
-        baseDamage = 10;
+        baseDamage = 5;
         SlimeboundMod.loadJokeCardImage(this, "DivideAndConquer.png");
     }
 
@@ -76,12 +75,6 @@ public class DivideAndConquer extends AbstractSlimeboundCard {
             }
         }
 
-        for (AbstractOrb o : p.orbs) {
-            if (o instanceof SpawnedSlime) {
-                AbstractDungeon.actionManager.addToBottom(new EvokeSpecificOrbAction(o));
-            }
-        }
-
     }
 
     public AbstractCard makeCopy() {
@@ -91,7 +84,7 @@ public class DivideAndConquer extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeDamage(5);
+            upgradeDamage(2);
         }
     }
 }

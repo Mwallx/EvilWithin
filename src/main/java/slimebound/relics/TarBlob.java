@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
+import slimebound.actions.SlimeSpawnAction;
 import slimebound.characters.SlimeboundCharacter;
 
 public class TarBlob extends CustomRelic {
@@ -30,7 +31,7 @@ public class TarBlob extends CustomRelic {
 
     public void atBattleStartPreDraw() {
         this.flash();
-        com.megacrit.cardcrawl.dungeons.AbstractDungeon.actionManager.addToBottom(new com.megacrit.cardcrawl.actions.defect.DecreaseMaxOrbAction(1));
+        AbstractDungeon.actionManager.addToBottom(new SlimeSpawnAction(new slimebound.orbs.TarrSlime(), false, true));
     }
 
 

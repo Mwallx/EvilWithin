@@ -39,7 +39,7 @@ public class ChampSlime
     public void postSpawnEffects() {
         this.crownVFX = new CrownParticle(this);
         if(CharacterSelectScreenPatches.characters[1].isOriginal()){
-        AbstractDungeon.effectList.add(this.crownVFX);
+            AbstractDungeon.effectList.add(this.crownVFX);
         }
     }
 
@@ -64,7 +64,7 @@ public class ChampSlime
 
     public void cleanUpVFX() {
         if(CharacterSelectScreenPatches.characters[1].isOriginal())
-        this.crownVFX.finish();
+            this.crownVFX.finish();
     }
 
     @Override
@@ -78,5 +78,4 @@ public class ChampSlime
         return new ChampSlime();
     }
 }
-
 

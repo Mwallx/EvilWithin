@@ -23,21 +23,19 @@ import slimebound.orbs.SpawnedSlime;
 import slimebound.patches.AbstractCardEnum;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 
 
 public class ServeAndProtect extends AbstractSlimeboundCard {
     public static final String ID = "Slimebound:ServeAndProtect";
     public static final String NAME;
     public static final String DESCRIPTION;
-    public static final String[] EXTENDED_DESCRIPTION;
     public static final String IMG_PATH = "cards/formablockade.png";
     private static final CardStrings cardStrings;
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.UNCOMMON;
     private static final CardTarget TARGET = CardTarget.SELF;
     private static final int COST = 1;
-    private static final int BLOCK = 5;
-    private static final int UPGRADE_BONUS = 3;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -45,42 +43,34 @@ public class ServeAndProtect extends AbstractSlimeboundCard {
         NAME = cardStrings.NAME;
         DESCRIPTION = cardStrings.DESCRIPTION;
         UPGRADED_DESCRIPTION = cardStrings.UPGRADE_DESCRIPTION;
-        EXTENDED_DESCRIPTION = cardStrings.EXTENDED_DESCRIPTION;
     }
-
 
     public ServeAndProtect() {
-
         super(ID, NAME, SlimeboundMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.SLIMEBOUND, RARITY, TARGET);
-        baseMagicNumber = magicNumber = 1;
-        baseBlock = block = 10;
-        this.exhaust = true;
+        this.baseBlock = 3;
+        this.magicNumber = this.baseMagicNumber = 1;
         SlimeboundMod.loadJokeCardImage(this, "ServeAndProtect.png");
-
     }
 
-
-
     public void use(AbstractPlayer p, AbstractMonster m) {
-        int slimecount = 0;
+        HashSet<String> uniqueSlimeTypes = new HashSet<>();
 
+        // Count unique Slime types
         for (AbstractOrb o : p.orbs) {
             if (o instanceof SpawnedSlime) {
-                slimecount++;
+                uniqueSlimeTypes.add(((SpawnedSlime) o).ID);
             }
         }
 
-        if (slimecount > 0) {
-            addToBot(new GainBlockAction(p, slimecount * block));
-            addToBot(new ApplyPowerAction(p,p,new BlurPower(p, slimecount)));
+        int uniqueSlimeCount = uniqueSlimeTypes.size();
+
+        // Gain Block for each unique Slime
+        if (uniqueSlimeCount > 0) {
+            addToBot(new GainBlockAction(p, p, this.block * uniqueSlimeCount));
         }
 
-        for (AbstractOrb o : p.orbs) {
-            if (o instanceof SpawnedSlime) {
-                addToBot(new EvokeSpecificOrbAction(o));
-            }
-        }
-
+        // Gain 1 Blur
+        addToBot(new ApplyPowerAction(p, p, new BlurPower(p, this.magicNumber)));
     }
 
     public AbstractCard makeCopy() {
@@ -90,9 +80,8 @@ public class ServeAndProtect extends AbstractSlimeboundCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(5);
+            upgradeBlock(1);
+            initializeDescription();
         }
     }
 }
-
-
