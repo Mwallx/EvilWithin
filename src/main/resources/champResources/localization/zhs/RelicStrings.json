@@ -116,7 +116,7 @@
       "战斗开始时，随机进入一种 #y姿态 。"
     ]
   },
-  "champ:BustedCrownGagText": {
+  "downfall:BustedCrownGagText": {
     "NAME": "破碎金冠",
     "FLAVOR": "仿制是最真挚的奉承……吗？这看起来不像你的金冠，更像对你的羞辱。",
     "DESCRIPTIONS": [
