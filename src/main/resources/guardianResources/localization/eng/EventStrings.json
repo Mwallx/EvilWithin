@@ -27,9 +27,9 @@
       "You decide that something this powerful is probably here for good reason. Though your instinct says that you should do something with such a powerful object, you reason that whoever left this here did so with purpose.  You close the lid, and move on."
     ],
     "OPTIONS": [
-      "[Use] #gGain #gQuantum #gChamber. #rBecome #rCursed #r- #rAged",
+      "[Use] #gGain #gQuantum #gChamber. #rBecome #rCursed #r- #rAged.",
       "[Smash] #gGain #g",
-      " #gMax #gHP. #rBecome #rCursed #r- #rPain",
+      " #gMax #gHP. #rBecome #rCursed #r- #rPain.",
       "[Leave]"
     ]
   },
@@ -93,7 +93,7 @@
       "With a swift crushing blow, you shatter the Shrine into pieces in order to uncover the treasures within. Within the rubble, you find two pristine and usable gemstones, patiently awaiting their place in your weaponry. NL NL You leave the remains of the Shrine and continue the climb."
     ],
     "OPTIONS": [
-      "[Smash] #gGain #g2 #gRandom #gGems."
+      "[Smash] #gGain #g2 #gRandom #gGems [REMOVE_SPACE]."
     ]
   },
   "Guardian:Transmorgrifier": {

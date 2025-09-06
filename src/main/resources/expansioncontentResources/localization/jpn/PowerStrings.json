@@ -64,10 +64,10 @@
     ]
   },
   "expansioncontent:AddCopyPower": {
-    "NAME": "Delayed Card",
+    "NAME": "遅延カード",
     "DESCRIPTIONS": [
-      "Add ",
-      " into your hand at the start of your next turn."
+      " ",
+      " を次の自分のターンの開始時に手札に加える。"
     ]
   },
   "expansioncontent:AddSameInstancePower": {
@@ -93,6 +93,39 @@
       " ダメージをランダムな敵に #b6 回与える。"
     ]
   },
+  "expansioncontent:BeatOfDeathP": {
+    "NAME": "死の鼓動",
+    "DESCRIPTIONS": [
+      "あなたがカードをプレイする度敵全体に #b",
+      " ダメージを与える。"
+    ]
+  },
+  "expansioncontent:PandemoniumPower":{
+    "NAME": "パンデモニウム",
+    "DESCRIPTIONS": [
+      "ターン開始時、ランダムに捨て札のカードを1枚プレイする。",
+      "ターン開始時、ランダムに捨て札のカードを #b",
+      " 枚プレイする。"
+    ]
+  },
+  "expansioncontent:EvilWithinPower":{
+    "NAME": "悪意の中で",
+    "DESCRIPTIONS": [
+      "条件を満たした時、敵全体に #b",
+      " ダメージを与える。更に #b",
+      " デバフを与える。",
+      " デバフを与える。"
+    ]
+  },
+  "expansioncontent:ReveriePower":{
+  "NAME": "夢想",
+  "DESCRIPTIONS": [
+    "ターン開始時、捨て札の一番上のカードを確認しそれを手札に加える。",
+    "ターン開始時、捨て札のカードを上から #b",
+    " 枚を確認し、選んで1枚を手札に加える。",
+    " 枚を確認し、選んで1枚を手札に加える。"
+  ]
+},
   "expansioncontent:VexVinciblePower": {
     "NAME": "無敵",
     "DESCRIPTIONS": [

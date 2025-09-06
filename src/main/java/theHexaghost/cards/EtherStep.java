@@ -3,10 +3,13 @@ package theHexaghost.cards;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.watcher.VigorPower;
 import downfall.downfallMod;
+import gremlin.relics.FragmentationGrenade;
 import theHexaghost.HexaMod;
 import theHexaghost.util.HexaPurpleTextInterface;
 
@@ -35,13 +38,25 @@ public class EtherStep extends AbstractHexaCard implements HexaPurpleTextInterfa
         AbstractMonster m = AbstractDungeon.getRandomMonster();
         if (m == null) return;
         this.calculateCardDamage(m);
+
+        if (AbstractDungeon.player.hasRelic(FragmentationGrenade.ID)) {
+            AbstractDungeon.player.getRelic(FragmentationGrenade.ID).flash();
+            this.damage = this.damage + FragmentationGrenade.OOMPH;
+        }
+
         if(AbstractDungeon.player.hasPower("Pen Nib") ){
             this.damage /= 2;
             dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
             this.damage *= 2;
-        }else {
+        } else {
             dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
         }
+
+        if (AbstractDungeon.player.hasRelic(FragmentationGrenade.ID)) {
+            AbstractDungeon.player.getRelic(FragmentationGrenade.ID).flash();
+            this.damage = this.damage - FragmentationGrenade.OOMPH;
+        }
+        atb(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, VigorPower.POWER_ID));
     }
 
     public void upgrade() {

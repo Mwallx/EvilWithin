@@ -30,14 +30,14 @@
       "defensive_mode",
       "defensive"
     ],
-    "DESCRIPTION": "#yStance. NL Gain #b20 #yBlock when you enter Defensive Mode. While in it, you have #b3 #yThorns and your #yBlock does not expire."
+    "DESCRIPTION": "#yStance. NL While in Defensive Mode you have #b3 #yThorns and your #yBlock does not expire."
   },
   {
     "NAMES": [
       "accelerate"
     ],
     "PROPER_NAME": "Accelerate",
-    "DESCRIPTION": "Reduce the turn counter of the right-most card in #yStasis by #b1."
+    "DESCRIPTION": "Reduce the turn counter of the right-most card in #yStasis by #b1 [REMOVE_SPACE]."
   },
   {
     "NAMES": [
@@ -45,7 +45,7 @@
       "packages"
     ],
     "PROPER_NAME": "Package",
-    "DESCRIPTION": "0-cost #yExhausting #ySkill that generates three cards inspired by a chosen Construct of the Spire."
+    "DESCRIPTION": "#ySkill that generates three cards inspired by a chosen Construct of the Spire."
   },
   {
     "NAMES": [
@@ -72,7 +72,7 @@
     "NAMES": [
       "brace"
     ],
-    "PROPER_NAME": "Brace",
-    "DESCRIPTION": "Reduce the HP loss required to enter #yDefensive #yMode by some amount."
+    "PROPER_NAME": "Brace X",
+    "DESCRIPTION": "Reduce the HP loss required to trigger #yMode #yShift by X."
   }
 ]

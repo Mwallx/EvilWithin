@@ -17,6 +17,8 @@ public class ForkedFlame extends AbstractHexaCard {
     public ForkedFlame() {
         super(ID, 1, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
         baseDamage = 5;
+        tags.add(HexaMod.GHOSTWHEELCARD);
+        this.tags.add(SneckoMod.BANNEDFORSNECKO);
         HexaMod.loadJokeCardImage(this, "ForkedFlame.png");
     }
 

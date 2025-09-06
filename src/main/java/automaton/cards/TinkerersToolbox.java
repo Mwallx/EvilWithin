@@ -1,16 +1,19 @@
 package automaton.cards;
 
 import automaton.AutomatonMod;
+import basemod.patches.com.megacrit.cardcrawl.cards.AbstractCard.MultiCardPreview;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.tempCards.Shiv;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import downfall.util.SelectCardsCenteredAction;
+import gremlin.cards.Ward;
 import sneckomod.SneckoMod;
 
 import static automaton.AutomatonMod.makeBetaCardPath;
@@ -28,7 +31,7 @@ public class TinkerersToolbox extends AbstractBronzeCard {
     private ArrayList<AbstractCard> cardsList = new ArrayList<>();
 
     public TinkerersToolbox() {
-        super(ID, 0, CardType.SKILL, CardRarity.RARE, CardTarget.SELF);
+        super(ID, 1, CardType.SKILL, CardRarity.RARE, CardTarget.SELF);
         exhaust = true;
         selfRetain = true;
        // this.tags.add(SneckoMod.BANNEDFORSNECKO);
@@ -36,6 +39,7 @@ public class TinkerersToolbox extends AbstractBronzeCard {
         cardsList.add(new Batch());
         cardsList.add(new Decompile());
         cardsList.add(new ByteShift());
+        MultiCardPreview.add(this, new Debug(), new Batch(), new Decompile(), new ByteShift());
         AutomatonMod.loadJokeCardImage(this, makeBetaCardPath("TinkerersToolbox.png"));
     }
 
@@ -44,31 +48,9 @@ public class TinkerersToolbox extends AbstractBronzeCard {
     }
 
     public void upp() {
-        exhaust = false;
-        rawDescription = UPGRADE_DESCRIPTION;
-        initializeDescription();
+       upgradeBaseCost(0);
     }
 
 
-    @Override
-    public void update() {
-        super.update();
-        if (hb.hovered) {
-            if (rotationTimer <= 0F) {
-                rotationTimer = 2F;
-                if (cardsList.size() == 0) {
-                    cardsToPreview = CardLibrary.cards.get("Madness");
-                } else {
-                    cardsToPreview = cardsList.get(previewIndex);
-                }
-                if (previewIndex == cardsList.size() - 1) {
-                    previewIndex = 0;
-                } else {
-                    previewIndex++;
-                }
-            } else {
-                rotationTimer -= Gdx.graphics.getDeltaTime();
-            }
-        }
+
     }
-}
