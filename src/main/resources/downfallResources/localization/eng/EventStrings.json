@@ -108,7 +108,7 @@
     "OPTIONS": [
       "[Donate] #rLose #r150 #rSouls. #gGain #g10 #gMax #gHP #gand #gFully #gHeal.",
       "[Locked] Requires 150 Souls.",
-      "[Donate] #rLose #r150 #rSouls. #gEach #gGremlin #gGains #g2 #gMax #gHP #gand #the #gAlive #gOnes #gFully #gHeal.",
+      "[Donate] #rLose #r150 #rSouls. #gGain #g2 #gMax #gHP #gand #gFully #gHeal #gGremlins.",
       "[Take]"
     ]
   },
@@ -214,9 +214,10 @@
       "You walk around it, wondering what could have been."
     ],
     "OPTIONS": [
-      "[Enter] #gUpgrade #g3 #grandom #gcards. #rBecome #rCursed #r- #rFlawed.",
+      "[Enter] #gUpgrade #g",
       "[Leave]",
-      "[Locked] Requires: Upgradeable Cards"
+      "[Locked] Requires: Upgradeable Cards",
+      " #grandom #gcards. #rBecome #rCursed #r- #rFlawed."
     ]
   },
   "downfall:WorldOfGoop": {
@@ -283,7 +284,7 @@
       "You decide to leave the soul alone and continue on your way."
     ],
     "OPTIONS": [
-      "[Set Trap] #rLose #ra #rStrike.",
+      "[Set Trap] #gRemove #ga #gStrike.",
       "[Harvest] #gGain #y",
       " #ySouls.",
       "[Leave]",
@@ -330,7 +331,8 @@
     "NAME": "Forgotten Altar",
     "DESCRIPTIONS": [
       "You stand on the altar and channel the spiritual energy from your inner being. NL As the #bsouls spill out in an offering to the goddess, the arms of the statue reach out and emanate a soothing #p~cursed~ #p~magic.~ NL Everything goes dark. NL You wake up a short time later, your wounds and injuries from battle suddenly healed.",
-      "After taking a brief moment to admire the evil that resides within the statue, you depart, continuing through the City."
+      "After taking a brief moment to admire the evil that resides within the statue, you depart, continuing through the City.",
+      "You decide to leave without making an offering to the statue, but you feel some lingering #pshame that you didn't make an offering at all."
     ],
     "OPTIONS": [
       "[Offer Souls] #rLose #r",
@@ -338,7 +340,8 @@
       " #gHP.",
       "[Locked] Requires ",
       " Souls.",
-      "[Leave]"
+      "[Leave]",
+      "[Leave] #rBecome #rCursed #r- #rShame."
     ]
   },
   "downfall:Bandits": {
@@ -432,13 +435,13 @@
       "[Return Statue] #rLose #rBroken #rWing #rStatue. #gGain #gmany #grewards.",
       "[Locked] Requires Broken Wing Statue.",
       "[Accept] #gGain #gCultist #gPotion.",
-      "[Steal] #gObtain Ritual Dagger. #rLose #r",
+      "[Steal] #gObtain #gRitual #gDagger. #rLose #r",
       " #rHP.",
       "[Leave]",
       "[Continue]",
       "[Take Dagger] #gGain #gRitual #gDagger.",
       "[Anoint] #gUpgrade #gRitual #gDagger.",
-      "[Sacrifice] #rKill #rCultist with Ritual Dagger+.",
+      "[Sacrifice] #rKill #rCultist #rwith #rRitual #rDagger+.",
       "[Be Praised] #gGain #grewards for returning the #gBroken #gWing #gStatue."
     ]
   },
@@ -453,8 +456,8 @@
       "You deciding that, though it is tempting, fighting here would be an unnecessary distraction. Your journey continues on, and you leave the slavers to resume their ambush."
     ],
     "OPTIONS": [
-      "[Challenge] #rFight Arena Champions. #gGain #gmany #grewards.",
-      "[Participate] #rFight Captive Hero. #gGain #gmany #grewards.",
+      "[Challenge] #rFight #rArena #rChampions. #gGain #gmany #grewards.",
+      "[Participate] #rFight #rCaptive #rHero. #gGain #gmany #grewards.",
       "[Leave]",
       "[FIGHT!]",
       "[Continue]"
@@ -470,10 +473,10 @@
     "OPTIONS": [
       "[I am an Echo] #rFight #ryourself. #gObtain #ga #gRare #gRelic.",
       "[I am Gorged] #gGain #g999 #gSouls. #rCursed #r- #r2 #rNormality.",
-      "[I am Complete] #gUpgrade #gall #gCards. #rLose #rHeart #rBlessings.",
+      "[I am Complete] #gUpgrade #gall #gCards. #rYou #rcan #rno #rlonger #rheal.",
       "[Locked] Requires all 3 Heart Blessings.",
       "[Leave]",
-      "[I am Complete] #gUpgrade #gall #gCards. #rLose #rHeart #rBlessings and #r2 #rMax #rHP."
+      "[I am Complete] #gUpgrade #gall #gCards. #rBecome #rBurdened."
     ]
   },
   "downfall:MoaiHead": {
@@ -556,7 +559,7 @@
   "downfall:Joust": {
     "NAME": "The Joust",
     "DESCRIPTIONS": [
-      "As you make your way through the large buildings you come across a long narrow bridge and spot knights on either side, facing one another. You approach and they scatter, glaring at one another. NL \"Monster! YOU fight it, if you're so good at killing things!\" NL \"No, YOU fight it! You know monsters better, what with that ~demonic~ ~cat!~\" NL NL They won't stop bickering. You'll have to decide...",
+      "As you make your way through the large buildings you come across a long narrow bridge and spot knights on either side, facing one another. You approach and they scatter, glaring at one another. NL \"Monster! YOU fight it, if you're so good at killing things!\" NL \"No, YOU fight it! You know monsters better, what with that ~demonic~ ~cat!~ \" NL NL They won't stop bickering. You'll have to decide...",
       "This knight was clearly stronger than the other one, and you tried your best but were ultimately thrashed. NL \"I'd like to see you best a beast like that!\" he says to the other knight as they leave, bickering.",
       "You ruthlessly avoid the knight's attacks and #rkill him, sucking his #gsouls out gleefully. The other knight screams and flees. What a coward...",
       "The cowardly knight gives you a few pesky scratches from afar with his longsword, then runs away screaming. The other knight runs after him, angry. You return to your work, annoyed.",
@@ -616,10 +619,11 @@
     "DESCRIPTIONS": [
       "Only you should hold this power. You shatter the shrine into pieces. NL A dark wail echoes all around you, and you can feel the Shrine's #p~cursed~ #p~magic~ seep into your bones."    ],
     "OPTIONS": [
-      "[Desecrate] #gDuplicate #g2 #gcards. #rCursed #r- #rSapped.",
-      "[Desecrate] #gRemove #g3 #gcards. #rCursed #r- #rSapped.",
-      "[Desecrate] #gTransform #g3 #gcards. #rCursed #r- #rSapped.",
-      "[Desecrate] #gUpgrade #g2 #gcards. #rCursed #r- #rSapped."
+      "[Desecrate] #gDuplicate #g2 #gcards. #rCursed #r- #rAged.",
+      "[Desecrate] #gRemove #g2 #gcards. #rLose #r",
+      " #rMax #rHP.",
+      "[Desecrate] #gTransform #g3 #gcards. #rCursed #r- #rFlawed.",
+      "[Desecrate] #gUpgrade #g2 #gcards. #rCursed #r- #rPain."
     ]
   }
 }

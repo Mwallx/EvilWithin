@@ -1,14 +1,10 @@
 package champ.cards;
 
-import champ.ChampMod;
-import champ.powers.BerserkerStylePower;
-import champ.powers.ResolvePower;
+import champ.powers.HonePower;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import static champ.ChampMod.loadJokeCardImage;
-
-import static champ.ChampMod.fatigue;
 
 public class BerserkerStyle extends AbstractChampCard {
 
@@ -18,23 +14,17 @@ public class BerserkerStyle extends AbstractChampCard {
 
     public BerserkerStyle() {
         super(ID, 1, CardType.POWER, CardRarity.UNCOMMON, CardTarget.SELF);
-        this.tags.add(ChampMod.OPENER);
-        this.tags.add(ChampMod.OPENERBERSERKER);
-        baseMagicNumber = magicNumber = 1;
+        baseMagicNumber = magicNumber = 3;
        // myHpLossCost = 5;
         postInit();
         loadJokeCardImage(this, "BerserkerStyle.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        berserkOpen();
-     //   fatigue(5);
-        applyToSelf(new BerserkerStylePower(magicNumber));
+        applyToSelf(new HonePower(p, magicNumber));
     }
 
     public void upp() {
-        isInnate = true;
-        rawDescription = UPGRADE_DESCRIPTION;
-        initializeDescription();
+        upgradeMagicNumber(1);
     }
 }

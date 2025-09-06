@@ -2,6 +2,7 @@ package downfall.events;
 
 
 import automaton.AutomatonChar;
+import awakenedOne.AwakenedOneChar;
 import basemod.ReflectionHacks;
 import champ.ChampChar;
 import collector.CollectorChar;
@@ -16,9 +17,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
+import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.EventStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.monsters.beyond.AwakenedOne;
 import com.megacrit.cardcrawl.monsters.city.BronzeAutomaton;
 import com.megacrit.cardcrawl.monsters.city.Champ;
 import com.megacrit.cardcrawl.monsters.city.GremlinLeader;
@@ -33,19 +36,14 @@ import downfall.downfallMod;
 import downfall.monsters.GremlinMirror;
 import downfall.monsters.SneckoMirror;
 import downfall.patches.ui.campfire.AddBustKeyButtonPatches;
-import downfall.relics.HeartBlessingBlue;
-import downfall.relics.HeartBlessingGreen;
-import downfall.relics.HeartBlessingRed;
+import downfall.relics.*;
 import gremlin.characters.GremlinCharacter;
 import guardian.characters.GuardianCharacter;
 import slimebound.characters.SlimeboundCharacter;
 import sneckomod.TheSnecko;
 import theHexaghost.TheHexaghost;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 import static com.megacrit.cardcrawl.dungeons.AbstractDungeon.lastCombatMetricKey;
 import static com.megacrit.cardcrawl.helpers.MonsterHelper.getGremlin;
@@ -77,10 +75,19 @@ public class MindBloom_Evil extends AbstractImageEvent {
             if (AbstractDungeon.player instanceof GremlinCharacter) {
                 this.imageEventText.setDialogOption(OPTIONSALT[5]);
             } else {
+                //this.imageEventText.setDialogOption(OPTIONSALT[2]);
+                //if ruining the surprise is important use this instead
                 this.imageEventText.setDialogOption(OPTIONSALT[2]);
             }
         } else {
-            this.imageEventText.setDialogOption(OPTIONSALT[3], true);
+            if (AbstractDungeon.player instanceof GremlinCharacter) {
+                this.imageEventText.setDialogOption(OPTIONSALT[5]);
+            } else {
+                this.imageEventText.setDialogOption(OPTIONSALT[2]);
+                //if ruining the surprise is important use this instead
+                // this.imageEventText.setDialogOption(OPTIONSALT[2], new BurdenOfKnowledge());
+            }
+            //this.imageEventText.setDialogOption(OPTIONSALT[3], true);
         }
 
         if (AbstractDungeon.floorNum % 50 <= 40) {
@@ -141,6 +148,13 @@ public class MindBloom_Evil extends AbstractImageEvent {
                             m.currentHealth = m.maxHealth;
                             m.powers.add(new StrengthPower(m, -3));
                             AbstractDungeon.getCurrRoom().monsters = new MonsterGroup(m);
+                        }
+                        else if (AbstractDungeon.player instanceof AwakenedOneChar) {
+                            AbstractMonster m = new AwakenedOne(0,0);
+                            m.maxHealth = Math.round(m.maxHealth * .4F);
+                            m.currentHealth = m.maxHealth;
+                            m.powers.add(new StrengthPower(m, -4));
+                            AbstractDungeon.getCurrRoom().monsters = new MonsterGroup(m);
                         } else {
                             ArrayList<String> list = new ArrayList();
                             list.add("Slime Boss");
@@ -173,13 +187,15 @@ public class MindBloom_Evil extends AbstractImageEvent {
                         this.screen = CurScreen.LEAVE;
                         int effectCount = 0;
                         List<String> upgradedCards = new ArrayList();
+                        Iterator var11 = AbstractDungeon.player.masterDeck.group.iterator();
 
-                        for (AbstractCard c : AbstractDungeon.player.masterDeck.group) {
+                        while(var11.hasNext()) {
+                            AbstractCard c = (AbstractCard)var11.next();
                             if (c.canUpgrade()) {
                                 ++effectCount;
                                 if (effectCount <= 20) {
-                                    float x = MathUtils.random(0.1F, 0.9F) * (float) Settings.WIDTH;
-                                    float y = MathUtils.random(0.2F, 0.8F) * (float) Settings.HEIGHT;
+                                    float x = MathUtils.random(0.1F, 0.9F) * (float)Settings.WIDTH;
+                                    float y = MathUtils.random(0.2F, 0.8F) * (float)Settings.HEIGHT;
                                     AbstractDungeon.effectList.add(new ShowCardBrieflyEffect(c.makeStatEquivalentCopy(), x, y));
                                     AbstractDungeon.topLevelEffects.add(new UpgradeShineEffect(x, y));
                                 }
@@ -190,9 +206,7 @@ public class MindBloom_Evil extends AbstractImageEvent {
                             }
                         }
 
-                        AbstractDungeon.player.loseRelic(HeartBlessingRed.ID);
-                        AbstractDungeon.player.loseRelic(HeartBlessingBlue.ID);
-                        AbstractDungeon.player.loseRelic(HeartBlessingGreen.ID);
+                        AbstractDungeon.getCurrRoom().spawnRelicAndObtain((float)Settings.WIDTH / 2.0F, (float)Settings.HEIGHT / 2.0F, RelicLibrary.getRelic("Mark of the Bloom").makeCopy());
 
                         logMetricUpgradeCards(ID, "Upgrade", upgradedCards);
 

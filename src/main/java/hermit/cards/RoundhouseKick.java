@@ -12,6 +12,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.CleaveEffect;
 import hermit.HermitMod;
 import hermit.characters.hermit;
+import sneckomod.SneckoMod;
 
 import java.util.Iterator;
 

@@ -1,6 +1,11 @@
 package downfall.events;
 
+import automaton.relics.BottledCode;
+import awakenedOne.relics.MoonTalisman;
+import champ.relics.SignatureFinisher;
 import collector.CollectorChar;
+import collector.relics.BottledCollectible;
+import collector.relics.ForbiddenFruit;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -8,11 +13,19 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.PotionHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
+import guardian.events.StasisEgg;
+import guardian.relics.BottledAnomaly;
+import guardian.relics.BottledStasis;
+import guardian.relics.PickAxe;
+import sneckomod.relics.D8;
+import sneckomod.relics.SneckoBoss;
+import sneckomod.relics.SneckoCommon;
+import theHexaghost.relics.Libra;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,11 +67,49 @@ public class WeMeetAgain_Evil extends AbstractImageEvent {
         ArrayList<AbstractRelic> playerUncommonRelics = new ArrayList<>();
 
         for (AbstractRelic r : AbstractDungeon.player.relics) {
-            if (r.tier == AbstractRelic.RelicTier.COMMON) {
-                playerCommonRelics.add(r);
-            }
-            if (r.tier == AbstractRelic.RelicTier.UNCOMMON) {
-                playerUncommonRelics.add(r);
+            if
+                //Commons
+            ((r.relicId != Strawberry.ID) &&
+                    (r.relicId != MawBank.ID) &&
+                    (r.relicId != PickAxe.ID) &&
+                    (r.relicId != Matryoshka.ID) &&
+                    (r.relicId != WarPaint.ID) &&
+                    (r.relicId != Whetstone.ID) &&
+                    (r.relicId != SneckoCommon.ID) &&
+                    (r.relicId != PotionBelt.ID) &&
+                    //Uncommons
+                    (r.relicId != BottledFlame.ID) &&
+                    (r.relicId != BottledLightning.ID) &&
+                    (r.relicId != BottledTornado.ID) &&
+                    (r.relicId != BottledStasis.ID) &&
+                    (r.relicId != Pear.ID) &&
+                    //Rares
+                    (r.relicId != BottledCollectible.ID) &&
+                    (r.relicId != LizardTail.ID) &&
+                    (r.relicId != Mango.ID) &&
+                    (r.relicId != SignatureFinisher.ID) &&
+                    (r.relicId != WingBoots.ID) &&
+                    (r.relicId != MoonTalisman.ID) &&
+
+                    (r.relicId != BottledAnomaly.ID) &&
+                    (r.relicId != BottledCode.ID) &&
+                    (r.relicId != StasisEgg.ID) &&
+                    (r.relicId != D8.ID) &&
+
+
+                    //Boss
+                    (r.relicId != Astrolabe.ID) &&
+                    (r.relicId != ForbiddenFruit.ID) &&
+                    (r.relicId != Libra.ID) &&
+                    (r.relicId != SneckoBoss.ID) &&
+                    (r.relicId != PandorasBox.ID)) {
+
+                if (r.tier == AbstractRelic.RelicTier.COMMON) {
+                    playerCommonRelics.add(r);
+                }
+                if (r.tier == AbstractRelic.RelicTier.UNCOMMON) {
+                    playerUncommonRelics.add(r);
+                }
             }
         }
 

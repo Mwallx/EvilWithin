@@ -2,10 +2,7 @@ package charbosses.bosses.Watcher;
 
 import charbosses.bosses.AbstractBossDeckArchetype;
 import charbosses.bosses.AbstractCharBoss;
-import charbosses.bosses.Watcher.NewAge.ArchetypeAct1RetainNewAge;
-import charbosses.bosses.Watcher.NewAge.ArchetypeAct2CalmNewAge;
-import charbosses.bosses.Watcher.NewAge.ArchetypeAct2StancesNewAge;
-import charbosses.bosses.Watcher.NewAge.ArchetypeAct3DivinityNewAge;
+import charbosses.bosses.Watcher.NewAge.*;
 import charbosses.core.EnemyEnergyManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -21,10 +18,11 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.ui.panels.energyorb.EnergyOrbPurple;
 import downfall.downfallMod;
 import downfall.monsters.NeowBoss;
+import downfall.util.LocalizeHelper;
 
 public class CharBossWatcher extends AbstractCharBoss {
     public static final String ID = downfallMod.makeID("Watcher");
-    public static final String NAME = CardCrawlGame.languagePack.getCharacterString("Watcher").NAMES[0];
+    public static final String NAME = LocalizeHelper.DonwfallRunHistoryMonsterNames.TEXT[4];
 
     private Bone eyeBone;
     protected TextureAtlas eyeAtlas = null;
@@ -109,7 +107,7 @@ public class CharBossWatcher extends AbstractCharBoss {
                     archetype = new ArchetypeAct2CalmNewAge();
                     break;
                 case 3:
-                    archetype = new ArchetypeAct3DivinityNewAge();
+                    archetype = new ArchetypeAct3DualityNewAge();
                     break;
                 case 4: {
                     switch (NeowBoss.Rezzes) {
@@ -120,7 +118,7 @@ public class CharBossWatcher extends AbstractCharBoss {
                             archetype = new ArchetypeAct2CalmNewAge();
                             break;
                         case 2:
-                            archetype = new ArchetypeAct3DivinityNewAge();
+                            archetype = new ArchetypeAct3DualityNewAge();
                             break;
                         default:
                             archetype = new ArchetypeAct1RetainNewAge();

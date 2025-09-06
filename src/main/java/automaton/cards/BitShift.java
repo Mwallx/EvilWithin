@@ -10,11 +10,11 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import expansioncontent.cardmods.PropertiesMod;
-import expansioncontent.cardmods.RetainCardMod;
-
-import static automaton.AutomatonMod.makeBetaCardPath;
+import sneckomod.SneckoMod;
 
 import java.util.ArrayList;
+
+import static automaton.AutomatonMod.makeBetaCardPath;
 
 public class BitShift extends AbstractBronzeCard {
     public final static String ID = makeID("BitShift");
@@ -23,6 +23,7 @@ public class BitShift extends AbstractBronzeCard {
         super(ID, 0, CardType.SKILL, CardRarity.COMMON, CardTarget.SELF);
         exhaust = true;
         baseMagicNumber = magicNumber = 1;
+        this.tags.add(SneckoMod.BANNEDFORSNECKO);
         AutomatonMod.loadJokeCardImage(this, makeBetaCardPath("BitShift.png"));
     }
 

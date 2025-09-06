@@ -1,18 +1,16 @@
 package champ.relics;
 
 import basemod.abstracts.CustomRelic;
-import basemod.cardmods.ExhaustMod;
-import basemod.helpers.CardModifierManager;
 import champ.ChampMod;
 import champ.cards.Defend;
 import champ.cards.Strike;
 import com.badlogic.gdx.graphics.Texture;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.stances.AbstractStance;
 import com.megacrit.cardcrawl.stances.NeutralStance;
 import downfall.util.TextureLoader;
+import expansioncontent.actions.EchoACardAction;
 
 import static champ.ChampMod.makeRelicOutlinePath;
 import static champ.ChampMod.makeRelicPath;
@@ -34,14 +32,10 @@ public class SpectersHand extends CustomRelic {
             flash();
             if (AbstractDungeon.cardRng.randomBoolean()) {
                 AbstractCard c2 = new Strike();
-                CardModifierManager.addModifier(c2, new ExhaustMod());
-                c2.freeToPlayOnce = true;
-                addToBot(new MakeTempCardInHandAction(c2));
+                addToBot(new EchoACardAction(c2, true));
             } else {
                 AbstractCard c2 = new Defend();
-                CardModifierManager.addModifier(c2, new ExhaustMod());
-                c2.freeToPlayOnce = true;
-                addToBot(new MakeTempCardInHandAction(c2));
+                addToBot(new EchoACardAction(c2, true));
             }
 
         }

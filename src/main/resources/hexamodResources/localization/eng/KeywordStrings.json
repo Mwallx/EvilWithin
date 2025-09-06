@@ -29,7 +29,7 @@
     "NAMES": [
       "intensity"
     ],
-    "DESCRIPTION": "Intensity increases the amount of damage, #ySoulburn, and #yBlock [REMOVE_SPACE] applied by Ghostflames when #yIgnited [REMOVE_SPACE]."
+    "DESCRIPTION": "Intensity increases the damage, #ySoulburn [REMOVE_SPACE], and #yBlock [REMOVE_SPACE] applied by Ghostflames when #yIgnited [REMOVE_SPACE]."
   },
   {
     "ID": "soulburn",
@@ -46,7 +46,7 @@
       "extinguish",
       "extinguished"
     ],
-    "DESCRIPTION": "Allows Ghostflame to become #yIgnited again, resetting its Ignition requirements."
+    "DESCRIPTION": "Allows a Ghostflame to become #yIgnited again, resetting its Ignition requirements."
   },
   {
     "PROPER_NAME": "Ignite",
@@ -62,7 +62,7 @@
     "NAMES": [
       "seal"
     ],
-    "DESCRIPTION": "The more you play a Seal card, the more likely you are to find others. If all #b6 Seals have been played during a combat, obtain #pThe #pBroken #pSeal and remove the #b6 Seals from your deck."
+    "DESCRIPTION": "Seal cards drop from Elite and Boss combats. The more you play a Seal card, the more likely you are to find different kinds. If all #b6 Seals have been played during a combat, obtain #pThe #pBroken #pSeal and remove the #b6 Seals from your deck."
   },
   {
     "ID": "afterlife",
@@ -89,11 +89,19 @@
     "TRANSLATOR_NOTE": "Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used "
   },
   {
+    "ID": "plated",
+    "PROPER_NAME": "Plated Armor",
+    "NAMES": [
+      "plated"
+    ],
+    "DESCRIPTION": "At the end of your turn, gain Block equal to your #yPlated #yArmor. Taking unblocked attack damage reduces #yPlated #yArmor by #b1."
+  },
+  {
     "PROPER_NAME": "Searing",
     "NAMES": [
       "searing"
     ],
-    "DESCRIPTION": "#yGhostflame. #yIgnites when #b2 #yAttacks are played when you are on it. #yIgnition [REMOVE_SPACE]: When #yIgnited [REMOVE_SPACE], apply #b6 #ySoulburn to a random enemy, modified twicce by #yIntensity [REMOVE_SPACE].",
+    "DESCRIPTION": "#yGhostflame. #yIgnites when #b2 #yAttacks are played when you are on it. #yIgnition [REMOVE_SPACE]: When #yIgnited [REMOVE_SPACE], apply #b6 #ySoulburn to a random enemy, modified twice by #yIntensity [REMOVE_SPACE].",
     "TRANSLATOR_NOTE": "Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used Not used "
   }
 ]

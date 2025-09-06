@@ -13,9 +13,10 @@ public class RisingSlash extends AbstractChampCard {
     public final static String ID = makeID("RisingSlash");
 
     public RisingSlash() {
-        super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
-        baseDamage = 8;
+        super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
+        baseDamage = 5;
         tags.add(CardTags.STRIKE);
+        this.selfRetain = true;
         loadJokeCardImage(this, "RisingSlash.png");
     }
 
@@ -34,6 +35,6 @@ public class RisingSlash extends AbstractChampCard {
     }
 
     public void upp() {
-        upgradeDamage(3);
+        upgradeDamage(2);
     }
 }

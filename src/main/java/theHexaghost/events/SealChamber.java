@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.vfx.RainingGoldEffect;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import theHexaghost.HexaMod;
 import theHexaghost.cards.seals.*;
+import theHexaghost.relics.TheBrokenSeal;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -273,7 +274,6 @@ public class SealChamber extends AbstractImageEvent {
         }
 
     }
-
 
     private enum CurScreen {
         INTRO,

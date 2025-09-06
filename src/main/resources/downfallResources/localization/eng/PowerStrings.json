@@ -49,8 +49,8 @@
   "downfall:FearNoEvil": {
     "NAME": "Fear No Evil",
     "DESCRIPTIONS": [
-      "If you play an attack card this turn, this enemy will change stance to #yCalm once it plays its #yFear #yNo #yEvil card.",
-      "This enemy will change stance to #yCalm once it plays its #yFear #yNo #yEvil card."
+      "If you play an attack card this turn, Watcher will change her stance to #yCalm once she plays her #yFear #yNo #yEvil card.",
+      "Watcher will change her stance to #yCalm once she plays her #yFear #yNo #yEvil card."
     ]
   },
   "downfall:PoisonResist": {
@@ -88,9 +88,14 @@
   "downfall:WatcherSkillPower": {
     "NAME": "Prey on Disharmony",
     "DESCRIPTIONS": [
-      "Whenever you play a skill, Watcher gains #b",
-      " temporary #yStrength.",
-      "Whenever you play a skill, Watcher gains #yTemporary #yStrength [REMOVE_SPACE]."
+      "Whenever you play an #yAttack, Watcher gains #b",
+      " temp. #yDexterity, #b",
+      " temp. #yStrength when you play a #ySkill, and #b",
+      " of both when you play a #yPower.",
+      "If you play more than #b",
+      " cards in a turn, Watcher removes ALL of her debuffs.",
+      "You have played #b",
+      " cards this turn."
     ]
   },
   "downfall:WrathNextTurnPower": {
@@ -110,7 +115,7 @@
   "downfall:WatcherDivinityPower": {
     "NAME": "Fleeting Faith",
     "DESCRIPTIONS": [
-      "Watcher gains #b1 #yMantra whenever you play a card. NL Watcher loses #b5 #yMantra at the start of her turn. NL Watcher does not exit #yDivinity at the end of her turn."
+      "Watcher gains #b1 #yMantra whenever you play a card. NL Whenever Watcher enters #yDivinity, she gains #b3 #yStrength. NL Watcher loses #b5 #yMantra at the start of her turn. NL Watcher does not exit #yDivinity at the end of her turn."
     ]
   },
   "downfall:NeowFleetingFaith": {
@@ -158,7 +163,7 @@
   "downfall:DefectVoidPower": {
     "NAME": "Energy Thief",
     "DESCRIPTIONS": [
-      "Whenever Defect generates a #yVoid, it goes to the top of your draw pile."
+      "Whenever Defect generates a #yVoid, it goes into YOUR discard pile."
     ]
   },
   "downfall:NeowEnergyThief": {
@@ -170,7 +175,7 @@
   "downfall:DefectAncientConstructPower": {
     "NAME": "Ancient Construct",
     "DESCRIPTIONS": [
-      "Begins the fight with 2 #yBronze #yOrb minions. NL Gains 1 #yArtifact at the end of its turn if it did not already have #yArtifact [REMOVE_SPACE]."
+      "Begins the fight with 2 #yBronze #yOrb minions. NL Defect's #yCore #ySurges do not #yExhaust."
     ]
   },
   "downfall:NeowAncientConstruct": {
@@ -182,14 +187,24 @@
   "downfall:DefectCuriosity": {
     "NAME": "Unbiased Cognition",
     "DESCRIPTIONS": [
-      "Whenever you play a #yPower card, Defect gains #b",
-      " #yFocus."
+      "Whenever you play a #yPower [REMOVE_SPACE], Defect gains #b",
+      " #yFocus [REMOVE_SPACE].",
+      " Changes to Defect's #yStrength also affect their #yFocus [REMOVE_SPACE]."
+    ]
+  },
+  "downfall:DefectBiasCuriosity": {
+    "NAME": "Bias",
+    "DESCRIPTIONS": [
+      "Defect starts combat with #b4 #yFocus and gains #b1 more whenever you play a #yPower [REMOVE_SPACE], but also loses #b1 #yFocus at the start of their turn.",
+      "Defect loses #b",
+      " #yFocus",
+      " at the end of their turn."
     ]
   },
   "downfall:DefectCuriosityLighning": {
     "NAME": "Unbiased Cognition",
     "DESCRIPTIONS": [
-      "Whenever you play a #yPower card, Defect channels #b",
+      "Whenever you play a #yPower [REMOVE_SPACE], Defect channels #b",
       " #yLightning #yOrb [REMOVE_SPACE]."
     ]
   },
@@ -239,7 +254,7 @@
   "downfall:MerchantStrengthPower": {
     "NAME": "Soul Stealer",
     "DESCRIPTIONS": [
-      "Merchant still has the #yStrength it earned from Soul Steal this run, and gains an equal amount of #yDexterity [REMOVE_SPACE]."
+      "Merchant has double the #yStrength it earned from Soul Steal this run, and gains an equal amount of #yDexterity [REMOVE_SPACE]."
     ]
   },
   "downfall:NeowMantra": {
@@ -341,7 +356,7 @@
   "downfall:HermitWheelOfFortune": {
     "NAME": "Wheel of Fortune",
     "DESCRIPTIONS": [
-      "After you play an #yAttack, Hermit #yCycles his first card. Hermit's card cost can't change."
+      "After you play an #yAttack, Hermit #yCycles his first card. Hermit's card cost can't change. Whenever Hermit draws #rNecronomicurse, he gains #b2 Strength."
     ]
   },
   "downfall:HermitDoomsday": {
@@ -375,9 +390,10 @@
     "DESCRIPTIONS": [
       "BUG! You should not see this",
       "Next turn, gain #b",
-      " ",
-      ".",
-      "LOCALIZATION NOTE: Please keep the space after 'Next Turn' in the NAME field."
+      " #y",
+      " [REMOVE_SPACE].",
+      "LOCALIZATION NOTE: Please keep the space after 'Next Turn' in the NAME field.",
+      "finalized text should look like this: Next turn, gain #b7 #yVigor [REMOVE_SPACE]."
     ]
   },
   "downfall:NeowStayAt1Hp": {

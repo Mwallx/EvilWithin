@@ -9,22 +9,12 @@ import theHexaghost.HexaMod;
 import theHexaghost.powers.SoulburnOnExhaustPower;
 
 public class GhostflameBarrier extends AbstractHexaCard {
-
     public final static String ID = makeID("WhisperFromBeyond");
 
-
-    private static final int DAMAGE = 10;
-//    private static final int UPG_BLOCK = 4;
-
-    private static final int MAGIC = 5;
-    private static final int UPG_MAGIC = 2;
-
     public GhostflameBarrier() {
-        super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
-//        baseBlock = BLOCK;
-        baseDamage = DAMAGE;
-//        baseMagicNumber = magicNumber = MAGIC;
-        baseBurn = burn = MAGIC;
+        super(ID, 2, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
+        baseDamage = 12;
+        baseBurn = burn = 5;
         HexaMod.loadJokeCardImage(this, "GhostflameBarrier.png");
     }
 
@@ -44,9 +34,8 @@ public class GhostflameBarrier extends AbstractHexaCard {
     public void upgrade() {
         if (!upgraded) {
             upgradeName();
-//            upgradeBlock(UPG_BLOCK);
-            upgradeDamage(2);
-            upgradeBurn(UPG_MAGIC);
+            upgradeDamage(3);
+            upgradeBurn(2);
         }
     }
 

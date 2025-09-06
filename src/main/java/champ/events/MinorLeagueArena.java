@@ -1,19 +1,14 @@
 package champ.events;
 
-
-import champ.relics.BlackKnightsHelmet;
-import champ.relics.ChampionCrown;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.events.AbstractImageEvent;
 import com.megacrit.cardcrawl.helpers.MonsterHelper;
 import com.megacrit.cardcrawl.localization.EventStrings;
-import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.ChampionsBelt;
 import com.megacrit.cardcrawl.relics.CloakClasp;
-import com.megacrit.cardcrawl.relics.WristBlade;
 import downfall.downfallMod;
-import slimebound.SlimeboundMod;
+import hermit.relics.Horseshoe;
 
 public class MinorLeagueArena extends AbstractImageEvent {
     public static final String ID = "champ:MinorLeagueArena";
@@ -38,7 +33,7 @@ public class MinorLeagueArena extends AbstractImageEvent {
         this.imageEventText.clearAllDialogs();
         this.imageEventText.setDialogOption(OPTIONS[0], new CloakClasp());
         this.imageEventText.setDialogOption(OPTIONS[1], new ChampionsBelt());
-        this.imageEventText.setDialogOption(OPTIONS[2], new WristBlade());
+        this.imageEventText.setDialogOption(OPTIONS[2], new Horseshoe());
         this.imageEventText.setDialogOption(OPTIONS[3]);
     }
 
@@ -53,6 +48,7 @@ public class MinorLeagueArena extends AbstractImageEvent {
                         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter("Centurion and Healer");
                         AbstractDungeon.getCurrRoom().rewards.clear();
                         AbstractDungeon.getCurrRoom().addRelicToRewards(new CloakClasp());
+                        downfallMod.removeAnyRelicFromPools("CloakClasp");
                         AbstractDungeon.getCurrRoom().addGoldToRewards(100);
                         AbstractDungeon.getCurrRoom().eliteTrigger = true;
                         AbstractDungeon.lastCombatMetricKey = "Centurion and Healer";
@@ -68,6 +64,7 @@ public class MinorLeagueArena extends AbstractImageEvent {
                         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter("Gremlin Nob");
                         AbstractDungeon.getCurrRoom().rewards.clear();
                         AbstractDungeon.getCurrRoom().addRelicToRewards(new ChampionsBelt());
+                        downfallMod.removeAnyRelicFromPools("Champion Belt");
                         AbstractDungeon.getCurrRoom().addGoldToRewards(100);
                         AbstractDungeon.getCurrRoom().eliteTrigger = true;
                         AbstractDungeon.lastCombatMetricKey = "Gremlin Nob";
@@ -80,7 +77,8 @@ public class MinorLeagueArena extends AbstractImageEvent {
                         //SlimeboundMod.logger.info("fight");
                         AbstractDungeon.getCurrRoom().monsters = MonsterHelper.getEncounter("Colosseum Slavers");
                         AbstractDungeon.getCurrRoom().rewards.clear();
-                        AbstractDungeon.getCurrRoom().addRelicToRewards(new WristBlade());
+                        AbstractDungeon.getCurrRoom().addRelicToRewards(new Horseshoe());
+                        downfallMod.removeAnyRelicFromPools(Horseshoe.ID);
                         AbstractDungeon.getCurrRoom().addGoldToRewards(100);
                         AbstractDungeon.getCurrRoom().eliteTrigger = true;
                         AbstractDungeon.lastCombatMetricKey = "Colosseum Slavers";

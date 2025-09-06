@@ -113,7 +113,7 @@
   },
   "downfall:RareCardReward": {
     "TEXT": [
-      "レアカードをデッキに加えた。"
+      "レアカードをデッキに加える。"
     ]
   },
   "downfall:OctoChoiceAction": {
@@ -125,25 +125,65 @@
   "downfall:BossCardReward": {
     "TEXT": [
       "デッキにボスカードを追加。",
-      "カードを取れ"
+      "カードを選ぶ。"
     ]
   },
   "downfall:ColorfulCardReward": {
     "TEXT": [
       "デッキに ",
       " カードを追加。",
-      "カードを取る"
+      "カードを選ぶ。"
+    ]
+  },
+  "downfall:ColorfulUncommonCardReward": {
+    "TEXT": [
+      "デッキに ",
+      " カードを追加。",
+      "カードを選ぶ。"
+    ]
+  },
+  "downfall:ColorfulRareCardReward": {
+    "TEXT": [
+      "デッキに ",
+      " カードを追加。",
+      "カードを選ぶ。"
+    ]
+  },
+  "downfall:DiceRollPotionReward": {
+    "TEXT": [
+      "デッキに",
+      "アップグレードされたカードを追加。",
+      "カードを選ぶ。"
+    ]
+  },
+  "downfall:ColorfulPowersCardReward": {
+    "TEXT": [
+      "デッキに",
+      "アップグレードされたパワーカードを追加。",
+      "カードを選ぶ。"
     ]
   },
   "downfall:RunHistoryMonsterNames": {
     "TEXT": [
-      "リビングウォールヘッド"
+      "リビングウォールヘッド",
+      "アイアンクラッド",
+      "サイレント",
+      "ディフェクト",
+      "ウォッチャー",
+      "商人",
+      "ハーミット"
     ]
   },
   "downfall:WhaleHunter": {
     "TEXT": [
       "ホエールハンター",
       "サイクルを終了させた。"
+    ]
+  },
+  "downfall:Unfettered": {
+    "TEXT": [
+      "自由だ",
+      "壊れた封印を入手した。"
     ]
   },
   "downfall:SingleCardViewPopup": {

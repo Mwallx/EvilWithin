@@ -2,13 +2,11 @@ package champ.cards;
 
 import champ.ChampMod;
 import champ.powers.NoBlockNextTurnPower;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
-import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.FrailPower;
-import com.megacrit.cardcrawl.powers.WeakPower;
 
 import static champ.ChampMod.loadJokeCardImage;
 
@@ -19,9 +17,8 @@ public class ShieldThrow extends AbstractChampCard {
     //stupid intellij stuff attack, enemy, rare
 
     public ShieldThrow() {
-        super(ID, 1, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
-        //  tags.add(ChampMod.FINISHER);
-        baseBlock = block = 0;
+        super(ID, 2, CardType.ATTACK, CardRarity.RARE, CardTarget.ENEMY);
+     //   baseBlock = block = 0;
         baseMagicNumber = magicNumber = 2;
         tags.add(ChampMod.COMBODEFENSIVE);
         tags.add(ChampMod.COMBO);
@@ -30,8 +27,7 @@ public class ShieldThrow extends AbstractChampCard {
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        //finisher();
-        blck();
+       // blck();
         this.baseDamage = p.currentBlock;
         this.calculateCardDamage(m);
         dmg(m, AbstractGameAction.AttackEffect.SMASH);
@@ -39,14 +35,14 @@ public class ShieldThrow extends AbstractChampCard {
         this.rawDescription = cardStrings.DESCRIPTION;
         this.initializeDescription();
 
-        if (!dcombo()) applyToSelf(new FrailPower(p,2, false));
+        if (!dcombo()) applyToSelf(new NoBlockNextTurnPower(1));
        // if (bcombo()) atb(new ReducePowerAction(p,p,FrailPower.POWER_ID,2));
-        //  finisher();
+      //  finisher();
     }
 
     @Override
     public void triggerOnGlowCheck() {
-        glowColor = dcombo() ? GOLD_BORDER_GLOW_COLOR : BLUE_BORDER_GLOW_COLOR;
+        glowColor = dcombo() ? GOLD_BORDER_GLOW_COLOR : Color.RED.cpy();
     }
 
     public void applyPowers() {
@@ -71,6 +67,6 @@ public class ShieldThrow extends AbstractChampCard {
     }
 
     public void upp() {
-        upgradeBaseCost(0);
+        upgradeBaseCost(1);
     }
 }

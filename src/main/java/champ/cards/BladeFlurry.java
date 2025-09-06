@@ -1,17 +1,13 @@
 package champ.cards;
 
-import champ.ChampMod;
 import champ.powers.DualPlaySrikePower;
 import champ.vfx.DaggerThrowAnyColorEffect;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.vfx.combat.ThrowDaggerEffect;
 
 import static champ.ChampMod.loadJokeCardImage;
 
@@ -24,7 +20,7 @@ public class BladeFlurry extends AbstractChampCard {
     private static final int DAMAGE = 6;
 
     public BladeFlurry() {
-        super(ID, 1, CardType.ATTACK, CardRarity.COMMON, CardTarget.ENEMY);
+        super(ID, 1, CardType.ATTACK, CardRarity.UNCOMMON, CardTarget.ENEMY);
         baseDamage = DAMAGE;
         tags.add(CardTags.STRIKE);
         loadJokeCardImage(this, "BladeFlurry.png");

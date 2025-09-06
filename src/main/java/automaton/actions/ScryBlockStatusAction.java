@@ -11,7 +11,6 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import theHexaghost.HexaMod;
 
 public class ScryBlockStatusAction extends AbstractGameAction {
     private static final UIStrings uiStrings;
@@ -73,8 +72,8 @@ public class ScryBlockStatusAction extends AbstractGameAction {
                         AbstractDungeon.player.drawPile.moveToDiscardPile(c);
                         if (c.type == AbstractCard.CardType.STATUS) {
                             addToBot(new GainBlockAction(AbstractDungeon.player, blockPerCard));
+                            addToBot(new ExhaustSpecificCardAction(c, AbstractDungeon.player.discardPile));
                         }
-                        addToBot(new ExhaustSpecificCardAction(c, AbstractDungeon.player.discardPile));
                     }
                 }
                 AbstractDungeon.gridSelectScreen.selectedCards.clear();

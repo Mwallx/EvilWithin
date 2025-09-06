@@ -19,8 +19,6 @@ public class FastForward extends AbstractGuardianCard {
     public static final String IMG_PATH = GuardianMod.getResourcePath("cards/accelerate.png");
     private static final CardStrings cardStrings;
 
-    // speed boost
-
     public FastForward() {
         super(ID, cardStrings.NAME, IMG_PATH, 1, cardStrings.DESCRIPTION, CardType.SKILL, AbstractCardEnum.GUARDIAN, CardRarity.RARE, CardTarget.NONE);
         this.magicNumber = this.baseMagicNumber = 3;
@@ -48,9 +46,10 @@ public class FastForward extends AbstractGuardianCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            selfRetain = true;
-            this.rawDescription = cardStrings.UPGRADE_DESCRIPTION;
-            this.initializeDescription();
+//            selfRetain = true;
+//            this.rawDescription = cardStrings.UPGRADE_DESCRIPTION;
+//            this.initializeDescription();
+            upgradeBaseCost(0);
         }
     }
 

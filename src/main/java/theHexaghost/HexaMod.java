@@ -30,7 +30,7 @@ import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.scenes.TheBottomScene;
 import com.megacrit.cardcrawl.vfx.scene.InteractableTorchEffect;
 import downfall.downfallMod;
-import downfall.patches.BanSharedContentPatch;
+//import downfall.patches.BanSharedContentPatch;
 import downfall.patches.EvilModeCharacterSelect;
 import downfall.util.CardIgnore;
 import downfall.util.TextureLoader;
@@ -95,8 +95,13 @@ public class HexaMod implements
     private static final String CHARSELECT_PORTRAIT = "hexamodResources/images/charSelect/charBG.png";
     public static boolean renderFlames = false;
     public static boolean unsealed = false;
+
+    //prismatic shard check
+    private static int ghostwheelcards = 0;
+
     public static Color placeholderColor = new Color(114F / 255F, 62F / 255F, 109F / 255F, 1);
     private static String modID;
+
 
     public static int[] seal_weight = new int[7];
     public static int[] new_seal_weight = new int[7];
@@ -181,6 +186,7 @@ public class HexaMod implements
     public static String makeID(String idText) {
         return getModID() + ":" + idText;
     }
+
 
     private static void autoAddCards()
             throws URISyntaxException, IllegalAccessException, InstantiationException, NotFoundException, ClassNotFoundException {
@@ -270,7 +276,7 @@ public class HexaMod implements
 
 
     public void addPotions() {
-
+        BaseMod.addPotion(SoulburnPotion.class, Color.GRAY, Color.GRAY, Color.BLACK, SoulburnPotion.POTION_ID, TheHexaghost.Enums.THE_SPIRIT);
         BaseMod.addPotion(EctoCoolerPotion.class, Color.GRAY, Color.GRAY, Color.BLACK, EctoCoolerPotion.POTION_ID, TheHexaghost.Enums.THE_SPIRIT);
         BaseMod.addPotion(DoubleChargePotion.class, Color.BLUE, Color.PURPLE, Color.MAROON, DoubleChargePotion.POTION_ID, TheHexaghost.Enums.THE_SPIRIT);
         BaseMod.addPotion(InfernoChargePotion.class, Color.PURPLE, Color.PURPLE, Color.MAROON, InfernoChargePotion.POTION_ID, TheHexaghost.Enums.THE_SPIRIT);
@@ -289,6 +295,12 @@ public class HexaMod implements
         GhostflameHelper.init();
 //        ExhaustCardTickPatch.exhaustedLastTurn = false;
 //        ExhaustCardTickPatch.exhaustedThisTurn = false;
+        ghostwheelcards = 0;
+//        for (AbstractCard c : AbstractDungeon.player.masterDeck.group) {
+//            if (c.hasTag(GHOSTWHEELCARD)) {
+//                ghostwheelcards++;
+//            }
+//    }
 
         if (AbstractDungeon.player instanceof TheHexaghost) {
             renderFlames = true;
@@ -343,6 +355,7 @@ public class HexaMod implements
 //        ExhaustCardTickPatch.exhaustedLastTurn = false;
 //        ExhaustCardTickPatch.exhaustedThisTurn = false;
         for (int i = 1; i <= 6; i++) {
+            seal_weight[i] = seal_weight[i] + new_seal_weight[i];
             seal_weight[i] = seal_weight[i] + new_seal_weight[i];
         }
         bonus_seal_drop_chance = bonus_seal_drop_chance + new_bonus_seal_drop_chance;
@@ -459,7 +472,7 @@ public class HexaMod implements
                 .create());
 
         BaseMod.addEvent(new AddEventParams.Builder(SealChamber.ID, SealChamber.class) //Event ID//
-                .spawnCondition(() -> !AbstractDungeon.player.hasRelic(TheBrokenSeal.ID))
+                .spawnCondition(() -> !AbstractDungeon.player.hasRelic(TheBrokenSeal.ID) && !hasAllSeals())
                 //Event Character//
                 .playerClass(TheHexaghost.Enums.THE_SPIRIT)
                 .create());
@@ -490,6 +503,48 @@ public class HexaMod implements
                 //Event Type//
                 .eventType(EventUtils.EventType.FULL_REPLACE)
                 .create());
+    }
+
+    public boolean hasAllSeals(){
+        int variable = 0;
+        int hasone = 0;
+        int hastwo = 0;
+        int hasthree = 0;
+        int hasfour = 0;
+        int hasfive = 0;
+        int hassix = 0;
+
+        if (AbstractDungeon.player.hasRelic(TheBrokenSeal.ID)) {
+            return false;
+        }
+
+        for (AbstractCard c : AbstractDungeon.player.masterDeck.group) {
+            if (c instanceof FirstSeal && hasone == 0) {
+                variable++;
+                hasone++;
+            } else if (c instanceof SecondSeal && hastwo == 0) {
+                variable++;
+                hastwo++;
+            } else if (c instanceof ThirdSeal && hasthree == 0) {
+                variable++;
+                hasthree++;
+            } else if (c instanceof FourthSeal && hasfour == 0) {
+                variable++;
+                hasfour++;
+            } else if (c instanceof SixthSeal && hasfive == 0) {
+                variable++;
+                hasfive++;
+            } else if (c instanceof FifthSeal && hassix == 0) {
+                variable++;
+                hassix++;
+            }
+        }
+
+        if (variable == 6) {
+            return false;
+        }
+
+        return true;
     }
 
 

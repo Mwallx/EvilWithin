@@ -28,6 +28,11 @@ public class ClaspedLocket extends CustomRelic {
         super(ID, IMG, OUTLINE, RelicTier.BOSS, LandingSound.FLAT);
     }
 
+
+    //variables
+    private static final int INJURIES_ADDED = 2;
+    private static final int DRAW = 2;
+
     @Override
     public void obtain() {
         if (AbstractDungeon.player.hasRelic(Memento.ID)) {
@@ -49,8 +54,11 @@ public class ClaspedLocket extends CustomRelic {
 
         if (card.type == AbstractCard.CardType.CURSE) {
             this.flash();
+            this.addToBot(new RelicAboveCreatureAction(AbstractDungeon.player, this));
             this.canTrigger = false;
-            this.addToTop(new DrawCardAction(AbstractDungeon.player, 2));
+            // visual feedback so the player can tell if it triggered that turn
+            stopPulse();
+            this.addToTop(new DrawCardAction(AbstractDungeon.player, DRAW));
             this.addToTop(new ExhaustSpecificCardAction(card,AbstractDungeon.player.hand));
         }
 
@@ -62,7 +70,14 @@ public class ClaspedLocket extends CustomRelic {
 
     public void atTurnStart() {
         this.canTrigger = true;
+        beginLongPulse(); //visual feedback
     }
+
+    @Override
+    public void onVictory() {
+        stopPulse();
+    }
+
 
     public void update() {
         super.update();
@@ -71,7 +86,7 @@ public class ClaspedLocket extends CustomRelic {
             cardsReceived = true;
             CardCrawlGame.sound.play("NECRONOMICON");
             CardGroup curseaddgroup = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
-            for (int aaa = 0; aaa < 2; aaa++) {
+            for (int aaa = 0; aaa < INJURIES_ADDED; aaa++) {
                 AbstractCard InjuryCard = new Injury();
                 curseaddgroup.addToBottom(InjuryCard.makeCopy());
             }
@@ -81,6 +96,6 @@ public class ClaspedLocket extends CustomRelic {
 
     @Override
     public String getUpdatedDescription() {
-        return DESCRIPTIONS[0];
+        return DESCRIPTIONS[0] + DRAW + DESCRIPTIONS[2] + INJURIES_ADDED + DESCRIPTIONS[3];
     }
 }

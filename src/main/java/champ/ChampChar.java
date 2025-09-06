@@ -18,16 +18,19 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.EnergyManager;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.*;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
-import com.megacrit.cardcrawl.stances.NeutralStance;
+import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
+import com.megacrit.cardcrawl.vfx.PetalEffect;
 import downfall.util.TextureLoader;
 import reskinContent.patches.CharacterSelectScreenPatches;
 
 import java.util.ArrayList;
 
 import static champ.ChampMod.*;
+import static hermit.characters.hermit.update_timer;
 
 public class ChampChar extends CustomPlayer {
     public static final String ID = makeID("theChamp");
@@ -179,13 +182,13 @@ public class ChampChar extends CustomPlayer {
                 currentIdle = "IdleBerserker";
                 break;
             }
-            case NeutralStance
-                    .STANCE_ID: {
-                this.stateData.setMix(currentIdle, "Idle", 0.5F);
-                this.state.setAnimation(0, "Idle", true);
-                currentIdle = "Idle";
-                break;
-            }
+//            case NeutralStance
+//                    .STANCE_ID: {
+//                this.stateData.setMix(currentIdle, "Idle", 0.5F);
+//                this.state.setAnimation(0, "Idle", true);
+//                currentIdle = "Idle";
+//                break;
+//            }
             case UltimateStance
                     .STANCE_ID: {
                 this.stateData.setMix(currentIdle, "IdleUltimate", 0.5F);
@@ -193,9 +196,13 @@ public class ChampChar extends CustomPlayer {
                 currentIdle = "IdleUltimate";
                 break;
             }
+            default: {
+                this.stateData.setMix(currentIdle, "Idle", 0.5F);
+                this.state.setAnimation(0, "Idle", true);
+                currentIdle = "Idle";
+                break;
+            }
         }
-
-
     }
 
     @Override
@@ -243,6 +250,28 @@ public class ChampChar extends CustomPlayer {
             return "VO_CHAMP_3B";// 74
         }
     }
+
+
+    @Override
+    //wow look victory effect cool
+    public void updateVictoryVfx(ArrayList<AbstractGameEffect> effects) {
+        AbstractDungeon.effectsQueue.add(new PetalEffect());
+        AbstractDungeon.effectsQueue.add(new PetalEffect());
+
+        update_timer += Gdx.graphics.getDeltaTime();
+
+        update_timer += Gdx.graphics.getDeltaTime();
+
+        for (float i = 0; i + (1.0 / 120.0) <= update_timer; update_timer -= (1.0 / 120.0)) {
+            float spawn = (float) MathUtils.random(0, 10);
+            if (spawn == 1) {
+                effects.add(new PetalEffect());
+                AbstractDungeon.effectsQueue.add(new PetalEffect());
+                AbstractDungeon.effectsQueue.add(new PetalEffect());
+            }
+        }
+    }
+
 
     @Override
     public int getAscensionMaxHPLoss() {

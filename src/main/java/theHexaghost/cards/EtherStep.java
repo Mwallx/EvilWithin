@@ -1,12 +1,19 @@
 package theHexaghost.cards;
 
+import champ.powers.GladiatorFormPower;
+import champ.relics.RageAmulet;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.ExhaustAction;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.watcher.VigorPower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import downfall.downfallMod;
+import gremlin.relics.FragmentationGrenade;
 import theHexaghost.HexaMod;
 import theHexaghost.util.HexaPurpleTextInterface;
 
@@ -26,22 +33,49 @@ public class EtherStep extends AbstractHexaCard implements HexaPurpleTextInterfa
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
+        dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
         this.addToBot(new ExhaustAction(1, false));
         this.addToBot(new DrawCardAction(p, this.magicNumber));
-        dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
     }
 
     public void afterlife() {
         AbstractMonster m = AbstractDungeon.getRandomMonster();
         if (m == null) return;
         this.calculateCardDamage(m);
+
+        if (AbstractDungeon.player.hasRelic(FragmentationGrenade.ID)) {
+            AbstractDungeon.player.getRelic(FragmentationGrenade.ID).flash();
+            this.damage = this.damage + FragmentationGrenade.OOMPH;
+        }
+
         if(AbstractDungeon.player.hasPower("Pen Nib") ){
             this.damage /= 2;
             dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
             this.damage *= 2;
-        }else {
+        } else {
             dmg(m, makeInfo(), AbstractGameAction.AttackEffect.FIRE);
         }
+
+        if (AbstractDungeon.player.hasRelic(FragmentationGrenade.ID)) {
+            AbstractDungeon.player.getRelic(FragmentationGrenade.ID).flash();
+            this.damage = this.damage - FragmentationGrenade.OOMPH;
+        }
+
+        if (AbstractDungeon.player.hasPower(GladiatorFormPower.POWER_ID)) {
+            GladiatorFormPower revengePower = (GladiatorFormPower) AbstractDungeon.player.getPower(GladiatorFormPower.POWER_ID);
+
+            if (revengePower != null) {
+                revengePower.onSpecificTriggerBranch();
+            }
+        }
+
+        for (AbstractRelic r : AbstractDungeon.player.relics) {
+            if (r instanceof RageAmulet) {
+                ((RageAmulet) r).onSpecificTrigger();
+            }
+        }
+
+        atb(new RemoveSpecificPowerAction(AbstractDungeon.player, AbstractDungeon.player, VigorPower.POWER_ID));
     }
 
     public void upgrade() {

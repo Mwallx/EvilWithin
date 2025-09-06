@@ -6,7 +6,6 @@ import champ.stances.UltimateStance;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
-import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.actions.watcher.ChangeStanceAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -44,7 +43,6 @@ public class UltimateFormPower extends AbstractPower implements CloneablePowerIn
     @Override
     public void onChangeStance(AbstractStance oldStance, AbstractStance newStance) {
         if (!(newStance instanceof UltimateStance)) {
-
             AbstractDungeon.actionManager.addToBottom(new ChangeStanceAction(UltimateStance.STANCE_ID));
         }
     }

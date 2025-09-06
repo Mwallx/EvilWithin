@@ -1,14 +1,18 @@
 [
   {
-    "PROPER_NAME": "テクニック",
+    "PROPER_NAME": "スキルボーナス",
     "NAMES": [
+      "bonus",
+      "bonuses",
       "technique",
       "techniques",
       "champ:[crown_icon]",
       "[crown_icon]",
-      "テクニック"
+      "テクニック",
+      "ボーナス",
+      "スキルボーナス"
     ],
-    "DESCRIPTION": "#yスタンス では スキル にボーナスが付く。"
+    "DESCRIPTION": "各種 #yスタンス では スキル にボーナスが付く。 NL #y狂化 : #b2 #y気力 を得る。 NL #y守護 : #yカウンター #b3 を得る。"
   },
   {
     "PROPER_NAME": "コンボ",
@@ -20,6 +24,14 @@
     "DESCRIPTION": "指定の #yスタンス でプレイすると追加効果が発動する。"
   },
   {
+    "PROPER_NAME": "ストライク",
+    "NAMES": [
+      "ストライク",
+      "strikes"
+    ],
+    "DESCRIPTION": "カード名に 「ストライク」を含むカード。 NL 初期デッキ内の ストライク のみを指す物と混同しないよう注意。"
+  },
+  {
     "PROPER_NAME": "フィニッシャー",
     "NAMES": [
       "finisher",
@@ -28,7 +40,7 @@
       "champ:[fist_icon]",
       "フィニッシャー"
     ],
-    "DESCRIPTION": "スタンスに入っている必要がある。 NL フィニッシャーをプレイ後、スタンスを解除してフィニッシャーボーナスを得る。"
+    "DESCRIPTION": "スタンスに入っている必要がある。 NL フィニッシャーをプレイ後、スタンスを解除してフィニッシャーボーナスを得る。 NL #y狂化 : #y筋力 #b1 を得る。 NL #y守護 : #b8 #yブロック を得る。"
   },
   {
     "PROPER_NAME": "カウンター",
@@ -36,7 +48,7 @@
       "counter",
       "カウンター"
     ],
-    "DESCRIPTION": "次に #y攻撃 でダメージを受けた時ダメージを返す。"
+    "DESCRIPTION": "次に #y攻撃 でダメージを受けた時、そのダメージ相当の #yリポストストライク を手札に加える。"
   },
   {
     "PROPER_NAME": "守護",

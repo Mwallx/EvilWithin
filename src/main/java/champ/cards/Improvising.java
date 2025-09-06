@@ -3,7 +3,6 @@ package champ.cards;
 import champ.powers.ImprovisingPower;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import sneckomod.SneckoMod;
 
 import static champ.ChampMod.loadJokeCardImage;
 
@@ -13,14 +12,15 @@ public class Improvising extends AbstractChampCard {
     public Improvising() {
         super(ID, 1, CardType.POWER, CardRarity.RARE, CardTarget.SELF);
         postInit();
+        baseMagicNumber = magicNumber = 2;
         loadJokeCardImage(this, "Improvising.png");
     }
 
     public void use(AbstractPlayer p, AbstractMonster m) {
-        applyToSelf(new ImprovisingPower());
+        applyToSelf(new ImprovisingPower(magicNumber));
     }
 
     public void upp() {
-        upgradeBaseCost(0);
+        upgradeMagicNumber(1);
     }
 }

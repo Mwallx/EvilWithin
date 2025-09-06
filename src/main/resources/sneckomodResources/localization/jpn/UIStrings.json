@@ -44,7 +44,7 @@
   "sneckomod:ChallengeMode": {
     "TEXT": [
       "チャレンジモード-ピュアスネッコ",
-      "未識別はどんなクラスのカードにでもなる。スネッコ経験者にオススメです。"
+      "ギフトはどんなクラスのカードからでも出る。スネッコ上級者にオススメです。"
     ]
   },
   "sneckomod:LockInBonfireOptions": {
@@ -56,11 +56,29 @@
       "[行動消費なし] 未識別のカードを識別する。"
     ]
   },
+    "sneckomod:CommonAttackReward": {
+    "TEXT": [
+      "デッキにオフクラスカードを追加する。。",
+      "カードを選択。"
+    ]
+  },
+  "sneckomod:DiceRollPotionReward": {
+    "TEXT": [
+      "デッキにアップグレードされたカードを追加する。",
+      "カードを選択。"
+    ]
+  },
+  "sneckomod:ColorfulPowersCardReward": {
+    "TEXT": [
+      "デッキにアップグレードされたパワーカードを追加する。",
+      "カードを選択。"
+    ]
+  },
   "sneckomod:AtGameStart": {
     "TEXT": [
       "",
       " カード",
-      "このランで未識別のカードは ",
+      "ギフトに含まれるのは ",
       " のカード。",
       "選択。"
     ]

@@ -3,11 +3,9 @@ package champ.powers;
 import basemod.interfaces.CloneablePowerInterface;
 import champ.ChampMod;
 import champ.cards.Riposte;
-import champ.cards.SetATrap;
 import champ.relics.PowerArmor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.*;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -33,7 +31,7 @@ public class CounterPower extends AbstractPower implements CloneablePowerInterfa
         this.owner = AbstractDungeon.player;
         this.amount = amount;
         this.type = PowerType.BUFF;
-        this.isTurnBased = true;
+        this.isTurnBased = false;
 
         this.region128 = new TextureAtlas.AtlasRegion(tex84, 0, 0, 84, 84);
         this.region48 = new TextureAtlas.AtlasRegion(tex32, 0, 0, 32, 32);
@@ -66,11 +64,15 @@ public class CounterPower extends AbstractPower implements CloneablePowerInterfa
                     AbstractDungeon.player.getPower(ParryPower.POWER_ID).onSpecificTrigger();
                 }
             }
-            this.addToTop(new DamageAction(info.owner, new DamageInfo(this.owner, this.amount, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, true));
+            //this.addToTop(new DamageAction(info.owner, new DamageInfo(this.owner, this.amount, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, true));
             if (owner.hasPower(GladiatorFormPower.POWER_ID)) {
                 owner.getPower(GladiatorFormPower.POWER_ID).onSpecificTrigger();
             }
+            AbstractCard c = new Riposte();
+            c.baseDamage = amount;
+            addToBot(new MakeTempCardInHandAction(c));
         }
+
 
         return damageAmount;
     }
@@ -78,8 +80,10 @@ public class CounterPower extends AbstractPower implements CloneablePowerInterfa
     @Override
     public void stackPower(int stackAmount) {
         if (AbstractDungeon.player.hasRelic(PowerArmor.ID))
-            if (amount + stackAmount > PowerArmor.CAP_RESOLVE_ETC)
+            if (amount + stackAmount > PowerArmor.CAP_RESOLVE_ETC) {
+                ((PowerArmor)(AbstractDungeon.player.getRelic(PowerArmor.ID))).onTrigger((stackAmount - (PowerArmor.CAP_RESOLVE_ETC - amount)));
                 stackAmount = (PowerArmor.CAP_RESOLVE_ETC - amount);
+            }
         super.stackPower(stackAmount);
     }
 

@@ -1,18 +1,17 @@
 package guardian.cards;
 
 
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
-import com.megacrit.cardcrawl.actions.common.GainBlockAction;
-import com.megacrit.cardcrawl.actions.watcher.ChangeStanceAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
+import com.megacrit.cardcrawl.relics.Sozu;
 import guardian.GuardianMod;
-import guardian.powers.DontLeaveDefensiveModePower;
-import guardian.stances.DefensiveMode;
+import guardian.potions.DefensiveModePotion;
 import guardian.patches.AbstractCardEnum;
 
 import static guardian.GuardianMod.makeBetaCardPath;
@@ -26,7 +25,7 @@ public class SphericShield extends AbstractGuardianCard {
     private static final CardType TYPE = CardType.SKILL;
     private static final CardRarity RARITY = CardRarity.RARE;
     private static final CardTarget TARGET = CardTarget.SELF;
-    private static final int COST = 2;
+    private static final int COST = 3;
     public static String UPGRADED_DESCRIPTION;
 
     static {
@@ -37,10 +36,10 @@ public class SphericShield extends AbstractGuardianCard {
     }
 
     public SphericShield() {
+
         super(ID, NAME, GuardianMod.getResourcePath(IMG_PATH), COST, DESCRIPTION, TYPE, AbstractCardEnum.GUARDIAN, RARITY, TARGET);
-        this.baseBlock = 20;
-        this.socketCount = 0;
         exhaust = true;
+        this.isEthereal = true;
         updateDescription();
         loadGemMisc();
         GuardianMod.loadJokeCardImage(this, makeBetaCardPath("SphericShield.png"));
@@ -48,10 +47,13 @@ public class SphericShield extends AbstractGuardianCard {
 
     public void use(AbstractPlayer p, AbstractMonster m) {
         super.use(p, m);
-        AbstractDungeon.effectsQueue.add(new com.megacrit.cardcrawl.vfx.BorderFlashEffect(com.badlogic.gdx.graphics.Color.GOLD, true));
-        addToBot(new GainBlockAction(p, p, this.block));
-        addToBot(new ChangeStanceAction(new DefensiveMode()));
-        addToBot(new ApplyPowerAction(AbstractDungeon.player, AbstractDungeon.player, new DontLeaveDefensiveModePower(AbstractDungeon.player, 1), 1));
+        AbstractRelic sozu = AbstractDungeon.player.getRelic(Sozu.ID);
+        if (sozu != null) {
+            sozu.flash();
+        } else {
+                AbstractPotion potion = new DefensiveModePotion();
+                AbstractDungeon.player.obtainPotion(potion.makeCopy());
+            }
     }
 
     public AbstractCard makeCopy() {
@@ -61,7 +63,9 @@ public class SphericShield extends AbstractGuardianCard {
     public void upgrade() {
         if (!this.upgraded) {
             upgradeName();
-            upgradeBlock(5);
+            this.isEthereal = false;
+            rawDescription = UPGRADED_DESCRIPTION;
+            initializeDescription();
         }
     }
 

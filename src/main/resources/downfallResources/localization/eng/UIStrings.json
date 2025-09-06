@@ -64,7 +64,8 @@
       "Prevent Snecko from using card pools from other mods.",
       "Disable music overrides (requires game restart)",
       "Unlock all locked alternative skin for Downfall characters",
-      "Use icons instead of adding to text to cards for applied properties."
+      "Use icons instead of adding to text to cards for applied properties.",
+      "The Spellbook highlights the next card Conjure will draw."
     ]
   },
   "downfall:EnergyPanelTip": {
@@ -113,7 +114,7 @@
   },
   "downfall:RareCardReward": {
     "TEXT": [
-      "Add a Rare Card to your deck"
+      "Add a Rare Card to your deck."
     ]
   },
   "downfall:OctoChoiceAction": {
@@ -135,15 +136,55 @@
       "Pick a Card."
     ]
   },
+  "downfall:ColorfulUncommonCardReward": {
+    "TEXT": [
+      "Add a ",
+      " Card to your deck",
+      "Pick a Card."
+    ]
+  },
+  "downfall:ColorfulRareCardReward": {
+    "TEXT": [
+      "Add a ",
+      " Card to your deck",
+      "Pick a Card."
+    ]
+  },
+  "downfall:DiceRollPotionReward": {
+    "TEXT": [
+      "Add an Upgraded Card ",
+      "to your deck.",
+      "Pick a Card."
+    ]
+  },
+  "downfall:ColorfulPowersCardReward": {
+    "TEXT": [
+      "Add an Upgraded Power ",
+      "to your deck.",
+      "Pick a Card."
+    ]
+  },
   "downfall:RunHistoryMonsterNames": {
     "TEXT": [
-      "Living Wall Heads"
+      "Living Wall Heads",
+      "The Ironclad",
+      "The Silent",
+      "The Defect",
+      "The Watcher",
+      "Merchant",
+      "The Hermit"
     ]
   },
   "downfall:WhaleHunter": {
     "TEXT": [
       "Whale Hunter",
       "Ended the cycle."
+    ]
+  },
+  "downfall:Unfettered": {
+    "TEXT": [
+      "Unfettered",
+      "Obtained the Broken Seal."
     ]
   },
   "downfall:SingleCardViewPopup": {
